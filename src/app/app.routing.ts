@@ -3,6 +3,11 @@ import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 export const AppRoutes: Routes = [
+  // { path: 'dispatchcard', component: DispatchcardComponent },
+  // { path: 'acknowledge', component: AcknowledgeComponent },
+  // { path: 'pickup', component: PickupComponent },
+  // { path: 'activate', component: ActivateComponent },
+
   {
     path: '',
     redirectTo: 'dashboard',
@@ -18,5 +23,6 @@ export const AppRoutes: Routes = [
   {
     path: '**',
     redirectTo: 'dashboard'
-  }
+  },
+  
 ]

@@ -13,6 +13,9 @@ import { IconsComponent }           from '../../pages/icons/icons.component';
 import { MapsComponent }            from '../../pages/maps/maps.component';
 import { NotificationsComponent }   from '../../pages/notifications/notifications.component';
 import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
+import { DispatchcardComponent }    from '../../pages/dispatchcard/dispatchcard.component';
+import { AcknowledgeComponent }    from '../../pages/Acknowledge/Acknowledge.component';
+import { ActivateComponent }    from '../../pages/Activate/Activate.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -32,6 +35,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    DispatchcardComponent,
+    AcknowledgeComponent,
+    ActivateComponent
   ]
 })
 
