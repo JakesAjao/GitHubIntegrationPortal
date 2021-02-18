@@ -36,7 +36,8 @@ import { MatTableModule } from '@angular/material/table';
     MatSelectModule,
     MatInputModule,
     MatPaginatorModule,
-    MatTableModule 
+    MatTableModule,
+    MatPaginatorModule 
   ],
   declarations: [
     DashboardComponent,
@@ -55,7 +56,8 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatButtonModule,
     MatSelectModule,
-    MatInputModule  
+    MatInputModule,
+    MatPaginatorModule  
   ], 
 })
 

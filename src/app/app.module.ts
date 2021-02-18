@@ -20,6 +20,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { DispatchcardComponent } from "./pages/dispatchcard/dispatchcard.component";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -30,8 +31,9 @@ import { DispatchcardComponent } from "./pages/dispatchcard/dispatchcard.compone
   imports: [
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes,{
-      useHash: true
-    }),
+    useHash: true,
+    relativeLinkResolution: 'legacy'
+}),
     SidebarModule,
     NavbarModule,    
     MatFormFieldModule,
@@ -41,8 +43,7 @@ import { DispatchcardComponent } from "./pages/dispatchcard/dispatchcard.compone
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    //HttpClientModule,
-    //DemoMaterialModule,
+    MatPaginatorModule,
     MatNativeDateModule,
     ReactiveFormsModule,
     //MatSelectModule,
@@ -54,7 +55,8 @@ import { DispatchcardComponent } from "./pages/dispatchcard/dispatchcard.compone
     MatFormFieldModule,
     MatButtonModule,
     MatSelectModule,
-    MatInputModule  
+    MatInputModule,
+    MatPaginatorModule,  
   ],  
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
