@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,11 +14,10 @@ import { constructor } from 'jquery';
 })
 export class AcknowledgeComponent implements AfterViewInit  {
 
-    //displayedColumns: string[] = ["position", "name", "weight", "symbol"];
-    //dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
-    
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color','actions'];
+  
+  acknowledgeForm: FormGroup;
+  
+  displayedColumns: string[] = ['id', 'name', 'progress', 'color','checked','actions'];
     dataSource: MatTableDataSource<UserData>;
     
   //displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
@@ -30,7 +30,12 @@ export class AcknowledgeComponent implements AfterViewInit  {
   
     @ViewChild(MatPaginator) paginator: MatPaginator;    
     @ViewChild(MatSort) sort: MatSort;
-    constructor(){
+    
+    constructor(fb: FormBuilder){
+
+    //   this.acknowledgeForm = fb.group({
+    //     name: ["", Validators.required]
+    // });
     }
   
     ngAfterViewInit() {
@@ -52,6 +57,10 @@ export class AcknowledgeComponent implements AfterViewInit  {
      if (this.dataSource.paginator) {
        this.dataSource.paginator.firstPage();
     }
+  }
+  updateCheckedList(element)
+  {
+    console.log(element);
   }
   }
   
