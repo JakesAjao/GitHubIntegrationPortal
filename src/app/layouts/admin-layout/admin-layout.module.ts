@@ -64,7 +64,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSelectModule,
     MatInputModule,
     MatPaginatorModule,
-    MatButtonModule  
+    MatButtonModule,
+    MatCheckboxModule 
   ], 
 })
 

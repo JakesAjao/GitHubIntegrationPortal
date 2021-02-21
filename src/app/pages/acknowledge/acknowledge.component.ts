@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,16 +13,16 @@ import { constructor } from 'jquery';
   templateUrl: './acknowledge.component.html',
   styleUrls: ['./acknowledge.component.css']
 })
-export class AcknowledgeComponent implements AfterViewInit  {
-
+export class AcknowledgeComponent implements OnInit  {
+//https://stackblitz.com/edit/angular-sim96p?file=app%2Ftable-selection-example.html
   
   acknowledgeForm: FormGroup;
+  selection = new SelectionModel<UserData>(true, []);
+  isallSelectedStatus = false;
   
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color','checked','actions'];
+  displayedColumns: string[] = ['select','id', 'name', 'progress', 'color','checked','actions'];
     dataSource: MatTableDataSource<UserData>;
-    
-  //displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
-  
+      
    ELEMENT_DATA: UserData[] = [
     {id: "1", name: 'Hydrogen', progress: "1.0079", color: 'Hello'},
      {id: "2", name: 'H2', progress: "1.0079", color: 'Lol'},
@@ -36,9 +37,7 @@ export class AcknowledgeComponent implements AfterViewInit  {
     //   this.acknowledgeForm = fb.group({
     //     name: ["", Validators.required]
     // });
-    }
-  
-    ngAfterViewInit() {
+    
     const users = Array.from(this.ELEMENT_DATA);
     // Assign the data to the data source for the table to render
     
@@ -49,21 +48,50 @@ export class AcknowledgeComponent implements AfterViewInit  {
       
     this.dataSource.sort = this.sort;
     }
-    
-  applyFilter(filterValue: string) {
-   
-     this.dataSource.filter = filterValue.trim().toLowerCase();
-
-     if (this.dataSource.paginator) {
-       this.dataSource.paginator.firstPage();
-    }
-  }
-  updateCheckedList(element)
-  {
-    console.log(element);
-  }
-  }
   
+     ngOnInit() {
+    // const users = Array.from(this.ELEMENT_DATA);
+    // // Assign the data to the data source for the table to render
+    
+    // this.dataSource = new MatTableDataSource(users);
+     
+    // //this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+    //   this.dataSource.paginator = this.paginator;
+      
+    // this.dataSource.sort = this.sort;
+    }
+    
+    applyFilter(filterValue: string) {
+    
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    }
+    updateCheckedList(element)
+    {      
+     // alert();
+      console.log('jakesi');
+      console.log(element);
+    }
+    /** Whether the number of selected elements matches the total number of rows. */
+    isAllSelected() {
+      const numSelected = this.selection.selected.length;
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    }
+  
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    masterToggle() {
+      this.isAllSelected() ?
+          this.selection.clear() :
+          this.dataSource.data.forEach(element => this.selection.select(element));
+         
+      if (this.isAllSelected())
+      alert(this.isallSelectedStatus);
+    }
+  }  
  
   export interface UserData {
     id: string;

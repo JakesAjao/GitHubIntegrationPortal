@@ -1,10 +1,25 @@
-<mat-form-field style="margin-top: 25px;">
+<mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 
-<form [formGroup]="showClassGrp" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="showClassGrp" (ngSubmit)="onSubmit()"> -->
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
+
+    	<!-- Checkbox Column -->
+    
+   <ng-container matColumnDef="select">
+	 <th mat-header-cell *matHeaderCellDef mat-sort-header>
+			<mat-checkbox (change)="$event ? masterToggle() : null" class="example-margin" [checked]="selection.hasValue() && isAllSelected()"
+				[indeterminate]="selection.hasValue() && !isAllSelected()">
+			</mat-checkbox>
+		</th>
+		<td mat-cell *matCellDef="let element">
+			<mat-checkbox (click)="$event.stopPropagation()" class="example-margin" (change)="$event ? selection.toggle(element) : null"
+				[checked]="selection.isSelected(element)">
+			</mat-checkbox>
+		</td> 
+	</ng-container> 
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
@@ -33,11 +48,10 @@
     <ng-container matColumnDef="checked">
       <th *matHeaderCellDef mat-sort-header>Check</th>
       <td mat-cell *matCellDef="let element; let i=index">
-        <mat-checkbox (change)=updateCheckedList(element)>
+        <mat-checkbox (change)=updateCheckedList(element) class="example-margin">
         </mat-checkbox>
       </td>
     </ng-container> 
-    
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-sort-header>Actions</th>      
       <td *matCellDef="let row">
@@ -50,9 +64,12 @@
     </tr>
   </table>
 
+  <section class="example-section">
+    <button mat-raised-button color="warn">Edit All</button>
+  </section>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
-</form>
+<!-- </form> -->
 
 <!-- Copyright 2018 Google Inc. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that
