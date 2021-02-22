@@ -20,13 +20,19 @@ export class AcknowledgeComponent implements OnInit  {
   selection = new SelectionModel<UserData>(true, []);
   isallSelectedStatus = false;
   
-  displayedColumns: string[] = ['select','id', 'name', 'progress', 'color','checked','actions'];
-    dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['select','id', 'customerid', 'accountnumber', 'customername','pan','cardtype','branchsol',
+  'branchname','datedispatched','status','checked','actions'];
+    
+  dataSource: MatTableDataSource<UserData>;
       
    ELEMENT_DATA: UserData[] = [
-    {id: "1", name: 'Hydrogen', progress: "1.0079", color: 'Hello'},
-     {id: "2", name: 'H2', progress: "1.0079", color: 'Lol'},
-     {id: "3", name: 'Baba', progress: "1.2", color: 'Yellow'},
+    {id: "1", customerid: '123', accountnumber: "5", customername: 'jakes',pan: '7',cardtype:'mastercard',branchsol:'01',branchname:'Agbara',datedispatched:'03/02/2021',status:'1'},
+    {id: "2", customerid: '12345', accountnumber: "55", customername: 'emmanuel',pan: '77',cardtype:'verve',branchsol:'03',branchname:'Ajah',datedispatched:'04/02/2021',status:'0'},
+    {id: "3", customerid: '123456', accountnumber: "555", customername: 'ebelebe',pan: '777',cardtype:'visa',branchsol:'04',branchname:'Ikeja',datedispatched:'05/02/2021',status:'1'},
+    {id: "4", customerid: '1234567', accountnumber: "5555", customername: 'martin',pan: '7777',cardtype:'mastercard',branchsol:'10',branchname:'Agbara',datedispatched:'03/02/2021',status:'1'},
+    {id: "5", customerid: '12345678', accountnumber: "5555", customername: 'job',pan: '77777',cardtype:'verve',branchsol:'05',branchname:'Berger',datedispatched:'04/02/2021',status:'0'},
+    {id: "6", customerid: '123456789', accountnumber: "55555", customername: 'bayo',pan: '777777',cardtype:'visa',branchsol:'06',branchname:'CMS',datedispatched:'05/02/2021',status:'1'},
+ 
    ];
   
     @ViewChild(MatPaginator) paginator: MatPaginator;    
@@ -95,30 +101,17 @@ export class AcknowledgeComponent implements OnInit  {
  
   export interface UserData {
     id: string;
-    name: string;
-    progress: string;
-    color: string;
+    customerid: string;
+    accountnumber: string;
+    customername: string;
+    pan: string;
+    cardtype:string;
+    branchsol:string;
+    branchname:string;
+    datedispatched:string
+    status:string
   }
-  
-// const COLORS: string[] = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-// 'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-// const NAMES: string[] = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-// 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-// 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
-
  
-  // function createNewUser(id: number): UserData {
-  //   const name =
-  //       NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-  //       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-  
-  //   return {
-  //     id: id.toString(),
-  //     name: name,
-  //     progress: Math.round(Math.random() * 100).toString(),
-  //     color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  //   };
-  // }
   
   /**  Copyright 2020 Google LLC. All Rights Reserved.
       Use of this source code is governed by an MIT-style license that

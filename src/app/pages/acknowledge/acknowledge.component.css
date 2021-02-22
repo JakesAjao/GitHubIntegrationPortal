@@ -36,6 +36,9 @@ body {
 .example-margin {
   margin: 0 10px;
 }
+.shift-right{  
+  margin-right: 30px;
+}
 
   
 
