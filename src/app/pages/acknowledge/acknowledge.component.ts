@@ -18,22 +18,28 @@ export class AcknowledgeComponent implements OnInit  {
   
   acknowledgeForm: FormGroup;
   selection = new SelectionModel<UserData>(true, []);
-  isallSelectedStatus = false;
+  isallSelectedStatus:boolean;
+  aSelectedCheckId:number;
+  ackArr = [];
+  
+  ReadOnlyStyleGuideNotes: boolean;
   
   displayedColumns: string[] = ['select','id', 'customerid', 'accountnumber', 'customername','pan','cardtype','branchsol',
-  'branchname','datedispatched','status','checked','actions'];
+  //'branchname','datedispatched','status','checked','actions'];
+  'branchname','datedispatched','status'];
     
   dataSource: MatTableDataSource<UserData>;
       
    ELEMENT_DATA: UserData[] = [
-    {id: "1", customerid: '123', accountnumber: "5", customername: 'jakes',pan: '7',cardtype:'mastercard',branchsol:'01',branchname:'Agbara',datedispatched:'03/02/2021',status:'1'},
-    {id: "2", customerid: '12345', accountnumber: "55", customername: 'emmanuel',pan: '77',cardtype:'verve',branchsol:'03',branchname:'Ajah',datedispatched:'04/02/2021',status:'0'},
-    {id: "3", customerid: '123456', accountnumber: "555", customername: 'ebelebe',pan: '777',cardtype:'visa',branchsol:'04',branchname:'Ikeja',datedispatched:'05/02/2021',status:'1'},
-    {id: "4", customerid: '1234567', accountnumber: "5555", customername: 'martin',pan: '7777',cardtype:'mastercard',branchsol:'10',branchname:'Agbara',datedispatched:'03/02/2021',status:'1'},
-    {id: "5", customerid: '12345678', accountnumber: "5555", customername: 'job',pan: '77777',cardtype:'verve',branchsol:'05',branchname:'Berger',datedispatched:'04/02/2021',status:'0'},
-    {id: "6", customerid: '123456789', accountnumber: "55555", customername: 'bayo',pan: '777777',cardtype:'visa',branchsol:'06',branchname:'CMS',datedispatched:'05/02/2021',status:'1'},
+    {id: 1, customerid: '123', accountnumber: "5", customername: 'jakes',pan: '7',cardtype:'mastercard',branchsol:'01',branchname:'Agbara',datedispatched:'03/02/2021',status:true},
+    {id: 2, customerid: '12345', accountnumber: "55", customername: 'emmanuel',pan: '77',cardtype:'verve',branchsol:'03',branchname:'Ajah',datedispatched:'04/02/2021',status:false},
+    {id: 3, customerid: '123456', accountnumber: "555", customername: 'ebelebe',pan: '777',cardtype:'visa',branchsol:'04',branchname:'Ikeja',datedispatched:'05/02/2021',status:true},
+    {id: 4, customerid: '1234567', accountnumber: "5555", customername: 'martin',pan: '7777',cardtype:'mastercard',branchsol:'10',branchname:'Agbara',datedispatched:'03/02/2021',status:false},
+    {id: 5, customerid: '12345678', accountnumber: "5555", customername: 'job',pan: '77777',cardtype:'verve',branchsol:'05',branchname:'Berger',datedispatched:'04/02/2021',status:true},
+    {id: 6, customerid: '123456789', accountnumber: "55555", customername: 'bayo',pan: '777777',cardtype:'visa',branchsol:'06',branchname:'CMS',datedispatched:'05/02/2021',status:false},
  
    ];
+   rows = [];
   
     @ViewChild(MatPaginator) paginator: MatPaginator;    
     @ViewChild(MatSort) sort: MatSort;
@@ -75,32 +81,106 @@ export class AcknowledgeComponent implements OnInit  {
         this.dataSource.paginator.firstPage();
       }
     }
+    processCheckboxSelected(event,element){
+      if(event.checked)
+      {
+        let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
+        console.log("Added object: ", this.ELEMENT_DATA[id]);
+        this.ackArr.push(this.ELEMENT_DATA[id]); 
+      }
+      else
+      {
+          let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
+          console.log("Remove object: ", this.ELEMENT_DATA[id]);
+          this.ackArr.splice(this.ackArr.indexOf(this.ELEMENT_DATA[id]), 1);
+      }
+    }
+    updateEach(event,element){
+      
+      console.log(element.id+' checked'); 
+      this.rows = this.rows.map(
+        (elem) =>{ elem.status = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
+      return elem});
+      
+      this.processCheckboxSelected(event,element);
+      if (event){        
+        
+        return this.selection.toggle(event);
+      }
+      else{
+        return null;
+      }
+    }
     updateCheckedList(element)
-    {      
-     // alert();
-      console.log('jakesi');
-      console.log(element);
+    {     
+      
+      console.log(element.id+' checked'); 
+      this.rows = this.rows.map(
+        (elem) =>{ elem.status = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
+      return elem});
+      //Find index of specific object using findIndex method.    
+      // let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element));
+      // console.log(element);
+
+      
+    //Log object to Console.
+    //console.log("Before update: ", this.ELEMENT_DATA[id])
+    //Update object's name property.
+    //this.ELEMENT_DATA[id].status ="0";
+
+    //Log object to console again.
+    //console.log("After update: ", this.ELEMENT_DATA[id])
+    this.aSelectedCheckId = element.id;
+    }
+    editAcknowledge(){
+      //Find index of specific object using findIndex method.    
+       let id = this.ELEMENT_DATA.findIndex((obj => obj.id == this.aSelectedCheckId));
+       console.log(id);
+      console.log("Before update: ", this.ELEMENT_DATA[id])
+      //Update object's name property.
+      this.ELEMENT_DATA[id].status =true;
+
+    //Log object to console again.
+    console.log("After update: ", this.ELEMENT_DATA[id])
+    }
+    updateAll(){
+      if (this.isallSelectedStatus){
+        console.log("Before update all: ", this.ELEMENT_DATA);
+
+        this.ELEMENT_DATA.forEach(x1 => x1.status = true);
+
+        //Log object to console again.
+        console.log("After update: ", this.ELEMENT_DATA);
+      }
+     else{       
+        this.ackArr.forEach(x1 => x1.status = true);
+        console.log("After selectedArr update: ", this.ackArr);      
+     }
     }
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
       const numSelected = this.selection.selected.length;
       const numRows = this.dataSource.data.length;
+
       return numSelected === numRows;
     }
   
     /** Selects all rows if they are not all selected; otherwise clear selection. */
-    masterToggle() {
-      this.isAllSelected() ?
-          this.selection.clear() :
-          this.dataSource.data.forEach(element => this.selection.select(element));
-         
-      if (this.isAllSelected())
+    masterToggle(){
+     if (this.isAllSelected()){
+      this.selection.clear();      
+      this.isallSelectedStatus = false;
+    } 
+    else{
+      this.isallSelectedStatus = true;
+      this.dataSource.data.forEach(row => this.selection.select(row));
       alert(this.isallSelectedStatus);
+     }
     }
   }  
  
   export interface UserData {
-    id: string;
+    id: number;
     customerid: string;
     accountnumber: string;
     customername: string;
@@ -109,7 +189,7 @@ export class AcknowledgeComponent implements OnInit  {
     branchsol:string;
     branchname:string;
     datedispatched:string
-    status:string
+    status:boolean
   }
  
   
