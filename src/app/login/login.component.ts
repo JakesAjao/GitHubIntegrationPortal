@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from './../auth/auth.service';
-
+//https://www.remotestack.io/create-login-ui-template-with-angular-material-design/
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

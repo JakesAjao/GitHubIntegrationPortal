@@ -25,6 +25,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import { AuthService } from "./auth/auth.service";
 import { AuthGuard } from "./auth/auth.guard";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
@@ -50,9 +51,9 @@ import { AuthGuard } from "./auth/auth.guard";
     FormsModule,
     MatPaginatorModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
-    
-  HttpClientModule
+    ReactiveFormsModule,    
+  HttpClientModule,
+  FlexLayoutModule,
 
   ],
   exports: [    
