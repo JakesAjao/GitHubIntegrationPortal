@@ -22,11 +22,15 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { DispatchcardComponent } from "./pages/dispatchcard/dispatchcard.component";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { HttpClientModule } from "@angular/common/http";
+import { LoginComponent } from './login/login.component';
+import { AuthService } from "./auth/auth.service";
+import { AuthGuard } from "./auth/auth.guard";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    LoginComponent
     
   ],
   imports: [
@@ -59,7 +63,7 @@ import { HttpClientModule } from "@angular/common/http";
     MatPaginatorModule,  
   ],  
   schemas: [CUSTOM_ELEMENTS_SCHEMA],  
-  providers: [ HttpClientModule ],
+  providers: [ HttpClientModule,AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,12 +1,13 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { LoginComponent } from './login/login.component';
 
 export const AppRoutes: Routes = [
-  // { path: 'dispatchcard', component: DispatchcardComponent },
+  { path: '', component: AdminLayoutComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   // { path: 'acknowledge', component: AcknowledgeComponent },
-  // { path: 'pickup', component: PickupComponent },
-  // { path: 'activate', component: ActivateComponent },
 
   {
     path: '',
