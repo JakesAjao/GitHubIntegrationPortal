@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserData } from 'app/model/acknowledgment';
+import { AcknowledgmentService } from 'app/services/acknowledgment.service';
 import { constructor } from 'jquery';
-//import { ELEMENT_DATA } from '../../model/Element';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class AcknowledgeComponent implements OnInit  {
   isallSelectedStatus:boolean;
   aSelectedCheckId:number;
   ackArr = [];
+  acknowledgeData:UserData[];
   
   ReadOnlyStyleGuideNotes: boolean;
   
@@ -44,7 +46,7 @@ export class AcknowledgeComponent implements OnInit  {
     @ViewChild(MatPaginator) paginator: MatPaginator;    
     @ViewChild(MatSort) sort: MatSort;
     
-    constructor(fb: FormBuilder){
+    constructor(fb: FormBuilder, private acknowledgeService: AcknowledgmentService){
 
     //   this.acknowledgeForm = fb.group({
     //     name: ["", Validators.required]
@@ -59,6 +61,14 @@ export class AcknowledgeComponent implements OnInit  {
       this.dataSource.paginator = this.paginator;
       
     this.dataSource.sort = this.sort;
+    this.acknowledgeService.getCardInventory().subscribe
+    (
+     (response)=>
+      {
+        this.acknowledgeData = this.ELEMENT_DATA;                 
+      },
+      (error) => console.log(error)
+    ) 
     }
   
      ngOnInit() {
@@ -179,18 +189,18 @@ export class AcknowledgeComponent implements OnInit  {
     }
   }  
  
-  export interface UserData {
-    id: number;
-    customerid: string;
-    accountnumber: string;
-    customername: string;
-    pan: string;
-    cardtype:string;
-    branchsol:string;
-    branchname:string;
-    datedispatched:string
-    status:boolean
-  }
+  // export interface UserData {
+  //   id: number;
+  //   customerid: string;
+  //   accountnumber: string;
+  //   customername: string;
+  //   pan: string;
+  //   cardtype:string;
+  //   branchsol:string;
+  //   branchname:string;
+  //   datedispatched:string
+  //   status:boolean
+  // }
  
   
   /**  Copyright 2020 Google LLC. All Rights Reserved.

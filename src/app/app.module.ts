@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { DispatchcardComponent } from "./pages/dispatchcard/dispatchcard.component";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -46,9 +47,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MatPaginatorModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    //MatSelectModule,
-    //MatButtonModule,
-    //MatInputModule
+    
+  HttpClientModule
 
   ],
   exports: [    
@@ -58,8 +58,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MatInputModule,
     MatPaginatorModule,  
   ],  
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],  
+  providers: [ HttpClientModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
