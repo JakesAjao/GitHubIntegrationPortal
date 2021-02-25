@@ -27,6 +27,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmDialogModule } from 'app/confirm-dialog/confirm-dialog.module';
 @NgModule({
   imports: [
     
@@ -43,9 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatPaginatorModule,
     MatCheckboxModule,    
     FormsModule,
-    ReactiveFormsModule,
-    
-  ],
+    ReactiveFormsModule
+      ],
   declarations: [
     DashboardComponent,
     UserComponent,
@@ -66,7 +66,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatCheckboxModule 
+    MatCheckboxModule,
+    
+    //ConfirmDialogModule,
   ], 
 })
 

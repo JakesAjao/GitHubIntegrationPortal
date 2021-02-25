@@ -2,6 +2,10 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
+import { ConfirmDialogComponent } from 'app/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from 'app/services/confirm-dialog.service';
+
+//import { ConfirmDialogComponent, ConfirmDialogModel } from 'src/app/confirm-dialog/confirm-dialog.component';
 
 @Component({
     moduleId: module.id,
@@ -20,7 +24,8 @@ export class NavbarComponent implements OnInit{
     public isCollapsed = true;
     @ViewChild("navbar-cmp", {static: false}) button;
 
-    constructor(location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router) {
+    constructor( private confirmDialogService: ConfirmDialogService,location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router,
+     ) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -92,21 +97,17 @@ export class NavbarComponent implements OnInit{
         }
 
       }
-        confirmDialog(): void {
-          this.router.navigate(['/login']);
-          //const message = 'Are you sure you want to logout?';
-      
-          // const dialogData = new ConfirmDialogModel("Logout Confirmation", message);
-      
-          // const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-          //   maxWidth: "400px",
-          //   data: dialogData
-          // });
-      
-          // dialogRef.afterClosed().subscribe(dialogResult => {
-          //   this.result = dialogResult;
-          // });
-        //}
+      confirmDialog() {
+        
+        this.router.navigate(['/login']);
+        // alert();
+        // this.confirmDialogService.confirmThis("Are you sure you want to exit the application?", function () {
+            
+        //   alert("Yes, clicked");  
+        // }, function () {  
+        //   alert("No, clicked");  
+        // })  
       }
+    }
 
-}
+

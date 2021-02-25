@@ -26,15 +26,18 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from "./auth/auth.service";
 import { AuthGuard } from "./auth/auth.guard";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogModule } from "./confirm-dialog/confirm-dialog.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     LoginComponent
-    
+        
   ],
   imports: [
+    
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes,{
     useHash: true,
@@ -54,15 +57,16 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     ReactiveFormsModule,    
   HttpClientModule,
   FlexLayoutModule,
-
+  
   ],
   exports: [    
     MatFormFieldModule,
     MatButtonModule,
     MatSelectModule,
     MatInputModule,
-    MatPaginatorModule,  
+    //ConfirmDialogModule,  
   ],  
+  entryComponents: [ConfirmDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],  
   providers: [ HttpClientModule,AuthService, AuthGuard],
   bootstrap: [AppComponent]

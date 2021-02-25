@@ -143,6 +143,7 @@ export class AcknowledgeComponent implements OnInit  {
     this.aSelectedCheckId = element.id;
     }
     editAcknowledge(){
+      alert();
       //Find index of specific object using findIndex method.    
        let id = this.ELEMENT_DATA.findIndex((obj => obj.id == this.aSelectedCheckId));
        console.log(id);

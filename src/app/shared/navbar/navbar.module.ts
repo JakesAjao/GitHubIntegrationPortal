@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatButtonModule } from '@angular/material/button';
+import { ConfirmDialogModule } from 'app/confirm-dialog/confirm-dialog.module';
 
 @NgModule({
     imports: [ RouterModule, CommonModule, NgbModule,
-        MatButtonModule, ],
+        MatButtonModule, ConfirmDialogModule],
     declarations: [ NavbarComponent ],
     exports: [ NavbarComponent,
         MatButtonModule, ]
