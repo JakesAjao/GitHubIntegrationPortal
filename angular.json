@@ -27,7 +27,8 @@
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/assets/scss/paper-dashboard.scss",
               "node_modules/ngx-toastr/toastr.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles1.css"
             ],
             "scripts": []
           },
@@ -85,7 +86,9 @@
             "styles": [
               "src/styles.css",
               "src/assets/sass/paper-dashboard.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              
+              "src/styles1.css"
             ],
             "assets": [
               "src/assets",
@@ -134,7 +137,8 @@
     "@schematics/angular:component": {
       "prefix": "app",
       "styleext": "scss",
-      "style":"scss"
+      "style":"scss",      
+      "styles1":"css"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

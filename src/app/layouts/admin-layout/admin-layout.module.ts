@@ -41,7 +41,6 @@ import { HttpClientModule } from '@angular/common/http';
     MatPaginatorModule,
     MatTableModule,
     MatPaginatorModule,
-    MatButtonModule,
     MatCheckboxModule,    
     FormsModule,
     ReactiveFormsModule,
