@@ -20,12 +20,8 @@
     <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
       <form>
         <div class="input-group no-border">
-          <button mat-raised-button color="warn">Logout</button>
-          <!-- <div class="input-group-append">
-            <div class="input-group-text">
-              <i class="nc-icon nc-zoom-split"></i>
-            </div>
-          </div> -->
+          <button mat-raised-button color="warn" (click)="confirmDialog()" >Logout</button>
+        
         </div>
       </form>
       <ul class="navbar-nav">

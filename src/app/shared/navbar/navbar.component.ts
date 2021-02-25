@@ -92,5 +92,21 @@ export class NavbarComponent implements OnInit{
         }
 
       }
+        confirmDialog(): void {
+          this.router.navigate(['/login']);
+          //const message = 'Are you sure you want to logout?';
+      
+          // const dialogData = new ConfirmDialogModel("Logout Confirmation", message);
+      
+          // const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+          //   maxWidth: "400px",
+          //   data: dialogData
+          // });
+      
+          // dialogRef.afterClosed().subscribe(dialogResult => {
+          //   this.result = dialogResult;
+          // });
+        //}
+      }
 
 }
