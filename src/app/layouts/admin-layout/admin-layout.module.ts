@@ -28,6 +28,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmDialogModule } from 'app/confirm-dialog/confirm-dialog.module';
+import { ToastNotificationsModule } from 'ngx-toast-notifications';
 @NgModule({
   imports: [
     
@@ -44,7 +45,8 @@ import { ConfirmDialogModule } from 'app/confirm-dialog/confirm-dialog.module';
     MatPaginatorModule,
     MatCheckboxModule,    
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastNotificationsModule
       ],
   declarations: [
     DashboardComponent,

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+//import { NotificationService } from 'app/services/notification.service';
 
 import { AuthService } from './../auth/auth.service';
 //https://www.remotestack.io/create-login-ui-template-with-angular-material-design/
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -37,4 +39,6 @@ export class LoginComponent implements OnInit {
     }
     this.formSubmitAttempt = true;
   }
+  
+  
 }

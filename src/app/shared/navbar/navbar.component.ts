@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import { ConfirmDialogComponent } from 'app/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from 'app/services/confirm-dialog.service';
+import { AuthService } from 'app/auth/auth.service';
 
 //import { ConfirmDialogComponent, ConfirmDialogModel } from 'src/app/confirm-dialog/confirm-dialog.component';
 
@@ -24,7 +25,8 @@ export class NavbarComponent implements OnInit{
     public isCollapsed = true;
     @ViewChild("navbar-cmp", {static: false}) button;
 
-    constructor( private confirmDialogService: ConfirmDialogService,location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router,
+    constructor(
+      private authService: AuthService, private confirmDialogService: ConfirmDialogService,location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router,
      ) {
         this.location = location;
         this.nativeElement = element.nativeElement;
@@ -99,7 +101,7 @@ export class NavbarComponent implements OnInit{
       }
       confirmDialog() {
         
-        this.router.navigate(['/login']);
+        this.authService.logout();
         // alert();
         // this.confirmDialogService.confirmThis("Are you sure you want to exit the application?", function () {
             

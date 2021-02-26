@@ -28,6 +28,7 @@ import { AuthGuard } from "./auth/auth.guard";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogModule } from "./confirm-dialog/confirm-dialog.module";
+import { Toaster } from "ngx-toast-notifications";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ConfirmDialogModule } from "./confirm-dialog/confirm-dialog.module";
     useHash: true,
     relativeLinkResolution: 'legacy'
 }),
+ToastrModule.forRoot(),
     SidebarModule,
     NavbarModule,    
     MatFormFieldModule,
