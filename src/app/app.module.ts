@@ -29,7 +29,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogModule } from "./confirm-dialog/confirm-dialog.module";
 import { Toaster } from "ngx-toast-notifications";
-
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +38,7 @@ import { Toaster } from "ngx-toast-notifications";
         
   ],
   imports: [
-    
+    ShowHidePasswordModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes,{
     useHash: true,
