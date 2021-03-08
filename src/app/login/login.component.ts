@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BnNgIdleService } from 'bn-ng-idle';
 import { ToastrService } from 'ngx-toastr';
 //import { NotificationService } from 'app/services/notification.service';
 
@@ -17,7 +18,14 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-  ) {}
+    private bnIdle: BnNgIdleService
+  ){
+    // this.bnIdle.startWatching(60).subscribe((res) => {
+    //   if(res) {
+    //       console.log("session expired");
+    //   }
+    // })
+  }
 
   ngOnInit() {
     this.form = this.fb.group({

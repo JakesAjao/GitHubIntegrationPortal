@@ -29,6 +29,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmDialogModule } from 'app/confirm-dialog/confirm-dialog.module';
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+
+import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 @NgModule({
   imports: [
     
@@ -46,8 +49,12 @@ import { ToastNotificationsModule } from 'ngx-toast-notifications';
     MatCheckboxModule,    
     FormsModule,
     ReactiveFormsModule,
-    ToastNotificationsModule
-      ],
+    ToastNotificationsModule,
+    BackButtonDisableModule.forRoot({
+      preserveScrollPosition: true
+    }),
+    ],
+    providers: [BnNgIdleService], // add it to the providers of your module
   declarations: [
     DashboardComponent,
     UserComponent,

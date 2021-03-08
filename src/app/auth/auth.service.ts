@@ -67,6 +67,6 @@ export class AuthService {
   logout() {
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
-    this.showFailure('You have successfully logged out!','Login Notification.');
+    this.showSuccess('You have successfully logged out!','Login Notification.');
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @Component({
   selector: 'app-dispatchcard',
@@ -21,7 +22,13 @@ export class DispatchcardComponent implements OnInit {
       label: 'Activate'
     },
     ];
-  constructor() { }
+  constructor(private bnIdle: BnNgIdleService) {
+    this.bnIdle.startWatching(60).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+      }
+    })
+   }
 
   ngOnInit(): void {
   }
