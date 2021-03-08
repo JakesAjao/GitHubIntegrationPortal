@@ -3,10 +3,11 @@ import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, interval, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { UserData } from 'app/model/acknowledgment';
+import { User } from 'app/auth/user';
 
 @Injectable({ providedIn: 'root' })
 export class AcknowledgmentService {
-    url = 'https://localhost:5001/cardtrackerAPI/acknowledgment';
+    url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/Login/UserLogin";
    
     private currentUserSubject: BehaviorSubject<any>;
     public currentUser: Observable<any>;
@@ -16,6 +17,7 @@ export class AcknowledgmentService {
      
     public dataSubject = new Subject<number>();
     public dataState = this.dataSubject.asObservable();
+    
   
     @Output() public onUploadFinished = new EventEmitter();
     //httpClient: any;
@@ -24,9 +26,14 @@ export class AcknowledgmentService {
         this.currentUser = this.currentUserSubject.asObservable();
         
     }
-    public get currentUserValue() {
+    public get currentUserValue(){
         return this.currentUserSubject.value;
     }   
+    login(user: User): Observable<any> { 
+       const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };  
+       return this.http.post<any>(this.url,user,httpOptions);  
+     }  
+
     getCardInventory(): Observable<UserData[]> {  
         return this.http.get<UserData[]>(this.url);  
       }
