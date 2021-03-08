@@ -40,7 +40,7 @@ export class AuthService {
 
             if (this.flag){
             this.loggedIn.next(true);
-            this.router.navigate(['/']);
+            this.router.navigate(['/#/dashboard']);
             this.showSuccess('You have successfully logged in!','Login Notification.');
             }
           }        
@@ -48,7 +48,7 @@ export class AuthService {
         (error)=>{
             console.log('Login Exception: '+error);
             this.loggedIn.next(false);
-            this.router.navigate(['/']);
+           // this.router.navigate(['/']);
             this.showFailure('Invalid login.','Login Notification.');          
         }
         //(error) => console.log(error){}

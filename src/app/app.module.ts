@@ -30,6 +30,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { ConfirmDialogModule } from "./confirm-dialog/confirm-dialog.module";
 import { Toaster } from "ngx-toast-notifications";
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
+import { BackButtonDisableModule } from "angular-disable-browser-back-button";
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,7 @@ import { ShowHidePasswordModule } from 'ngx-show-hide-password';
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes,{
     useHash: true,
-    relativeLinkResolution: 'legacy'
+    relativeLinkResolution: 'legacy',    
 }),
 ToastrModule.forRoot(),
     SidebarModule,
@@ -59,6 +60,9 @@ ToastrModule.forRoot(),
     ReactiveFormsModule,    
   HttpClientModule,
   FlexLayoutModule,
+  BackButtonDisableModule.forRoot({
+    preserveScrollPosition: true
+  })
   
   ],
   exports: [    
