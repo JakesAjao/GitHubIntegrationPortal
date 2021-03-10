@@ -23,7 +23,8 @@ export class AcknowledgeComponent implements OnInit  {
   aSelectedCheckId:number;
   ackArr = [];
   acknowledgeData:UserData[];
-  
+  pageNumber = "1";
+  pageSize = "10";
   ReadOnlyStyleGuideNotes: boolean;
   
   displayedColumns: string[] = ['select','id', 'customerid', 'accountnumber', 'customername','pan','cardtype','branchsol',
@@ -32,15 +33,16 @@ export class AcknowledgeComponent implements OnInit  {
     
   dataSource: MatTableDataSource<UserData>;
       
-   ELEMENT_DATA: UserData[] = [
-    {id: 1, customerid: '123', accountnumber: "5", customername: 'jakes',pan: '7',cardtype:'mastercard',branchsol:'01',branchname:'Agbara',datedispatched:'03/02/2021',status:true},
-    {id: 2, customerid: '12345', accountnumber: "55", customername: 'emmanuel',pan: '77',cardtype:'verve',branchsol:'03',branchname:'Ajah',datedispatched:'04/02/2021',status:false},
-    {id: 3, customerid: '123456', accountnumber: "555", customername: 'ebelebe',pan: '777',cardtype:'visa',branchsol:'04',branchname:'Ikeja',datedispatched:'05/02/2021',status:true},
-    {id: 4, customerid: '1234567', accountnumber: "5555", customername: 'martin',pan: '7777',cardtype:'mastercard',branchsol:'10',branchname:'Agbara',datedispatched:'03/02/2021',status:false},
-    {id: 5, customerid: '12345678', accountnumber: "5555", customername: 'job',pan: '77777',cardtype:'verve',branchsol:'05',branchname:'Berger',datedispatched:'04/02/2021',status:true},
-    {id: 6, customerid: '123456789', accountnumber: "55555", customername: 'bayo',pan: '777777',cardtype:'visa',branchsol:'06',branchname:'CMS',datedispatched:'05/02/2021',status:false},
+    ELEMENT_DATA: UserData[] = [];
+  
+  //   {id: 1, customerid: '123', accountnumber: "5", customername: 'jakes',pan: '7',cardtype:'mastercard',branchsol:'01',branchname:'Agbara',datedispatched:'03/02/2021',status:true},
+  //   {id: 2, customerid: '12345', accountnumber: "55", customername: 'emmanuel',pan: '77',cardtype:'verve',branchsol:'03',branchname:'Ajah',datedispatched:'04/02/2021',status:false},
+  //   {id: 3, customerid: '123456', accountnumber: "555", customername: 'ebelebe',pan: '777',cardtype:'visa',branchsol:'04',branchname:'Ikeja',datedispatched:'05/02/2021',status:true},
+  //   {id: 4, customerid: '1234567', accountnumber: "5555", customername: 'martin',pan: '7777',cardtype:'mastercard',branchsol:'10',branchname:'Agbara',datedispatched:'03/02/2021',status:false},
+  //   {id: 5, customerid: '12345678', accountnumber: "5555", customername: 'job',pan: '77777',cardtype:'verve',branchsol:'05',branchname:'Berger',datedispatched:'04/02/2021',status:true},
+  //   {id: 6, customerid: '123456789', accountnumber: "55555", customername: 'bayo',pan: '777777',cardtype:'visa',branchsol:'06',branchname:'CMS',datedispatched:'05/02/2021',status:false},
  
-   ];
+  //  ];
    rows = [];
   
     @ViewChild(MatPaginator) paginator: MatPaginator;    
@@ -61,11 +63,37 @@ export class AcknowledgeComponent implements OnInit  {
       this.dataSource.paginator = this.paginator;
       
     this.dataSource.sort = this.sort;
-    this.acknowledgeService.getCardInventory().subscribe
+    const token = localStorage.getItem('token');
+    const staffId = localStorage.getItem('staffId');
+    //console.log('token2: '+token);
+    //alert(userData);
+    this.acknowledgeService.getCardInventory(this.pageNumber,this.pageSize,token).subscribe
     (
      (response)=>
       {
-        this.acknowledgeData = this.ELEMENT_DATA;                 
+        // this.acknowledgeData = response; 
+        
+        console.log('response: '+response);
+        debugger;
+         let CARD_DATA: UserData;
+        for (var cardObj of response) {
+          let cardObjData = cardObj.data;
+          
+          CARD_DATA.id = cardObjData.id;
+          CARD_DATA.accountnumber = cardObjData.accountnumber;          
+          CARD_DATA.customerid = cardObjData.customerid;        
+          CARD_DATA.customername = cardObjData.customername;
+          CARD_DATA.pan = cardObjData.pan;
+          CARD_DATA.cardtype = cardObjData.cardtype;
+          CARD_DATA.branchsol = cardObjData.branchsol;
+          CARD_DATA.branchname = cardObjData.branchname;
+          CARD_DATA.acknowledgedStatus = cardObjData.acknowledgedStatus; //          
+          CARD_DATA.emailNotificationStatus = cardObjData.emailNotificationStatus;//
+          CARD_DATA.datedispatched = cardObjData.dateAcknowledged;//
+
+          console.log('CARD_DATA: '+CARD_DATA);
+          alert('CARD_DATA: '+CARD_DATA);
+        }             
       },
       (error) => console.log(error)
     ) 

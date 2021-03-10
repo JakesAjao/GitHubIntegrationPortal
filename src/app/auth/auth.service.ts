@@ -29,14 +29,18 @@ export class AuthService {
         (response)=>
         {
           if (response!=null){
-          console.log(response);
+         // console.log(response);
             let data = (response.data);
             let email = data.email;
             let staffName = data.staffName;
             let displayName = data.displayName;
             let department = data.department;
+            let staffId = data.staffID;
             let token = data.token;
             this.flag = true;
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('staffId', staffId);         
 
             if (this.flag){
             this.loggedIn.next(true);

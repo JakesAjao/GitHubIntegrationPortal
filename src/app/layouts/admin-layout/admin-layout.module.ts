@@ -68,6 +68,7 @@ import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
     AcknowledgeComponent,
     ActivateComponent,
   ],
+  
   exports: [    
     MatFormFieldModule,
     MatButtonModule,

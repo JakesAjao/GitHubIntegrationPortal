@@ -7,8 +7,10 @@ import { User } from 'app/auth/user';
 
 @Injectable({ providedIn: 'root' })
 export class AcknowledgmentService {
-    url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/Login/UserLogin";
-   
+    url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/";
+    //url = "http://localhost/CardTrackerPortalAPI/api/v1/";
+    
+       
     private currentUserSubject: BehaviorSubject<any>;
     public currentUser: Observable<any>;
     public header : any; 
@@ -31,11 +33,16 @@ export class AcknowledgmentService {
     }   
     login(user: User): Observable<any> { 
        const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };  
-       return this.http.post<any>(this.url,user,httpOptions);  
+       return this.http.post<any>(this.url+'Login/UserLogin',user,httpOptions);  
      }  
 
-    getCardInventory(): Observable<UserData[]> {  
-        return this.http.get<UserData[]>(this.url);  
+    getCardInventory(pageNumber:string, pageSize:string,token:string): Observable<any> { 
+      //let header = new HttpHeaders().set("Authorization", 'Bearer ' + token); 
+      let headers = new HttpHeaders()
+    .set('Authorization', 'Bearer ' + token)
+    .set('Content-Type', 'application/json')
+    
+        return this.http.get<any>(this.url+'Card/GetCards?pageNumber='+pageNumber+"&pagesize="+pageSize,{ headers });  
       }
      sendMembershipRequest(data: any): Observable<any> {
         return this.http.post<any>(this.url+"/addmember", data);
