@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserData } from 'app/model/acknowledgment';
+import { User, UserData } from 'app/model/acknowledgment';
 import { AcknowledgmentService } from 'app/services/acknowledgment.service';
 import { constructor } from 'jquery';
 
@@ -65,38 +65,49 @@ export class AcknowledgeComponent implements OnInit  {
     this.dataSource.sort = this.sort;
     const token = localStorage.getItem('token');
     const staffId = localStorage.getItem('staffId');
-    //console.log('token2: '+token);
-    //alert(userData);
-    this.acknowledgeService.getCardInventory(this.pageNumber,this.pageSize,token).subscribe
-    (
-     (response)=>
-      {
-        // this.acknowledgeData = response; 
-        
-        console.log('response: '+response);
-        debugger;
-         let CARD_DATA: UserData;
-        for (var cardObj of response) {
-          let cardObjData = cardObj.data;
-          
-          CARD_DATA.id = cardObjData.id;
-          CARD_DATA.accountnumber = cardObjData.accountnumber;          
-          CARD_DATA.customerid = cardObjData.customerid;        
-          CARD_DATA.customername = cardObjData.customername;
-          CARD_DATA.pan = cardObjData.pan;
-          CARD_DATA.cardtype = cardObjData.cardtype;
-          CARD_DATA.branchsol = cardObjData.branchsol;
-          CARD_DATA.branchname = cardObjData.branchname;
-          CARD_DATA.acknowledgedStatus = cardObjData.acknowledgedStatus; //          
-          CARD_DATA.emailNotificationStatus = cardObjData.emailNotificationStatus;//
-          CARD_DATA.datedispatched = cardObjData.dateAcknowledged;//
+    
+    this.acknowledgeService.getCardInventory("1","10",token).subscribe
+   (
+   (response)=>
+    {
+      // this.acknowledgeData = response; 
+      let cardObjData = response.data;
+      
+      for(let i = 0, l = response.data.length; i < l; i++) {     
+      
+      //debugger;
+       let CARD_DATA: UserData;
 
-          console.log('CARD_DATA: '+CARD_DATA);
-          alert('CARD_DATA: '+CARD_DATA);
-        }             
+       const card: UserData = new User();
+
+      // console.log('id: '+response.data[i].id);
+       
+       card.id = response.data[i].id;
+       card.accountnumber = response.data[i].accountnumber;          
+       card.customerid = response.data[i].customerid;        
+       card.customername = response.data[i].customername;
+       card.pan = response.data[i].pan;
+       card.cardtype = response.data[i].cardtype;
+       card.branchsol = response.data[i].branchsol;
+       card.branchname = response.data[i].branchname;
+       card.acknowledgedStatus = response.data[i].acknowledgedStatus; //          
+       card.emailNotificationStatus = response.data[i].emailNotificationStatus;//
+       card.datedispatched = response.data[i].dateAcknowledged;//
+
+         //console.log('card: '+JSON.stringify(card));
+         this.ELEMENT_DATA.push(card);
+        } 
+      
+
+      const users = Array.from(this.ELEMENT_DATA);   
+      console.log('UserDataList Object users: '+users);   
+      this.dataSource = new MatTableDataSource(users);       
+      this.dataSource.paginator = this.paginator;
+        
+      this.dataSource.sort = this.sort;
       },
       (error) => console.log(error)
-    ) 
+      )    
     }
   
      ngOnInit() {
