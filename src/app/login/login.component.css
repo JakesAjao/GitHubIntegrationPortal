@@ -31,6 +31,7 @@ body {
 }
 
 .box {
+	
 	position: relative;
 	top: 0;
 	opacity: 1;
@@ -85,7 +86,7 @@ body {
 	text-align: center;
 	width: 100%;
 	display: block;
-	font-weight: 700;
+	font-weight: 700;	
 }
 
 .main-wrapper mat-card-header mat-card-title {
@@ -106,8 +107,3 @@ body {
 .main-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
 	padding: 0.8375em 0;
 }
-.image{
-	background-size:cover; width:auto;
-	background-image:url('/assets/img/BG.png');
-	background-position:100% 100%;
-  }
