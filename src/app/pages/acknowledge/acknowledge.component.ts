@@ -34,15 +34,6 @@ export class AcknowledgeComponent implements OnInit  {
   dataSource: MatTableDataSource<UserData>;
       
     ELEMENT_DATA: UserData[] = [];
-  
-  //   {id: 1, customerid: '123', accountnumber: "5", customername: 'jakes',pan: '7',cardtype:'mastercard',branchsol:'01',branchname:'Agbara',datedispatched:'03/02/2021',status:true},
-  //   {id: 2, customerid: '12345', accountnumber: "55", customername: 'emmanuel',pan: '77',cardtype:'verve',branchsol:'03',branchname:'Ajah',datedispatched:'04/02/2021',status:false},
-  //   {id: 3, customerid: '123456', accountnumber: "555", customername: 'ebelebe',pan: '777',cardtype:'visa',branchsol:'04',branchname:'Ikeja',datedispatched:'05/02/2021',status:true},
-  //   {id: 4, customerid: '1234567', accountnumber: "5555", customername: 'martin',pan: '7777',cardtype:'mastercard',branchsol:'10',branchname:'Agbara',datedispatched:'03/02/2021',status:false},
-  //   {id: 5, customerid: '12345678', accountnumber: "5555", customername: 'job',pan: '77777',cardtype:'verve',branchsol:'05',branchname:'Berger',datedispatched:'04/02/2021',status:true},
-  //   {id: 6, customerid: '123456789', accountnumber: "55555", customername: 'bayo',pan: '777777',cardtype:'visa',branchsol:'06',branchname:'CMS',datedispatched:'05/02/2021',status:false},
- 
-  //  ];
    rows = [];
   
     @ViewChild(MatPaginator) paginator: MatPaginator;    
@@ -111,15 +102,6 @@ export class AcknowledgeComponent implements OnInit  {
     }
   
      ngOnInit() {
-    // const users = Array.from(this.ELEMENT_DATA);
-    // // Assign the data to the data source for the table to render
-    
-    // this.dataSource = new MatTableDataSource(users);
-     
-    // //this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-    //   this.dataSource.paginator = this.paginator;
-      
-    // this.dataSource.sort = this.sort;
     }
     
     applyFilter(filterValue: string) {
@@ -165,7 +147,7 @@ export class AcknowledgeComponent implements OnInit  {
       
       console.log(element.id+' checked'); 
       this.rows = this.rows.map(
-        (elem) =>{ elem.status = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
+        (elem) =>{ elem.acknowledgedStatus = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
       return elem});
       //Find index of specific object using findIndex method.    
       // let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element));
@@ -188,7 +170,7 @@ export class AcknowledgeComponent implements OnInit  {
        console.log(id);
       console.log("Before update: ", this.ELEMENT_DATA[id])
       //Update object's name property.
-      this.ELEMENT_DATA[id].status =true;
+      this.ELEMENT_DATA[id].acknowledgedStatus =true;
 
     //Log object to console again.
     console.log("After update: ", this.ELEMENT_DATA[id])
@@ -197,13 +179,13 @@ export class AcknowledgeComponent implements OnInit  {
       if (this.isallSelectedStatus){
         console.log("Before update all: ", this.ELEMENT_DATA);
 
-        this.ELEMENT_DATA.forEach(x1 => x1.status = true);
+        this.ELEMENT_DATA.forEach(x1 => x1.acknowledgedStatus = true);
 
         //Log object to console again.
         console.log("After update: ", this.ELEMENT_DATA);
       }
      else{       
-        this.ackArr.forEach(x1 => x1.status = true);
+        this.ackArr.forEach(x1 => x1.acknowledgedStatus = true);
         console.log("After selectedArr update: ", this.ackArr);      
      }
     }
