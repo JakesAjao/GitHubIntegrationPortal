@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AcknowledgmentService } from 'app/services/acknowledgment.service';
@@ -23,12 +23,12 @@ export class AuthService {
   ) {}
 
   login(user: User) {
-    debugger;
     if (user.userName !== '' && user.password !== '' ) {
       this.acknowledgmentService.login(user).subscribe(
         (response)=>
-        {
-          if (response!=null){
+        {                    
+          let isSuccessful:boolean = (response.isSuccessful);
+          if (isSuccessful){
          // console.log(response);
             let data = (response.data);
             let email = data.email;
@@ -42,24 +42,48 @@ export class AuthService {
             localStorage.setItem('token', token);
             localStorage.setItem('staffId', staffId);         
 
-            if (this.flag){
             this.loggedIn.next(true);
             this.router.navigate(['/#/dashboard']);
             this.showSuccess('You have successfully logged in!','Login Notification.');
-            }
-          }        
+            
+          }
+          // else{
+          //   this.loggedIn.next(false);
+          //   console.log(JSON.stringify(response));
+          //   this.showFailure('Invalid login.','Login Notification.');
+          // }        
         },
         (error)=>{
-            console.log('Login Exception: '+error);
+            
             this.loggedIn.next(false);
-           // this.router.navigate(['/']);
-            this.showFailure('Invalid login.','Login Notification.');          
+            let isSuccessful = this.GetServerResponse(error);
+            if (isSuccessful==false){
+              this.loggedIn.next(false);
+              this.showFailure('Invalid Username or Password Credential Supplied.','Login Notification.');
+            }
+            else{
+            this.showFailure('Oops! Server could not be reached.','Login Notification.'); 
+            }         
         }
         //(error) => console.log(error){}
-       )
-    
+       )    
     }
-    //this.showFailure();
+  }
+  GetServerResponse(error:any){
+      if (error==null){
+        return null;
+      }
+      for(var key in error)
+      {
+        if (key=='error'){
+          var headerString =  error[key];
+          let Errorstring = JSON.stringify(headerString)
+          var s = JSON.parse(Errorstring);
+
+          console.log("Server response: " + Errorstring);
+          return s.isSuccessful;
+        }
+      }
   }
  
   showSuccess(header:string,message:string) {
