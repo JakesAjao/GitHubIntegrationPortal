@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User, UserData } from 'app/model/acknowledgment';
 import { AcknowledgmentService } from 'app/services/acknowledgment.service';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 //import { NotificationService } from 'app/services/notification.service';
 
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private bnIdle: BnNgIdleService,
-    private acknowledgeService: AcknowledgmentService
+    private acknowledgeService: AcknowledgmentService,
+    private SpinnerService: NgxSpinnerService
   ){
     // this.bnIdle.startWatching(60).subscribe((res) => {
     //   if(res) {
@@ -43,13 +45,17 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  onSubmit() {
-    
+  onSubmit(){
+   //debugger;
+   this.SpinnerService.show(); 
     if (this.form.valid) {
-      this.authService.login(this.form.value);    
+      this.authService.login(this.form.value,this.SpinnerService);
+     
      }
     this.formSubmitAttempt = true;
-  }
+    
+      
+    }
   
   
 }

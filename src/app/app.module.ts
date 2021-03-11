@@ -31,11 +31,13 @@ import { ConfirmDialogModule } from "./confirm-dialog/confirm-dialog.module";
 import { Toaster } from "ngx-toast-notifications";
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 import { BackButtonDisableModule } from "angular-disable-browser-back-button";
+//import { ButtonSpinnerComponent } from './button-spinner/button-spinner.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent   
         
   ],
   imports: [
@@ -62,8 +64,8 @@ ToastrModule.forRoot(),
   FlexLayoutModule,
   BackButtonDisableModule.forRoot({
     preserveScrollPosition: true
-  })
-  
+  }),
+  NgxSpinnerModule  
   ],
   exports: [    
     MatFormFieldModule,

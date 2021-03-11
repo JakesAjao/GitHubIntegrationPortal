@@ -22,7 +22,7 @@ export class AuthService {
     private acknowledgmentService: AcknowledgmentService
   ) {}
 
-  login(user: User) {
+  login(user: User,spinner:any) {
     if (user.userName !== '' && user.password !== '' ) {
       this.acknowledgmentService.login(user).subscribe(
         (response)=>
@@ -45,7 +45,7 @@ export class AuthService {
             this.loggedIn.next(true);
             this.router.navigate(['/#/dashboard']);
             this.showSuccess('You have successfully logged in!','Login Notification.');
-            
+            spinner.hide();
           }
           // else{
           //   this.loggedIn.next(false);
@@ -62,8 +62,9 @@ export class AuthService {
               this.showFailure('Invalid Username or Password Credential Supplied.','Login Notification.');
             }
             else{
-            this.showFailure('Oops! Server could not be reached.','Login Notification.'); 
-            }         
+            this.showFailure('Oops! AD Server could not be reached. Kindly contact administrator.','Login Notification.'); 
+            }  
+            spinner.hide();       
         }
         //(error) => console.log(error){}
        )    

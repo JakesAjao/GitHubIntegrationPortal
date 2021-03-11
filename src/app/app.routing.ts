@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';
 export const AppRoutes: Routes = [
   { path: '', component: AdminLayoutComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  // { path: 'acknowledge', component: AcknowledgeComponent },
 
   {
     path: '',
