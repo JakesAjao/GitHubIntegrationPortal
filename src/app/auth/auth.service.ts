@@ -62,7 +62,7 @@ export class AuthService {
               this.showFailure('Invalid Username or Password Credential Supplied.','Login Notification.');
             }
             else{
-            this.showFailure('Oops! AD Server could not be reached. Kindly contact administrator.','Login Notification.'); 
+            this.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
             }  
             spinner.hide();       
         }
