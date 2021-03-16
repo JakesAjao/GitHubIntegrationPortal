@@ -97,10 +97,15 @@
   </table>
 
   <section class="example-section">
-    <button mat-raised-button color="primary" (click)="updateAll()">Update</button>
+    <button mat-raised-button color="primary" (click)="updateAll()">Update</button>&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="primary" (click)="refresh()">Refresh</button>
   </section>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+  <p style="color:green;font-size: 16px;">The request is being processed, kindly wait a few seconds. </p>  
+</ngx-spinner> 
 <!-- </form> -->
 
 <!-- Copyright 2018 Google Inc. All Rights Reserved.

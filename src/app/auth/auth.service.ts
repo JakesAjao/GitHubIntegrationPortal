@@ -59,7 +59,7 @@ export class AuthService {
             let isSuccessful = this.GetServerResponse(error);
             if (isSuccessful==false){
               this.loggedIn.next(false);
-              this.showFailure('Invalid Username or Password Credential Supplied.','Login Notification.');
+              this.showFailure('Invalid Username or Password Supplied.','Login Notification.');
             }
             else{
             this.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 

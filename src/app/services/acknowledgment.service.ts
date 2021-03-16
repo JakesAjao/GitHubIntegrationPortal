@@ -2,8 +2,9 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, interval, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { UserData } from 'app/model/acknowledgment';
+import { CardData, UserData } from 'app/model/acknowledgment';
 import { User } from 'app/auth/user';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({ providedIn: 'root' })
 export class AcknowledgmentService {
@@ -44,8 +45,15 @@ export class AcknowledgmentService {
     
         return this.http.get<any>(this.url+'Card/GetCards?pageNumber='+pageNumber+"&pagesize="+pageSize,{ headers });  
       }
-     sendMembershipRequest(data: any): Observable<any> {
-        return this.http.post<any>(this.url+"/addmember", data);
+     updateStatus(token:string, data: string): Observable<any> {
+       
+     // SpinnerService.show(); 
+      // const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token)
+      // .set('Content-Type', 'application/json')
+      const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + token}) };
+      let resp = this.http.put<any>(this.url+"Card/UpdateMultipleRecords", data,httpOptions);
+     
+        return resp;  
       } 
      
       /*UpdateMember(formData:FormData,id:number):string{

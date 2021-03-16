@@ -1,3 +1,4 @@
+
 export interface UserData {
     id: number;
     customerid: string;
@@ -12,8 +13,8 @@ export interface UserData {
     
     emailNotificationStatus:string
     acknowledgedStatus:boolean;
-    //activationStatus:boolean
-    //pickupStatus:boolean
+    activationStatus:boolean
+    pickupstatus:boolean
     //dateAcknowledged:string;
     //dateActivation:string
     //dateOfpickup:string
@@ -32,6 +33,8 @@ export interface UserData {
     
     public emailNotificationStatus:string
     public acknowledgedStatus:boolean;
+    public activationStatus:boolean;
+    public pickupstatus:boolean;
 
     constructor(
       // id:number,
@@ -63,4 +66,25 @@ export interface UserData {
       // this.acknowledgedStatus=acknowledgedStatus
     }
   
+}
+export class CardData{
+  public sno:number;
+  public customerid;
+  public acknowledgedStatus:boolean;
+  public activationStatus:boolean;
+  public pickupstatus:boolean;
+
+   constructor(//sno:number,
+  //    customerId: string,
+  //    acknowledgedStatus: boolean,
+  //    activationStatus: boolean,
+  //    pickupstatus: boolean,
+    ){
+    //  this.sno=sno,
+    //  this.customerid=customerId,
+    //  this.acknowledgedStatus=acknowledgedStatus,
+    //  this.activationStatus=activationStatus,
+    //  this.activationStatus=activationStatus,
+    //  this.pickupstatus=pickupstatus
+  }
 }

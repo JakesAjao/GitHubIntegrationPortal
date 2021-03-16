@@ -32,6 +32,7 @@ import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   imports: [
     
@@ -53,6 +54,7 @@ import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),
+    NgxSpinnerModule
     ],
     providers: [BnNgIdleService], // add it to the providers of your module
   declarations: [
@@ -66,7 +68,7 @@ import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
     NotificationsComponent,
     DispatchcardComponent,
     AcknowledgeComponent,
-    ActivateComponent,
+    ActivateComponent
   ],
   
   exports: [    
