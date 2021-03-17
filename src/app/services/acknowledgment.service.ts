@@ -47,9 +47,6 @@ export class AcknowledgmentService {
       }
      updateStatus(token:string, data: string): Observable<any> {
        
-     // SpinnerService.show(); 
-      // const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token)
-      // .set('Content-Type', 'application/json')
       const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + token}) };
       let resp = this.http.put<any>(this.url+"Card/UpdateMultipleRecords", data,httpOptions);
      
