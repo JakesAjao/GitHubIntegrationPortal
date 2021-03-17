@@ -52,55 +52,15 @@ export class AcknowledgeComponent implements OnInit  {
     }  
      ngOnInit(){      
       this.processStatusUpdate();
-    }
-    refresh():void {
-      let currentUrl = this.router.url;
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate([currentUrl]);
-    }
+    }    
     processStatusUpdate(){
-      const users = Array.from(this.ELEMENT_DATA);
-      // Assign the data to the data source for the table to render
+      this.acknowledgeService.getCardInventory("1","10",this.token).subscribe(
+     (response)=>{
+      let cardObjData = response.data; 
+
+      this.getCardDetails(response);
       
-      this.dataSource = new MatTableDataSource(users);
-       
-      //this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-        this.dataSource.paginator = this.paginator;
-        
-      this.dataSource.sort = this.sort;
-      this.acknowledgeService.getCardInventory("1","10",this.token).subscribe
-    (
-    (response)=>
-      {
-      // this.acknowledgeData = response; 
-      let cardObjData = response.data;
-      
-      for(let i = 0, l = response.data.length; i < l; i++) {     
-      
-       let CARD_DATA: UserData;
-
-       const card: UserData = new User();
-
-       card.id = response.data[i].sno;
-       card.accountnumber = response.data[i].accountnumber;          
-       card.customerid = response.data[i].customerid;        
-       card.customername = response.data[i].customername;
-       card.pan = response.data[i].pan;
-       card.cardtype = response.data[i].cardtype;
-       card.branchsol = response.data[i].branchsol;
-       card.branchname = response.data[i].branchname;
-       card.acknowledgedStatus = response.data[i].acknowledgedStatus; //   
-       card.activationStatus = response.data[i].activationStatus; // 
-       card.pickupstatus = response.data[i].pickupstatus; //         
-       card.emailNotificationStatus = response.data[i].emailNotificationStatus;//
-       card.datedispatched = response.data[i].dateAcknowledged;//
-
-         this.ELEMENT_DATA.push(card);
-        }      
-
-      const users = Array.from(this.ELEMENT_DATA);   
-      //console.log('UserDataList Object users: '+users);   
+      const users = Array.from(this.ELEMENT_DATA);     
       this.dataSource = new MatTableDataSource(users);       
       this.dataSource.paginator = this.paginator;
         
@@ -109,7 +69,33 @@ export class AcknowledgeComponent implements OnInit  {
       (error) => console.log(error)
       )    
     }
-    
+    getCardDetails(response:any){        
+      for(let i = 0, l = response.data.length; i < l; i++) {                 
+        const card: UserData = new User(); 
+
+        card.id = response.data[i].sno;
+        card.accountnumber = response.data[i].accountnumber;          
+        card.customerid = response.data[i].customerid;        
+        card.customername = response.data[i].customername;
+        card.pan = response.data[i].pan;
+        card.cardtype = response.data[i].cardtype;
+        card.branchsol = response.data[i].branchsol;
+        card.branchname = response.data[i].branchname;
+        card.acknowledgedStatus = response.data[i].acknowledgedStatus; //   
+        card.activationStatus = response.data[i].activationStatus; // 
+        card.pickupstatus = response.data[i].pickupstatus; //         
+        card.emailNotificationStatus = response.data[i].emailNotificationStatus;//
+        card.datedispatched = response.data[i].dateAcknowledged;//
+
+        this.ELEMENT_DATA.push(card);
+       }  
+    }
+    refresh():void {
+      let currentUrl = this.router.url;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate([currentUrl]);
+    }
     applyFilter(filterValue: string) {
     
       this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -144,38 +130,20 @@ export class AcknowledgeComponent implements OnInit  {
       if(event.checked)
       {
         let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
-        //console.log("Added object: ", this.ELEMENT_DATA[id]);
 
-        cardData.sno = this.ELEMENT_DATA[id].id;
-        cardData.customerid = this.ELEMENT_DATA[id].customerid;
-        cardData.acknowledgedStatus = this.ELEMENT_DATA[id].acknowledgedStatus;
-        cardData.activationStatus = this.ELEMENT_DATA[id].activationStatus;
-        cardData.pickupstatus = this.ELEMENT_DATA[id].pickupstatus;
-
-        
-        
-        this.cardDataArr.push(cardData); 
-        //console.log(" Added object this.cardData: ", cardData);
-        
+        cardData = this.ParseObject(id);
+        this.cardDataArr.push(cardData);         
         this.cardDataArr.forEach(x1 => x1.acknowledgedStatus = true);
-
       }
       else
       {
           let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
-          cardData.sno = this.ELEMENT_DATA[id].id;
-          cardData.customerid = this.ELEMENT_DATA[id].customerid;
-          cardData.acknowledgedStatus = this.ELEMENT_DATA[id].acknowledgedStatus;
-          cardData.activationStatus = this.ELEMENT_DATA[id].activationStatus;
-          cardData.pickupstatus = this.ELEMENT_DATA[id].pickupstatus;
-
-         // console.log("Remove object: ", this.ELEMENT_DATA[id]);
-         // this.cardDataArr.splice(this.cardDataArr.indexOf(this.ELEMENT_DATA[id]), 1);
-         
+          cardData = this.ParseObject(id);
+          this.cardDataArr.push(cardData);                    
          this.cardDataArr.splice(this.cardDataArr.indexOf(cardData), 1);
       }
     }
-    ParseObject(id:string){
+    ParseObject(id:number){
       let cardData = new CardData;
 
       cardData.sno = this.ELEMENT_DATA[id].id;
@@ -202,40 +170,8 @@ export class AcknowledgeComponent implements OnInit  {
         return null;
       }
     }
-    // updateCheckedList(element)
-    // {     
-      
-    //   console.log(element.id+' checked'); 
-    //   this.rows = this.rows.map(
-    //     (elem) =>{ elem.acknowledgedStatus = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
-    //   return elem});
-    //   //Find index of specific object using findIndex method.    
-    //   // let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element));
-    //   // console.log(element);
-
-      
-    // //Log object to Console.
-    // //console.log("Before update: ", this.ELEMENT_DATA[id])
-    // //Update object's name property.
-    // //this.ELEMENT_DATA[id].status ="0";
-
-    // //Log object to console again.
-    // //console.log("After update: ", this.ELEMENT_DATA[id])
-    // this.aSelectedCheckId = element.id;
-    // }
-    // editAcknowledge(){
-    //   alert();
-    //   //Find index of specific object using findIndex method.    
-    //    let id = this.ELEMENT_DATA.findIndex((obj => obj.id == this.aSelectedCheckId));
-    //    console.log(id);
-    //   console.log("Before update: ", this.ELEMENT_DATA[id])
-    //   //Update object's name property.
-    //   this.ELEMENT_DATA[id].acknowledgedStatus =true;
-
-    // //Log object to console again.
-    // console.log("After update: ", this.ELEMENT_DATA[id])
-    // }
-    UploadStatus(cardDataList:Array<CardData>,cardDataJson:string){
+   
+    UploadStatus(cardDataJson:string){
       if (cardDataJson != null){
         this.acknowledgeService.updateStatus(this.token, cardDataJson).subscribe( 
           (data) =>{           
@@ -244,55 +180,38 @@ export class AcknowledgeComponent implements OnInit  {
           err => {
             console.log("Error");
             this.showFailure('Oops! Card Acknowledgement failed.','Acknowledgement Notification.');
+            this.SpinnerService.hide();
           }  
       }
     }
     updateAll(){
       this.SpinnerService.show(); 
       debugger;
-       if (this.isAllSelected){
+      let f = this.isAllSelected();
+       if (this.isAllSelected() && (this.cardDataArr.length==0)){
         let cardDataList = this.processAllSelected(); 
         
         cardDataList.forEach(x1 => x1.acknowledgedStatus = true);   //Update each acknowledge status    
-        let cardDataJson = JSON.stringify(cardDataList);
+        let cardDataJson = JSON.stringify(cardDataList); 
         
-        console.log('cardData: '+cardDataJson);
-        if (cardDataList != null){
-          this.acknowledgeService.updateStatus(this.token, cardDataJson).subscribe( 
-            (data) =>{           
-                this.successfulMessage(data);      
-            }),
-            err => {
-              console.log("Error");
-              this.showFailure('Oops! Card Acknowledgement failed.','Acknowledgement Notification.');
-            }  
-        }
+        this.UploadStatus(cardDataJson);
        }
-       else if (this.cardDataArr!=null){
-         //console.log("After selectedArr update: ", this.cardDataArr); 
+       else if (this.cardDataArr.length!=0){
+         
         let cardDataJson = JSON.stringify(this.cardDataArr);
-        this.acknowledgeService.updateStatus(this.token, cardDataJson).subscribe( 
-        (data) =>{          
-          this.successfulMessage(data);  
-        }),
-        err => {
-          console.log("Error");
-          this.showFailure('Card Acknowledgement failed!','Acknowledgement Notification.');
-        }             
+        this.UploadStatus(cardDataJson);            
       }
     }
     successfulMessage(data:any){
       if (data!=null){
       setTimeout(()=>{                
-        console.log(data);
-        console.log('selected All Status Response List: '+data);
-        
+        //console.log(data);
+        console.log('selected All Status Response List: '+data);        
         this.SpinnerService.hide();
-
         this.showSuccess('Card Acknowledged Successfully!','Acknowledgement Notification.');
     
         this.refresh();
-       }, 3000);
+       }, 2000);
       }
     }
     showSuccess(header:string,message:string) {
@@ -306,9 +225,7 @@ export class AcknowledgeComponent implements OnInit  {
       const numSelected = this.selection.selected.length;
       const numRows = this.dataSource.data.length;
        if ( numSelected === numRows)
-      console.log('isAllSelected: '+true);
-      else
-      console.log('isAllSelected: '+false);
+   
       return numSelected === numRows;
     }
   
@@ -317,13 +234,10 @@ export class AcknowledgeComponent implements OnInit  {
      if (this.isAllSelected()){
       this.selection.clear();      
       this.isallSelectedStatus = false;
-     // console.log('selected false'+ this.isallSelectedStatus);
-      //alert(this.isallSelectedStatus);
     } 
     else{
       this.isallSelectedStatus = true;
       this.dataSource.data.forEach(row => this.selection.select(row));
-      //console.log('selected true'+ this.isallSelectedStatus);
      }
     }
   }  
