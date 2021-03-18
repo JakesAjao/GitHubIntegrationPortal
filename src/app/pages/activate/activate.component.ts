@@ -195,6 +195,7 @@ export class ActivateComponent implements OnInit {
       this.UploadStatus(cardDataJson);
      }
      else if (this.cardDataArr.length!=0){
+       console.log('this.cardDataArr: '+this.cardDataArr);
       this.SpinnerService.show(); 
       let cardDataJson = JSON.stringify(this.cardDataArr);
       this.UploadStatus(cardDataJson);            
