@@ -33,6 +33,7 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ExcelService } from 'app/services/excel.service';
 @NgModule({
   imports: [
     
@@ -56,7 +57,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     }),
     NgxSpinnerModule
     ],
-    providers: [BnNgIdleService], // add it to the providers of your module
+    providers: [BnNgIdleService,ExcelService], // add it to the providers of your module
+    
   declarations: [
     DashboardComponent,
     UserComponent,

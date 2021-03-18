@@ -10,7 +10,6 @@ import { User } from './user';
 export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public flag:boolean;
-  url = 'https://localhost:5001/churchdatabaseapi/membership';
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
@@ -23,6 +22,7 @@ export class AuthService {
   ) {}
 
   login(user: User,spinner:any) {
+    
     if (user.userName !== '' && user.password !== '' ) {
       this.acknowledgmentService.login(user).subscribe(
         (response)=>

@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { DOCUMENT } from '@angular/common';
+import { DatePipe, DOCUMENT, formatDate } from '@angular/common';
 import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,10 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CardData, User, UserData } from 'app/model/acknowledgment';
 import { AcknowledgmentService } from 'app/services/acknowledgment.service';
+import { ExcelService } from 'app/services/excel.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-
-
 
 @Component({
   selector: 'app-acknowledge',
@@ -47,10 +46,10 @@ export class AcknowledgeComponent implements OnInit  {
     
     constructor(fb: FormBuilder, private acknowledgeService: AcknowledgmentService,
       private SpinnerService: NgxSpinnerService,private toastr: ToastrService,
-      private router: Router){
+      private router: Router,private excelService:ExcelService){
    
     }  
-     ngOnInit(){      
+     ngOnInit(){ 
       this.processStatusUpdate();
     }    
     processStatusUpdate(){
@@ -175,20 +174,21 @@ export class AcknowledgeComponent implements OnInit  {
       if (cardDataJson != null){
         this.acknowledgeService.updateStatus(this.token, cardDataJson).subscribe( 
           (data) =>{           
-              this.successfulMessage(data);      
+              this.successfulMessage(data);     
           }),
           err => {
             console.log("Error");
             this.showFailure('Oops! Card Acknowledgement failed.','Acknowledgement Notification.');
             this.SpinnerService.hide();
-          }  
+          }        
+          
       }
     }
-    updateAll(){
-      this.SpinnerService.show(); 
+    updateAll(){ 
       debugger;
       let f = this.isAllSelected();
        if (this.isAllSelected() && (this.cardDataArr.length==0)){
+        this.SpinnerService.show(); 
         let cardDataList = this.processAllSelected(); 
         
         cardDataList.forEach(x1 => x1.acknowledgedStatus = true);   //Update each acknowledge status    
@@ -197,9 +197,12 @@ export class AcknowledgeComponent implements OnInit  {
         this.UploadStatus(cardDataJson);
        }
        else if (this.cardDataArr.length!=0){
-         
+        this.SpinnerService.show(); 
         let cardDataJson = JSON.stringify(this.cardDataArr);
         this.UploadStatus(cardDataJson);            
+      }
+      else{
+
       }
     }
     successfulMessage(data:any){
@@ -239,6 +242,11 @@ export class AcknowledgeComponent implements OnInit  {
       this.isallSelectedStatus = true;
       this.dataSource.data.forEach(row => this.selection.select(row));
      }
+    }
+    exportAsXLSX():void {
+      let date = new Date();
+      const formatValue = formatDate(date, 'yyyy-MM-dd', 'en-US');
+      this.excelService.exportAsExcelFile(this.ELEMENT_DATA, 'AcknowledgementReport'+"_"+formatValue);
     }
   }  
  

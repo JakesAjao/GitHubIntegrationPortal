@@ -10,6 +10,7 @@ export class ActivateComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    alert('Hi');
   }
 
 }

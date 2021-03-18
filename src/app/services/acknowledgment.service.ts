@@ -8,7 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({ providedIn: 'root' })
 export class AcknowledgmentService {
-    url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/";
+   url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/";
     //url = "http://localhost/CardTrackerPortalAPI/api/v1/";
     
        
