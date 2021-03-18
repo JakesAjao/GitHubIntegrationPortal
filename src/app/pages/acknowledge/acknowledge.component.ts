@@ -49,7 +49,7 @@ export class AcknowledgeComponent implements OnInit  {
       private router: Router,private excelService:ExcelService){
    
     }  
-     ngOnInit(){ 
+     ngOnInit(): void{ 
       this.processStatusUpdate();
     }    
     processStatusUpdate(){

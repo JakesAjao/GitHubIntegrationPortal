@@ -25,7 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmDialogModule } from 'app/confirm-dialog/confirm-dialog.module';
 import { ToastNotificationsModule } from 'ngx-toast-notifications';
@@ -34,6 +34,7 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ExcelService } from 'app/services/excel.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   imports: [
     
@@ -52,6 +53,7 @@ import { ExcelService } from 'app/services/excel.service';
     FormsModule,
     ReactiveFormsModule,
     ToastNotificationsModule,
+    //BrowserAnimationsModule,
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),
@@ -79,7 +81,6 @@ import { ExcelService } from 'app/services/excel.service';
     MatSelectModule,
     MatInputModule,
     MatPaginatorModule,
-    MatButtonModule,
     MatCheckboxModule,
     
     //ConfirmDialogModule,

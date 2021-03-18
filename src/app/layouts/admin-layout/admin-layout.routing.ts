@@ -25,11 +25,13 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     
-  { path: 'dispatchcard', component: DispatchcardComponent, children: [
+    { path: 'dispatchcard', component: DispatchcardComponent, 
+    children: [
     { path: 'acknowledge', component: AcknowledgeComponent },
     { path: 'pickup', component: PickupComponent },
     { path: 'activate', component: ActivateComponent },
-    { path: '', redirectTo: 'acknowledge', pathMatch: 'full'}]},    
+    //{ path: '', redirectTo: 'acknowledge', pathMatch: 'full'}
+  ]},    
     
  //{ path: 'confirm-dialog', component: ConfirmDialogComponent }, 
 ];
