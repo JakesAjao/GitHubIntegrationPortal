@@ -12,7 +12,6 @@ import { DispatchcardComponent } from 'app/pages/dispatchcard/dispatchcard.compo
 import { AcknowledgeComponent } from 'app/pages/Acknowledge/Acknowledge.component';
 import { ActivateComponent } from 'app/pages/Activate/Activate.component';
 import { PickupComponent } from 'app/pages/pickup/pickup.component';
-import { ConfirmDialogComponent } from 'app/confirm-dialog/confirm-dialog.component';
 
 export const AdminLayoutRoutes: Routes = [
   
@@ -30,8 +29,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'acknowledge', component: AcknowledgeComponent },
     { path: 'pickup', component: PickupComponent },
     { path: 'activate', component: ActivateComponent },
-    //{ path: '', redirectTo: 'acknowledge', pathMatch: 'full'}
+    { path: '', redirectTo: 'acknowledge', pathMatch: 'full'}
   ]},    
-    
- //{ path: 'confirm-dialog', component: ConfirmDialogComponent }, 
+     
 ];

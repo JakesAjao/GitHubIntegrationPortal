@@ -49,8 +49,6 @@ export class PickupComponent implements OnInit {
       }
 
   ngOnInit(): void {
-    //debugger;
-    console.log('Hi')    ;
     this.processStatusUpdate();
   }
   processStatusUpdate(){
@@ -115,7 +113,7 @@ export class PickupComponent implements OnInit {
       cardData.sno = elementData.id;
       cardData.customerid = elementData.customerid;
       cardData.pickupstatus = elementData.pickupstatus;
-      cardData.activationStatus = elementData.activationStatus;
+      cardData.acknowledgedStatus = elementData.acknowledgedStatus;
       cardData.activationStatus = elementData.activationStatus;
        
       cardDataList.push(cardData);        
@@ -183,7 +181,7 @@ export class PickupComponent implements OnInit {
     }
   }
   updateAll(){ 
-    debugger;
+    //debugger;
     let f = this.isAllSelected();
      if (this.isAllSelected() && (this.cardDataArr.length==0)){
       this.SpinnerService.show(); 

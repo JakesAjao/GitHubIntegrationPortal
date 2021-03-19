@@ -115,8 +115,8 @@ export class ActivateComponent implements OnInit {
       cardData.sno = elementData.id;
       cardData.customerid = elementData.customerid;
       cardData.pickupstatus = elementData.pickupstatus;
+      cardData.acknowledgedStatus = elementData.acknowledgedStatus;
       cardData.activationStatus = elementData.activationStatus;
-      cardData.pickupstatus = elementData.pickupstatus;
        
       cardDataList.push(cardData);        
     }

@@ -29,3 +29,8 @@
   color:#155724;
 }
 
+.background-images{
+  background-image:url('assets/img/bank1BKG.png'); height: 100%;
+  margin: 0;
+  padding: 0;
+} 

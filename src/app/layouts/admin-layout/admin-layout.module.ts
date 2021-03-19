@@ -35,6 +35,7 @@ import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ExcelService } from 'app/services/excel.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PickupComponent } from 'app/pages/pickup/pickup.component';
 @NgModule({
   imports: [
     
@@ -72,7 +73,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NotificationsComponent,
     DispatchcardComponent,
     AcknowledgeComponent,
-    ActivateComponent
+    ActivateComponent,
+    PickupComponent
   ],
   
   exports: [    

@@ -53,8 +53,8 @@ export class AuthService {
           //   this.showFailure('Invalid login.','Login Notification.');
           // }        
         },
-        (error)=>{
-            
+        (error)=>{            
+          console.log(error);
             this.loggedIn.next(false);
             let isSuccessful = this.GetServerResponse(error);
             if (isSuccessful==false){
@@ -81,7 +81,7 @@ export class AuthService {
           let Errorstring = JSON.stringify(headerString)
           var s = JSON.parse(Errorstring);
 
-          console.log("Server response: " + Errorstring);
+          //console.log("Server response: " + Errorstring);
           return s.isSuccessful;
         }
       }

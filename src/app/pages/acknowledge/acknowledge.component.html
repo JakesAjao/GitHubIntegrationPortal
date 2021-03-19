@@ -1,5 +1,5 @@
 <mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter Acknowledgement Page">
 </mat-form-field>
 <br>
 <button (click)="exportAsXLSX()" class="btn btn-secondary mb-2"> Export Excel</button>
@@ -23,57 +23,57 @@
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Id</b></th>
       <td mat-cell *matCellDef="let row"> {{row.id}} </td>
     </ng-container>
     <ng-container matColumnDef="customerid">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> CustomerId </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>customerId</b> </th>
       <td mat-cell *matCellDef="let row"> {{row.customerid}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="accountnumber">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> AccountNo </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>AccountNo</b> </th>
       <td mat-cell *matCellDef="let row"> {{row.accountnumber}} </td>
     </ng-container>
 
     <!-- customername Column -->
     <ng-container matColumnDef="customername">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> CustomerName </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>CustomerName</b></th>
       <td mat-cell *matCellDef="let row"> {{row.customername}} </td>
     </ng-container>
 
      <!-- pan Column -->
      <ng-container matColumnDef="pan">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> PAN </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b> PAN</b></th>
       <td mat-cell *matCellDef="let row"> {{row.pan}} </td>
     </ng-container>
 
     <!-- cardtype Column -->
     <ng-container matColumnDef="cardtype">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> CardType </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>CardType</b></th>
       <td mat-cell *matCellDef="let row"> {{row.cardtype}} </td>
     </ng-container>
     
     <!-- branchsol Column -->
     <ng-container matColumnDef="branchsol">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> BranchSol </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>BranchSol</b></th>
       <td mat-cell *matCellDef="let row"> {{row.branchsol}} </td>
     </ng-container>
 
     <!-- branchname Column -->
     <ng-container matColumnDef="branchname">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> BranchName </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>BranchName</b></th>
       <td mat-cell *matCellDef="let row"> {{row.branchname}} </td>
     </ng-container>
     <!-- datedispatched Column -->
     <ng-container matColumnDef="datedispatched">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> DateDispatched </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>DateDispatched</b></th>
       <td mat-cell *matCellDef="let row"> {{row.datedispatched}} </td>
     </ng-container>
     <!-- status Column -->
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Status</b></th>
       <td mat-cell *matCellDef="let row"> {{row.acknowledgedStatus}} </td>
     </ng-container>
     
