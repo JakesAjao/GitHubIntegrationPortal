@@ -34,7 +34,7 @@ export class AcknowledgmentService {
     }   
     login(user: User): Observable<any> { 
        const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) }; 
-       console.log('login url: '+this.url+'Login/UserLogin');
+       
        return this.http.post<any>(this.url+'Login/UserLogin',user,httpOptions);  
      }  
 
@@ -43,7 +43,6 @@ export class AcknowledgmentService {
     .set('Authorization', 'Bearer ' + token)
     .set('Content-Type', 'application/json')
     
-        //return this.http.get<any>(this.url+'Card/GetCards?pageNumber='+pageNumber+"&pagesize="+pageSize,{ headers });
         return this.http.get<any>(this.url+'Card/GetCardsWithBranchCode?branchCode='+branchCode,{ headers });  
        
       }

@@ -37,14 +37,14 @@ export class DashboardComponent implements OnInit{
     this.toastr.error(header, message);
   }
     ngOnInit(){
-      this.bnIdle.startWatching(300).subscribe((res) => {//5 minutes
-        if(res) {
-            console.log("session expired");            
-            this.showSuccess('Session expired!','Session Expired Alert');
-            //this.loggedIn.next(false);
-            this.router.navigate(['/login']);
-        }
-      })
+      // this.bnIdle.startWatching(300).subscribe((res) => {//5 minutes
+      //   if(res) {
+      //       console.log("session expired");            
+      //       this.showSuccess('Session expired!','Session Expired Alert');
+      //       //this.loggedIn.next(false);
+      //       this.router.navigate(['/login']);
+      //   }
+      // })
       
      this.chartColor = "#FFFFFF";
 

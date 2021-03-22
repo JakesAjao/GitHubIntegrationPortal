@@ -43,7 +43,6 @@ export class AuthService {
             localStorage.setItem('token', token);
             localStorage.setItem('staffId', staffId);           
 
-            //this.loggedIn.next(true);
             this.router.navigate(['/#/dashboard']);
             this.showSuccess('You have successfully logged in!','Login Notification.');
             spinner.hide();

@@ -73,7 +73,7 @@ export class PickupComponent implements OnInit {
     let branchDetails = this.fetchBranchCode();
 
       if (branchDetails==null){
-        this.showSuccess('Sorry, the branch record does not exist.','Acknowledgement Notification.');  
+        this.showSuccess('Sorry, the branch record does not exist.','Pickup Notification.');  
         return;      
       }
     this.acknowledgeService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(

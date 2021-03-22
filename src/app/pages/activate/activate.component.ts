@@ -56,7 +56,7 @@ export class ActivateComponent implements OnInit {
     let branchDetails = this.fetchBranchCode();
 
       if (branchDetails==null){
-        this.showSuccess('Sorry, the branch record does not exist.','Acknowledgement Notification.'); 
+        this.showSuccess('Sorry, the branch record does not exist.','Activate Notification.'); 
         return;       
       }
     this.acknowledgeService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
