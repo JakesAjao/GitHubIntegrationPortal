@@ -5,20 +5,16 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component';
 
 export const AppRoutes: Routes = [
-  { path: '', component: AdminLayoutComponent, canActivate: [AuthGuard] },
+  
   { path: 'login', component: LoginComponent },
-
+  { path: '', component: AdminLayoutComponent, canActivate: [AuthGuard] },
   {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
   }, {
-    path: '',
-    component: AdminLayoutComponent,
-    children: [
-        {
-      path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+    path: '', component: AdminLayoutComponent, children: [{
+    path: '',loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule', canActivate: [AuthGuard] 
   }]},
   {
     path: '**',

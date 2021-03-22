@@ -9,16 +9,25 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.authService.isLoggedIn.pipe(
-      take(1),
-      map((isLoggedIn: boolean) => {
-        if (!isLoggedIn) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-        return true;
-      })
-    );
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    // return this.authService.isLoggedIn.pipe(
+    //   take(1),
+    //   map((isLoggedIn: boolean) => {
+    //     if (!isLoggedIn) {
+    //       this.router.navigate(['/login']);
+    //       return false;
+    //     }
+    //     return true;
+    //   })
+    // );
+    let token = localStorage.getItem('token');
+
+    if (token=="" || token==null) {
+      this.router.navigate(['/login']);
+    return false;
+    }
+
+    return true;
   }
+  
 }

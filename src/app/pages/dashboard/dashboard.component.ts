@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BnNgIdleService } from 'bn-ng-idle';
 import Chart from 'chart.js';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,9 +19,34 @@ export class DashboardComponent implements OnInit{
   public chartEmail;
   public chartHours;
 
+  constructor(
+    private bnIdle: BnNgIdleService,private toastr: ToastrService,private router: Router,){
+      // this.bnIdle.startWatching(300).subscribe((res) => {//5 minutes
+      //   if(res) {
+      //       console.log("session expired");            
+      //       this.showSuccess('Session expired!','Session Expired Alert');
+      //       //this.loggedIn.next(false);
+      //       this.router.navigate(['/login']);
+      //   }
+      // })
+  }
+  showSuccess(header:string,message:string) {
+    this.toastr.success(header, message);
+  }
+  showFailure(header:string,message:string) {
+    this.toastr.error(header, message);
+  }
     ngOnInit(){
+      this.bnIdle.startWatching(300).subscribe((res) => {//5 minutes
+        if(res) {
+            console.log("session expired");            
+            this.showSuccess('Session expired!','Session Expired Alert');
+            //this.loggedIn.next(false);
+            this.router.navigate(['/login']);
+        }
+      })
       
-        this.chartColor = "#FFFFFF";
+     this.chartColor = "#FFFFFF";
 
       this.canvas = document.getElementById("chartHours");
       this.ctx = this.canvas.getContext("2d");

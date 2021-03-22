@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DatePipe, DOCUMENT, formatDate } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -44,19 +44,24 @@ export class ActivateComponent implements OnInit {
 
   constructor(private acknowledgeService: AcknowledgmentService,
       private SpinnerService: NgxSpinnerService,private toastr: ToastrService,
-      private router: Router,private excelService:ExcelService) { 
-        this.processStatusUpdate();
+      private router: Router,private excelService:ExcelService,private cd: ChangeDetectorRef) { 
+        //this.processStatusUpdate();
       }
 
   ngOnInit(): void {
-    //debugger;
-    console.log('Hi')    ;
-    this.processStatusUpdate();
+    this.fetchCardDetails();
   }
-  processStatusUpdate(){
-    this.acknowledgeService.getCardInventory("1","10",this.token).subscribe(
+  fetchCardDetails(){
+
+    let branchDetails = this.fetchBranchCode();
+
+      if (branchDetails==null){
+        this.showSuccess('Sorry, the branch record does not exist.','Acknowledgement Notification.'); 
+        return;       
+      }
+    this.acknowledgeService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
    (response)=>{
-    let cardObjData = response.data; 
+    console.log("Response: " + JSON.stringify(response));
 
     this.getCardDetails(response);
     
@@ -67,8 +72,27 @@ export class ActivateComponent implements OnInit {
     this.dataSource.sort = this.sort;
     },
     (error) => console.log(error)
-    )    
+    )   
+    this.cd.detectChanges(); 
   }
+  fetchBranchCode():any{      
+    let staffId = localStorage.getItem('staffId'); 
+
+    this.acknowledgeService.getBranchCode(staffId,this.token).subscribe(
+   (response)=>{
+    console.log("Response: " + JSON.stringify(response));
+    let cardObjData = response.data; 
+    //let empId = cardObjData.soL_ID;
+    
+    console.log('cardObjData: '+cardObjData); 
+
+    return cardObjData;    
+   
+    },
+    (error) => console.log(error)
+    ) 
+    return null;   
+  }  
   getCardDetails(response:any){        
     for(let i = 0, l = response.data.length; i < l; i++) {                 
       const card: UserData = new User(); 

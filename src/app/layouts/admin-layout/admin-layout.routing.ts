@@ -12,6 +12,7 @@ import { DispatchcardComponent } from 'app/pages/dispatchcard/dispatchcard.compo
 import { AcknowledgeComponent } from 'app/pages/Acknowledge/Acknowledge.component';
 import { ActivateComponent } from 'app/pages/Activate/Activate.component';
 import { PickupComponent } from 'app/pages/pickup/pickup.component';
+import { AuthGuard } from 'app/auth/auth.guard';
 
 export const AdminLayoutRoutes: Routes = [
   
@@ -26,9 +27,9 @@ export const AdminLayoutRoutes: Routes = [
     
     { path: 'dispatchcard', component: DispatchcardComponent, 
     children: [
-    { path: 'acknowledge', component: AcknowledgeComponent },
-    { path: 'pickup', component: PickupComponent },
-    { path: 'activate', component: ActivateComponent },
+    { path: 'acknowledge', component: AcknowledgeComponent, canActivate: [AuthGuard] },
+    { path: 'pickup', component: PickupComponent, canActivate: [AuthGuard] },
+    { path: 'activate', component: ActivateComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: 'acknowledge', pathMatch: 'full'}
   ]},    
      

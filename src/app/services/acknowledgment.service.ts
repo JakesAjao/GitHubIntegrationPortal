@@ -6,11 +6,11 @@ import { CardData, UserData } from 'app/model/acknowledgment';
 import { User } from 'app/auth/user';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+
 @Injectable({ providedIn: 'root' })
 export class AcknowledgmentService {
    url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/";
-  //  url = "http://localhost/CardTrackerPortalAPI/api/v1/";
-    
+    //url = "http://localhost/CardTrackerPortalAPI/api/v1/";    
        
     private currentUserSubject: BehaviorSubject<any>;
     public currentUser: Observable<any>;
@@ -33,26 +33,33 @@ export class AcknowledgmentService {
         return this.currentUserSubject.value;
     }   
     login(user: User): Observable<any> { 
-       const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };  
+       const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) }; 
+       console.log('login url: '+this.url+'Login/UserLogin');
        return this.http.post<any>(this.url+'Login/UserLogin',user,httpOptions);  
      }  
 
-    getCardInventory(pageNumber:string, pageSize:string,token:string): Observable<any> { 
-      //let header = new HttpHeaders().set("Authorization", 'Bearer ' + token); 
+    getCardInventory(branchCode:string,token:string): Observable<any> { 
       let headers = new HttpHeaders()
     .set('Authorization', 'Bearer ' + token)
     .set('Content-Type', 'application/json')
     
-        return this.http.get<any>(this.url+'Card/GetCards?pageNumber='+pageNumber+"&pagesize="+pageSize,{ headers });  
-      }
-     updateStatus(token:string, data: string): Observable<any> {
+        //return this.http.get<any>(this.url+'Card/GetCards?pageNumber='+pageNumber+"&pagesize="+pageSize,{ headers });
+        return this.http.get<any>(this.url+'Card/GetCardsWithBranchCode?branchCode='+branchCode,{ headers });  
        
+      }
+     updateStatus(token:string, data: string): Observable<any> {       
       const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + token}) };
       let resp = this.http.put<any>(this.url+"Card/UpdateMultipleRecords", data,httpOptions);
      
         return resp;  
       } 
-     
+      getBranchCode(staffId:string,token:string): Observable<any> { 
+        let headers = new HttpHeaders()
+      .set('Authorization', 'Bearer ' + token)
+      .set('Content-Type', 'application/json')
+          return this.http.get<any>(this.url+'Card/GetBranch?staffId='+staffId,{ headers });  
+         
+        }
       /*UpdateMember(formData:FormData,id:number):string{
         debugger;
         this.http.post<any>(this.url+'/id='+id,formData).subscribe(

@@ -24,6 +24,7 @@ export class AuthService {
   login(user: User,spinner:any) {
     
     if (user.userName !== '' && user.password !== '' ) {
+      
       this.acknowledgmentService.login(user).subscribe(
         (response)=>
         {                    
@@ -40,9 +41,9 @@ export class AuthService {
             this.flag = true;
 
             localStorage.setItem('token', token);
-            localStorage.setItem('staffId', staffId);         
+            localStorage.setItem('staffId', staffId);           
 
-            this.loggedIn.next(true);
+            //this.loggedIn.next(true);
             this.router.navigate(['/#/dashboard']);
             this.showSuccess('You have successfully logged in!','Login Notification.');
             spinner.hide();
@@ -55,7 +56,7 @@ export class AuthService {
         },
         (error)=>{            
           console.log(error);
-            this.loggedIn.next(false);
+            //this.loggedIn.next(false);
             let isSuccessful = this.GetServerResponse(error);
             if (isSuccessful==false){
               this.loggedIn.next(false);
@@ -74,6 +75,7 @@ export class AuthService {
       if (error==null){
         return null;
       }
+      
       for(var key in error)
       {
         if (key=='error'){
@@ -94,7 +96,9 @@ export class AuthService {
     this.toastr.error(header, message);
   }
   logout() {
-    this.loggedIn.next(false);
+    //this.loggedIn.next(false);
+    localStorage.setItem('token', "");
+    localStorage.setItem('staffId', ""); 
     this.router.navigate(['/login']);
     this.showSuccess('You have successfully logged out!','Login Notification.');
   }

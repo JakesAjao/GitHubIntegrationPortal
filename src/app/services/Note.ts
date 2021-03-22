@@ -2,7 +2,7 @@
 // dev environment build command
 // ng build --base-href /my-app/
 
-// 72.27.8.145/CardTrackerPortalAPI/swagger/index.html
+// 172.27.8.145/CardTrackerPortalAPI/swagger/index.html
 
 // CORS FIXES:cmd
 // “C:\Program Files (x86)\Google\Chrome\Application\chrome.exe” chrome.exe --disable-web-security

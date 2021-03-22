@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { DatePipe, DOCUMENT, formatDate } from '@angular/common';
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -38,7 +38,7 @@ export class AcknowledgeComponent implements OnInit  {
     
   dataSource: MatTableDataSource<UserData>;
       
-    ELEMENT_DATA: UserData[] = [];
+  ELEMENT_DATA: UserData[] = [];
    rows = [];
   
     @ViewChild(MatPaginator) paginator: MatPaginator;    
@@ -46,27 +46,54 @@ export class AcknowledgeComponent implements OnInit  {
     
     constructor(fb: FormBuilder, private acknowledgeService: AcknowledgmentService,
       private SpinnerService: NgxSpinnerService,private toastr: ToastrService,
-      private router: Router,private excelService:ExcelService){
-   
-    }  
+      private router: Router,private excelService:ExcelService ){
+        //this.fetchCardDetails();
+       }  
      ngOnInit(): void{ 
-      this.processStatusUpdate();
-    }    
-    processStatusUpdate(){
-      this.acknowledgeService.getCardInventory("1","10",this.token).subscribe(
+      this.fetchCardDetails();     
+    }  
+    fetchBranchCode():any{      
+      let staffId = localStorage.getItem('staffId'); 
+
+      this.acknowledgeService.getBranchCode(staffId,this.token).subscribe(
      (response)=>{
+      console.log("Response: " + JSON.stringify(response));
+      let cardObjData = response.data; 
+      //let empId = cardObjData.soL_ID;
+      
+      console.log('cardObjData: '+cardObjData); 
+
+      return cardObjData;    
+     
+      },
+      (error) => console.log(error)
+      ) 
+      return null;   
+    }  
+    fetchCardDetails(){
+      let branchDetails = this.fetchBranchCode();
+
+      if (branchDetails==null){
+        this.showSuccess('Sorry, the branch record does not exist.','Acknowledgement Notification.'); 
+        return;       
+      }
+      this.acknowledgeService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
+     (response)=>{
+      console.log("Response: " + JSON.stringify(response));
       let cardObjData = response.data; 
 
       this.getCardDetails(response);
+      console.log('cardObjData: '+cardObjData)
       
       const users = Array.from(this.ELEMENT_DATA);     
       this.dataSource = new MatTableDataSource(users);       
       this.dataSource.paginator = this.paginator;
         
       this.dataSource.sort = this.sort;
-      },
-      (error) => console.log(error)
-      )    
+    },
+    (error) => console.log(error)
+    ) 
+        
     }
     getCardDetails(response:any){        
       for(let i = 0, l = response.data.length; i < l; i++) {                 
@@ -90,6 +117,7 @@ export class AcknowledgeComponent implements OnInit  {
        }  
     }
     refresh():void {
+      console.log('fetchCardDetails called.');
       let currentUrl = this.router.url;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
@@ -185,7 +213,6 @@ export class AcknowledgeComponent implements OnInit  {
       }
     }
     updateAll(){ 
-      debugger;
       let f = this.isAllSelected();
        if (this.isAllSelected() && (this.cardDataArr.length==0)){
         this.SpinnerService.show(); 
