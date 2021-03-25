@@ -13,6 +13,7 @@ import { AcknowledgeComponent } from 'app/pages/Acknowledge/Acknowledge.componen
 import { ActivateComponent } from 'app/pages/Activate/Activate.component';
 import { PickupComponent } from 'app/pages/pickup/pickup.component';
 import { AuthGuard } from 'app/auth/auth.guard';
+import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
 
 export const AdminLayoutRoutes: Routes = [
   
@@ -25,8 +26,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     
+    
     { path: 'dispatchcard', component: DispatchcardComponent, 
     children: [
+      { path: 'cardupload', component: CarduploadComponent, canActivate: [AuthGuard] },
     { path: 'acknowledge', component: AcknowledgeComponent, canActivate: [AuthGuard] },
     { path: 'pickup', component: PickupComponent, canActivate: [AuthGuard] },
     { path: 'activate', component: ActivateComponent, canActivate: [AuthGuard] },

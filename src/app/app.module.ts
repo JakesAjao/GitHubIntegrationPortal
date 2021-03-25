@@ -33,11 +33,14 @@ import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 import { BackButtonDisableModule } from "angular-disable-browser-back-button";
 //import { ButtonSpinnerComponent } from './button-spinner/button-spinner.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
+import { Keepalive, NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent  
+    LoginComponent 
         
   ],
   imports: [
@@ -47,6 +50,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     useHash: true,
     relativeLinkResolution: 'legacy',    
 }),
+
+NgIdleKeepaliveModule.forRoot(), 
 ToastrModule.forRoot(),
     SidebarModule,
     NavbarModule,    
@@ -65,7 +70,7 @@ ToastrModule.forRoot(),
   BackButtonDisableModule.forRoot({
     preserveScrollPosition: true
   }),
-  NgxSpinnerModule  
+  NgxSpinnerModule, 
   ],
   exports: [    
     MatFormFieldModule,

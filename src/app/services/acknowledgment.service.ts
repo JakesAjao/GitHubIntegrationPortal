@@ -56,28 +56,16 @@ export class AcknowledgmentService {
         let headers = new HttpHeaders()
       .set('Authorization', 'Bearer ' + token)
       .set('Content-Type', 'application/json')
-          return this.http.get<any>(this.url+'Card/GetBranch?staffId='+staffId,{ headers });  
-         
+          return this.http.get<any>(this.url+'Card/GetBranch?staffId='+staffId,{ headers });        
         }
-      /*UpdateMember(formData:FormData,id:number):string{
-        debugger;
-        this.http.post<any>(this.url+'/id='+id,formData).subscribe(
-          (res) => console.log(res),
-         (err) => console.log(err));   
-         return "Success";      
-      }  */
-      updateMember(formData: FormData) { 
+     uploadCard(formData: FormData,token:string):Observable<any> { 
         console.log(formData); 
-       this.http.post<any>(this.url+'/updatemember',formData).subscribe(
-        (res) => console.log(res),
-       (err) => console.log(err));   
-       //return "Success"; 
-      }  
-      getGenderTotal(): Observable<any> {  
-        return this.http.get<any>(this.url+"/getgendertotal");  
-      }     
+        const httpOptions = { headers: new HttpHeaders({'Authorization': 'Bearer ' + token}) };    
+      
+       let resp =  this.http.post<FormData>(this.url+'FileUpload/UploadCards',formData,httpOptions);
+       return resp;
+        
+        } 
+    
      
-    getMemberDetails(id: string): Observable<any> {  
-      return this.http.get<any>(this.url + '/id=' + id);  
-    } 
 }

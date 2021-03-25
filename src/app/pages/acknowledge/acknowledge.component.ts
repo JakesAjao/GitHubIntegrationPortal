@@ -55,7 +55,7 @@ export class AcknowledgeComponent implements OnInit  {
     fetchBranchCode():any{      
       let staffId = localStorage.getItem('staffId'); 
 
-      this.acknowledgeService.getBranchCode(staffId,this.token).subscribe(
+    this.acknowledgeService.getBranchCode(staffId,this.token).subscribe(
      (response)=>{
       console.log("Response: " + JSON.stringify(response));
       let cardObjData = response.data; 

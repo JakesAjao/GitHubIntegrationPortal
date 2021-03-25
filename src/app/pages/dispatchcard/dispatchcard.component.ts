@@ -10,6 +10,10 @@ export class DispatchcardComponent implements OnInit {
  
   navLinks = [
     {
+      path: '/dispatchcard/cardupload',
+      label: 'Cardupload'
+    },
+    {
       path: '/dispatchcard/acknowledge',
       label: 'Acknowledge'
     },

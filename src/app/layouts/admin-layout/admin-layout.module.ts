@@ -36,6 +36,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ExcelService } from 'app/services/excel.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PickupComponent } from 'app/pages/pickup/pickup.component';
+import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
 @NgModule({
   imports: [
     
@@ -58,9 +59,9 @@ import { PickupComponent } from 'app/pages/pickup/pickup.component';
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),
-    NgxSpinnerModule
+    NgxSpinnerModule,
     ],
-    providers: [BnNgIdleService,ExcelService], // add it to the providers of your module
+    providers: [ExcelService], // add it to the providers of your module
     
   declarations: [
     DashboardComponent,
@@ -74,7 +75,8 @@ import { PickupComponent } from 'app/pages/pickup/pickup.component';
     DispatchcardComponent,
     AcknowledgeComponent,
     ActivateComponent,
-    PickupComponent
+    PickupComponent,
+    CarduploadComponent
   ],
   
   exports: [    
