@@ -49,7 +49,7 @@ export class CarduploadComponent implements OnInit {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       if (!_.includes(af, file.type)) {
-        this.creditcardService.showFailure('Oops! Only Excel Document is Allowed!','CardUpload Notification.');
+        this.creditcardService.showFailure('Oops! Only Excel Document is Allowed.','CardUpload Notification.');
       } else {
         
       this.SpinnerService.show();

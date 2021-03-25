@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CardData, User, UserData } from 'app/model/acknowledgment';
-import { AcknowledgmentService } from 'app/services/acknowledgment.service111';
+import { AcknowledgmentService } from 'app/services/acknowledgment.service1111';
 import { ExcelService } from 'app/services/excel.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';

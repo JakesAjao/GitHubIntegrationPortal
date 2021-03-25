@@ -47,9 +47,9 @@ export class SidebarComponent implements OnInit {
         private toastr: ToastrService,private router: Router,private idle: Idle, private keepalive: Keepalive){
          
             // sets an idle timeout of 5 seconds, for testing purposes.
-    idle.setIdle(1800);
+    idle.setIdle(300);
     // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-    idle.setTimeout(1800);
+    idle.setTimeout(300);
     // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
     idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
