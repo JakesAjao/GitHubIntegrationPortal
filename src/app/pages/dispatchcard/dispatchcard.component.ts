@@ -26,12 +26,8 @@ export class DispatchcardComponent implements OnInit {
       label: 'Activate'
     },
     ];
-  constructor(private bnIdle: BnNgIdleService) {
-    this.bnIdle.startWatching(60).subscribe((res) => {
-      if(res) {
-          //console.log("session expired");
-      }
-    })
+  constructor() {
+ 
    }
 
   ngOnInit(): void {

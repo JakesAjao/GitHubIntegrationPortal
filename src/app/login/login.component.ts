@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User, UserData } from 'app/model/acknowledgment';
-import { AcknowledgmentService } from 'app/services/acknowledgment.service';
+import { CreditCardServices } from 'app/services/creditcardServices';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private bnIdle: BnNgIdleService,
-    private acknowledgeService: AcknowledgmentService,
     private SpinnerService: NgxSpinnerService
   ){
     // this.bnIdle.startWatching(60).subscribe((res) => {

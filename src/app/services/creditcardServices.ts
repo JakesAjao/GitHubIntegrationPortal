@@ -1,3 +1,5 @@
+
+import { ToastrService } from 'ngx-toastr';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, interval, throwError } from 'rxjs';
@@ -8,8 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Injectable({ providedIn: 'root' })
-export class AcknowledgmentService {
-   url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/";
+export class CreditCardServices {
+    url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/";
     //url = "http://localhost/CardTrackerPortalAPI/api/v1/";    
        
     private currentUserSubject: BehaviorSubject<any>;
@@ -24,12 +26,12 @@ export class AcknowledgmentService {
   
     @Output() public onUploadFinished = new EventEmitter();
     //httpClient: any;
-    constructor(private http: HttpClient) {
+    constructor(private toastr: ToastrService,private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
-        
-    }
-    public get currentUserValue(){
+       
+     }
+     public get currentUserValue(){
         return this.currentUserSubject.value;
     }   
     login(user: User): Observable<any> { 
@@ -65,7 +67,11 @@ export class AcknowledgmentService {
        let resp =  this.http.post<FormData>(this.url+'FileUpload/UploadCards',formData,httpOptions);
        return resp;
         
-        } 
-    
-     
+        }    
+    showSuccess(header:string,message:string) {
+        this.toastr.success(header, message);
+      }
+    showFailure(header:string,message:string) {
+        this.toastr.error(header, message);
+      }
 }

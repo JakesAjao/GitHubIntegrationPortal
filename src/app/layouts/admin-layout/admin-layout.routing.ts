@@ -33,7 +33,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'acknowledge', component: AcknowledgeComponent, canActivate: [AuthGuard] },
     { path: 'pickup', component: PickupComponent, canActivate: [AuthGuard] },
     { path: 'activate', component: ActivateComponent, canActivate: [AuthGuard] },
-    { path: '', redirectTo: 'acknowledge', pathMatch: 'full'}
+    { path: '', redirectTo: 'cardupload', pathMatch: 'full'}
   ]},    
      
 ];

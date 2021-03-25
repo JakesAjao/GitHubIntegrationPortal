@@ -87,14 +87,7 @@ export class SidebarComponent implements OnInit {
     }
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
-        // this.bnIdle.startWatching(300).subscribe((res) => {//5 minutes
-        //     if(res) {
-        //         console.log("session expired");            
-        //         this.showSuccess('Session expired!','Session Expired Alert');
-        //         //this.loggedIn.next(false);
-        //         this.router.navigate(['/login']);
-        //     }
-        //   })
+     
     }
     reset() {
         this.idle.watch();

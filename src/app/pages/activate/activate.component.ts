@@ -7,10 +7,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CardData, User, UserData } from 'app/model/acknowledgment';
-import { AcknowledgmentService } from 'app/services/acknowledgment.service';
 import { ExcelService } from 'app/services/excel.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { CreditCardServices } from 'app/services/creditcardServices';
 
 
 @Component({
@@ -42,7 +42,7 @@ export class ActivateComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;    
     @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private acknowledgeService: AcknowledgmentService,
+  constructor(private creditcardService: CreditCardServices,
       private SpinnerService: NgxSpinnerService,private toastr: ToastrService,
       private router: Router,private excelService:ExcelService,private cd: ChangeDetectorRef) { 
         //this.processStatusUpdate();
@@ -56,10 +56,10 @@ export class ActivateComponent implements OnInit {
     let branchDetails = this.fetchBranchCode();
 
       if (branchDetails==null){
-        this.showSuccess('Sorry, the branch record does not exist.','Activate Notification.'); 
+        this.creditcardService.showSuccess('Sorry, the branch record does not exist.','Activate Notification.'); 
         return;       
       }
-    this.acknowledgeService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
+      this.creditcardService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
    (response)=>{
     console.log("Response: " + JSON.stringify(response));
 
@@ -78,7 +78,7 @@ export class ActivateComponent implements OnInit {
   fetchBranchCode():any{      
     let staffId = localStorage.getItem('staffId'); 
 
-    this.acknowledgeService.getBranchCode(staffId,this.token).subscribe(
+    this.creditcardService.getBranchCode(staffId,this.token).subscribe(
    (response)=>{
     console.log("Response: " + JSON.stringify(response));
     let cardObjData = response.data;     
@@ -193,13 +193,13 @@ export class ActivateComponent implements OnInit {
  
   UploadStatus(cardDataJson:string){
     if (cardDataJson != null){
-      this.acknowledgeService.updateStatus(this.token, cardDataJson).subscribe( 
+      this.creditcardService.updateStatus(this.token, cardDataJson).subscribe( 
         (data) =>{           
             this.successfulMessage(data);     
         }),
         err => {
           console.log("Error");
-          this.showFailure('Oops! Card Activate failed.','Activate Notification.');
+          this.creditcardService.showFailure('Oops! Card Activate failed.','Activate Notification.');
           this.SpinnerService.hide();
         }      
     }
@@ -232,18 +232,13 @@ export class ActivateComponent implements OnInit {
       //console.log(data);
       console.log('selected All Status Response List: '+data);        
       this.SpinnerService.hide();
-      this.showSuccess('Card Activate Successfully!','Activate Notification.');
+      this.creditcardService.showSuccess('Card Activate Successfully!','Activate Notification.');
   
       this.refresh();
      }, 2000);
     }
   }
-  showSuccess(header:string,message:string) {
-    this.toastr.success(header, message);
-  }
-  showFailure(header:string,message:string) {
-    this.toastr.error(header, message);
-  }
+ 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;

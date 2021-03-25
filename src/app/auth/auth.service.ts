@@ -1,7 +1,8 @@
 import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AcknowledgmentService } from 'app/services/acknowledgment.service';
+import { AcknowledgmentService } from 'app/services/acknowledgment.service111';
+import { CreditCardServices } from 'app/services/creditcardServices';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { User } from './user';
@@ -18,14 +19,14 @@ export class AuthService {
     private router: Router,
     private toastr: ToastrService,
     private httpClient: HttpClient,
-    private acknowledgmentService: AcknowledgmentService
+    private creditcardService: CreditCardServices,
   ) {}
 
   login(user: User,spinner:any) {
     
     if (user.userName !== '' && user.password !== '' ) {
       
-      this.acknowledgmentService.login(user).subscribe(
+      this.creditcardService.login(user).subscribe(
         (response)=>
         {                    
           let isSuccessful:boolean = (response.isSuccessful);
@@ -44,7 +45,7 @@ export class AuthService {
             localStorage.setItem('staffId', staffId);           
 
             this.router.navigate(['/#/dashboard']);
-            this.showSuccess('You have successfully logged in!','Login Notification.');
+            this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
             spinner.hide();
           }
           // else{
@@ -59,10 +60,10 @@ export class AuthService {
             let isSuccessful = this.GetServerResponse(error);
             if (isSuccessful==false){
               this.loggedIn.next(false);
-              this.showFailure('Invalid Username or Password Supplied.','Login Notification.');
+              this.creditcardService.showFailure('Invalid Username or Password Supplied.','Login Notification.');
             }
             else{
-            this.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
+              this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
             }  
             spinner.hide();       
         }
@@ -87,18 +88,11 @@ export class AuthService {
         }
       }
   }
- 
-  showSuccess(header:string,message:string) {
-    this.toastr.success(header, message);
-  }
-  showFailure(header:string,message:string) {
-    this.toastr.error(header, message);
-  }
   logout() {
     //this.loggedIn.next(false);
     localStorage.setItem('token', "");
     localStorage.setItem('staffId', ""); 
     this.router.navigate(['/login']);
-    this.showSuccess('You have successfully logged out!','Login Notification.');
+    this.creditcardService.showSuccess('You have successfully logged out!','Login Notification.');
   }
 }
