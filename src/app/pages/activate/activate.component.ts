@@ -81,9 +81,7 @@ export class ActivateComponent implements OnInit {
     this.acknowledgeService.getBranchCode(staffId,this.token).subscribe(
    (response)=>{
     console.log("Response: " + JSON.stringify(response));
-    let cardObjData = response.data; 
-    //let empId = cardObjData.soL_ID;
-    
+    let cardObjData = response.data;     
     console.log('cardObjData: '+cardObjData); 
 
     return cardObjData;    

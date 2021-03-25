@@ -10,12 +10,25 @@
         <div class="col-sm-6 text-center">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="customFile" name="myfile"
-                    (change)="onFileSelect($event)" #UploadFileInput>
+                    (change)="onFileSelect($event)" #uploadFileInput>
                 <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Select Credit Card Upload'}}</label>
            </div>           
         </div>
         <div class="text-center">
             <button class="btn btn-primary" type="submit">Upload</button>
         </div>
+    </div>
+    <div>   
+    <span *ngIf="spinnerEnabled" class="k-i-loading k-icon"></span>
+    <table>
+        <th *ngFor="let key of keys">
+        {{key}}
+        </th>
+        <tr *ngFor="let item of dataSheet | async">
+        <td *ngFor="let key of keys">
+            {{item[key]}}
+        </td>        
+        </tr> 
+    </table>
     </div>
 </form>

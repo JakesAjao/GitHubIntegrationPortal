@@ -37,6 +37,7 @@ import { ExcelService } from 'app/services/excel.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PickupComponent } from 'app/pages/pickup/pickup.component';
 import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
+import { GridModule } from '@angular/flex-layout';
 @NgModule({
   imports: [
     
@@ -60,6 +61,7 @@ import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
       preserveScrollPosition: true
     }),
     NgxSpinnerModule,
+    GridModule
     ],
     providers: [ExcelService], // add it to the providers of your module
     

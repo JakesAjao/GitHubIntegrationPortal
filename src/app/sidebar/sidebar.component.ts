@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ToastrService } from 'ngx-toastr';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
+import { Subject } from 'rxjs/internal/Subject';
 
 export interface RouteInfo {
     path: string;
@@ -36,13 +37,19 @@ export class SidebarComponent implements OnInit {
     timedOut = false;
     lastPing?: Date = null;
     title = 'angular-idle-timeout';
+
+    spinnerEnabled = false;
+    keys: string[];
+    dataSheet = new Subject();
+    @ViewChild('inputFile') inputFile: ElementRef;
+    isExcelFile: boolean;
     constructor(
         private toastr: ToastrService,private router: Router,private idle: Idle, private keepalive: Keepalive){
          
             // sets an idle timeout of 5 seconds, for testing purposes.
-    idle.setIdle(300);
+    idle.setIdle(1800);
     // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-    idle.setTimeout(300);
+    idle.setTimeout(1800);
     // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
     idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
