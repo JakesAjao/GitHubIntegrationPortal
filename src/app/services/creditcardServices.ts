@@ -80,7 +80,7 @@ export class CreditCardServices {
     .set('Authorization', 'Bearer ' + token)
     .set('Content-Type', 'application/json')
     
-        return this.http.get<any>(this.url+'Card/GetAllBlankCards?branchCode='+branchCode,{ headers });  
+        return this.http.get<any>(this.url+'Card/GetBlankCardsWithBranchCode?branchCode='+branchCode,{ headers });  
         
       }
     updateBlankStatus(token:string, data: string): Observable<any> {       
@@ -90,10 +90,10 @@ export class CreditCardServices {
       return resp;  
     } 
     uploadBlankCard(formData: FormData,token:string):Observable<any> { 
-      console.log(formData); 
+      //console.log(formData); 
       const httpOptions = { headers: new HttpHeaders({'Authorization': 'Bearer ' + token}) };    
     
-     let resp =  this.http.post<FormData>(this.url+'FileUpload/UploadCards/UploadBlankCards',formData,httpOptions);
+     let resp =  this.http.post<FormData>(this.url+'FileUpload/UploadBlankCards',formData,httpOptions);
      return resp;        
       }  
 }

@@ -23,18 +23,20 @@ export class BlankcardUploadComponent implements OnInit {
   dataSheet = new Subject();
   @ViewChild('uploadFileInput') uploadFileInput: ElementRef;
   isExcelFile: boolean;
-  
+  error: string;
+  success: string;
+
   constructor(private formBuilder: FormBuilder,private toastr: ToastrService,private SpinnerService: NgxSpinnerService,
     private creditcardService: CreditCardServices,) {      
      }
 
   ngOnInit(): void {
     (document.getElementById('button') as HTMLInputElement).disabled = false;
-    
+        
     this.fileUploadForm = this.formBuilder.group({
       myfile: ['']
     });
-    this.token = localStorage.getItem('token');
+    
   }
   onFileSelect(event) {    
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
@@ -52,6 +54,8 @@ export class BlankcardUploadComponent implements OnInit {
     }
   }
     onFormSubmit(){
+      debugger;
+      this.token = localStorage.getItem('token');
       this.SpinnerService.show();
       if (!this.fileUploadForm.get('myfile').value) {
         this.creditcardService.showFailure('Oops! Please fill valid details.','Blank CardUpload Notification.');
@@ -60,7 +64,7 @@ export class BlankcardUploadComponent implements OnInit {
       }  
       const formData = new FormData();
       formData.append('formFile', this.fileUploadForm.get('myfile').value);
-
+     
       this.creditcardService.uploadBlankCard(formData,this.token).subscribe(
         (response)=>{
          console.log("Response: " + JSON.stringify(response));
@@ -68,16 +72,16 @@ export class BlankcardUploadComponent implements OnInit {
          if (response.statusCode === "00") {          
           this.creditcardService.showSuccess('Wow! '+msg+".",'Blank CardUpload Notification.');
           this.uploadFileInput.nativeElement.value = "";
-          
+          this.success = "Uploaded!";
         (document.getElementById('button') as HTMLInputElement).disabled = true;
         this.SpinnerService.hide(); 
         }   
-         return msg;           
+                  
          },
          error => {
           console.log('Upload failed: '+JSON.parse(error));
           this.creditcardService.showFailure('Oops! Upload failed. ','Blank CardUpload Notification.');
-          
+          this.error = "Failed.";
         (document.getElementById('button') as HTMLInputElement).disabled = true;
         this.SpinnerService.hide(); 
         });               

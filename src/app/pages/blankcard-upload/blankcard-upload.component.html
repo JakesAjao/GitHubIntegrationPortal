@@ -1,5 +1,6 @@
 <h4 style="margin-top: 10px;text-align: center;">Blank Card Upload</h4>
-
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="success" class="alert alert-success">{{success}}</div>
 <span *ngIf="spinnerEnabled" class="k-i-loading k-icon"></span>  
 
 <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">

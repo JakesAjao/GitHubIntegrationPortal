@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CardData, User, UserData } from 'app/model/acknowledgment';
+import { BlankCard, BlankCardData, BlankCardImpl } from 'app/model/blankcard';
 import { CreditCardServices } from 'app/services/creditcardServices';
 import { ExcelService } from 'app/services/excel.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -18,7 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class BlankcardAcknowledgementComponent implements OnInit {
   acknowledgeForm: FormGroup;
-  selection = new SelectionModel<UserData>(true, []);
+  selection = new SelectionModel<BlankCardData>(true, []);
   isallSelectedStatus:boolean;
   aSelectedCheckId:number;
   cardDataArr =  [];
@@ -29,13 +30,16 @@ export class BlankcardAcknowledgementComponent implements OnInit {
   token = localStorage.getItem('token');
   staffId = localStorage.getItem('staffId');
   
-  displayedColumns: string[] = ['select','id', 'customerid', 'accountnumber', 'customername','pan','cardtype','branchsol',
+  displayedColumns: string[] = ['select','id', 'cardtype', 'batchno', 'branchname','solid','noofcards','datedispatched',
 
-  'branchname','datedispatched','status'];
+  'entrydate','status',];
     
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<BlankCard>;
+  
+  error: string;
+  success: string;
       
-  ELEMENT_DATA: UserData[] = [];
+  ELEMENT_DATA: BlankCard[] = [];
    rows = [];
   
     @ViewChild(MatPaginator) paginator: MatPaginator;    
@@ -58,7 +62,7 @@ export class BlankcardAcknowledgementComponent implements OnInit {
       let cardObjData = response.data; 
       //let empId = cardObjData.soL_ID;
       
-      console.log('cardObjData: '+cardObjData); 
+      console.log('blankcardObj: '+cardObjData); 
 
       return cardObjData;    
      
@@ -74,12 +78,12 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         this.creditcardService.showSuccess('Sorry, the branch record does not exist.','Blankcard Acknowledgement Notification.'); 
         return;       
       }
-      this.creditcardService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
+      this.creditcardService.getBlankCardInventory(branchDetails.soL_ID,this.token).subscribe(
      (response)=>{
       console.log("Response: " + JSON.stringify(response));
       let cardObjData = response.data; 
 
-      this.getCardDetails(response);
+      this.getBlankCardDetails(response);
       //console.log('cardObjData: '+cardObjData)
       
       const users = Array.from(this.ELEMENT_DATA);     
@@ -92,23 +96,20 @@ export class BlankcardAcknowledgementComponent implements OnInit {
     ) 
         
     }
-    getCardDetails(response:any){        
+    getBlankCardDetails(response:any){        
       for(let i = 0, l = response.data.length; i < l; i++) {                 
-        const card: UserData = new User(); 
+        const card: BlankCard = new BlankCardImpl(); 
 
-        card.id = response.data[i].sno;
-        card.accountnumber = response.data[i].accountnumber;          
-        card.customerid = response.data[i].customerid;        
-        card.customername = response.data[i].customername;
-        card.pan = response.data[i].pan;
-        card.cardtype = response.data[i].cardtype;
-        card.branchsol = response.data[i].branchsol;
-        card.branchname = response.data[i].branchname;
-        card.acknowledgedStatus = response.data[i].acknowledgedStatus; //   
-        card.activationStatus = response.data[i].activationStatus; // 
-        card.pickupstatus = response.data[i].pickupstatus; //         
-        card.emailNotificationStatus = response.data[i].emailNotificationStatus;//
-        card.datedispatched = response.data[i].dateAcknowledged;//
+        card.id = response.data[i].id;
+        card.batcH_NO = response.data[i].batcH_NO;          
+        card.brancH_NAME = response.data[i].brancH_NAME;        
+        card.carD_TYPE = response.data[i].carD_TYPE;
+        card.datE_OF_DISPATCH = response.data[i].datE_OF_DISPATCH;
+        card.datedispatched = response.data[i].datedispatched;
+        card.entrY_DATE = response.data[i].entrY_DATE;
+        card.nO_OF_CARDS = response.data[i].nO_OF_CARDS;
+        card.soL_ID = response.data[i].soL_ID; //   
+        card.status = response.data[i].status; // 
 
         this.ELEMENT_DATA.push(card);
        }  
@@ -130,18 +131,17 @@ export class BlankcardAcknowledgementComponent implements OnInit {
     }
     processAllSelected(){
      
-      let cardDataList:Array<CardData> = [];
+      let cardDataList:Array<BlankCardData> = [];
       if (this.ELEMENT_DATA!=null){
        
       for(var elementData of this.ELEMENT_DATA){
-        let cardData:CardData = new CardData();
-        console.log(cardData.customerid);
+        let cardData:BlankCardData = new BlankCardData();
+        console.log(cardData.carD_TYPE);
 
-        cardData.sno = elementData.id;
-        cardData.customerid = elementData.customerid;
-        cardData.acknowledgedStatus = elementData.acknowledgedStatus;
-        cardData.activationStatus = elementData.activationStatus;
-        cardData.pickupstatus = elementData.pickupstatus;
+        cardData.id = elementData.id;
+        cardData.carD_TYPE = elementData.carD_TYPE;
+        cardData.soL_ID = elementData.soL_ID;
+        cardData.status = elementData.status;
          
         cardDataList.push(cardData);        
       }
@@ -150,14 +150,13 @@ export class BlankcardAcknowledgementComponent implements OnInit {
       
     }
     processCheckboxSelected(event,element){
-      let cardData: CardData = new CardData();
+      let cardData: BlankCardData = new BlankCardData();
       if(event.checked)
       {
         let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
-
         cardData = this.ParseObject(id);
         this.cardDataArr.push(cardData);         
-        this.cardDataArr.forEach(x1 => x1.acknowledgedStatus = true);
+        this.cardDataArr.forEach(x1 => x1.status = true);
       }
       else
       {
@@ -168,13 +167,12 @@ export class BlankcardAcknowledgementComponent implements OnInit {
       }
     }
     ParseObject(id:number){
-      let cardData = new CardData;
+      let cardData = new BlankCardData;
 
-      cardData.sno = this.ELEMENT_DATA[id].id;
-      cardData.customerid = this.ELEMENT_DATA[id].customerid;
-      cardData.acknowledgedStatus = this.ELEMENT_DATA[id].acknowledgedStatus;
-      cardData.activationStatus = this.ELEMENT_DATA[id].activationStatus;
-      cardData.pickupstatus = this.ELEMENT_DATA[id].pickupstatus;
+      cardData.id = this.ELEMENT_DATA[id].id;
+      cardData.carD_TYPE = this.ELEMENT_DATA[id].carD_TYPE;
+      cardData.soL_ID = this.ELEMENT_DATA[id].soL_ID;
+      cardData.status = this.ELEMENT_DATA[id].status;
 
       return cardData;
     }
@@ -215,15 +213,18 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         this.SpinnerService.show(); 
         let cardDataList = this.processAllSelected(); 
         
-        cardDataList.forEach(x1 => x1.acknowledgedStatus = true);   //Update each acknowledge status    
+        cardDataList.forEach(x1 => x1.status = "true");   //Update each blank acknowledge status    
         let cardDataJson = JSON.stringify(cardDataList); 
+        
+        this.success= "Updated!";
         
         this.UploadStatus(cardDataJson);
        }
        else if (this.cardDataArr.length!=0){
         this.SpinnerService.show(); 
         let cardDataJson = JSON.stringify(this.cardDataArr);
-        this.UploadStatus(cardDataJson);            
+        this.UploadStatus(cardDataJson); 
+        this.success = "Failed."           
       }
       else{
 

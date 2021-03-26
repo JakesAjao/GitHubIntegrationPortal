@@ -25,7 +25,8 @@ export class CarduploadComponent implements OnInit {
   dataSheet = new Subject();
   @ViewChild('uploadFileInput') uploadFileInput: ElementRef;
   isExcelFile: boolean;
-
+  success:string;
+  error:string;
 
   constructor(
     private formBuilder: FormBuilder,private toastr: ToastrService,private SpinnerService: NgxSpinnerService,
@@ -40,6 +41,8 @@ export class CarduploadComponent implements OnInit {
       myfile: ['']
     });
     this.token = localStorage.getItem('token');
+    this.success="" ;
+    this.error = "";
   }
   onFileSelect(event) {
     
@@ -77,12 +80,15 @@ export class CarduploadComponent implements OnInit {
           
         (document.getElementById('button') as HTMLInputElement).disabled = true;
         this.SpinnerService.hide(); 
+        this.success="Uploaded!" ;
+        
         }   
          return msg;           
          },
          error => {
           console.log('Upload failed: '+JSON.parse(error));
           this.creditcardService.showFailure('Oops! Upload failed. ','Credit Card CardUpload Notification.');
+          this.error = "Failed.";
           
         (document.getElementById('button') as HTMLInputElement).disabled = true;
         this.SpinnerService.hide(); 

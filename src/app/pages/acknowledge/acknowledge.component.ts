@@ -28,6 +28,8 @@ export class AcknowledgeComponent implements OnInit  {
   acknowledgeData:UserData[];
   pageNumber = "1";
   pageSize = "10";
+  error: string;
+  success: string;
   
   token = localStorage.getItem('token');
   staffId = localStorage.getItem('staffId');
@@ -50,7 +52,9 @@ export class AcknowledgeComponent implements OnInit  {
         
        }  
      ngOnInit(): void{ 
-      this.fetchCardDetails();     
+      this.fetchCardDetails();    
+      this.success="" ;
+      this.error = "";
     }  
     fetchBranchCode():any{      
       let staffId = localStorage.getItem('staffId'); 
@@ -202,12 +206,14 @@ export class AcknowledgeComponent implements OnInit  {
       if (cardDataJson != null){
         this.creditcardService.updateStatus(this.token, cardDataJson).subscribe( 
           (data) =>{           
-              this.successfulMessage(data);     
+              this.successfulMessage(data); 
+              this.success = "Uploaded!";    
           }),
           err => {
             console.log("Error");
             this.creditcardService.showFailure('Oops! Card Acknowledgement failed.','Acknowledgement Notification.');
             this.SpinnerService.hide();
+            this.success = "Failed."; 
           }        
           
       }

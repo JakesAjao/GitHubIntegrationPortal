@@ -27,6 +27,8 @@ export class ActivateComponent implements OnInit {
   pageNumber = "1";
   pageSize = "10";
   
+  error: string;
+  success: string;
   token = localStorage.getItem('token');
   staffId = localStorage.getItem('staffId');
   
@@ -50,6 +52,8 @@ export class ActivateComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchCardDetails();
+    this.success="" ;
+    this.error = "";
   }
   fetchCardDetails(){
 
@@ -212,14 +216,15 @@ export class ActivateComponent implements OnInit {
       let cardDataList = this.processAllSelected(); 
       
       cardDataList.forEach(x1 => x1.activationStatus = true);   //Update each acknowledge status    
-      let cardDataJson = JSON.stringify(cardDataList); 
-      
+      let cardDataJson = JSON.stringify(cardDataList);
+      this.success  = "Updated!";
       this.UploadStatus(cardDataJson);
      }
      else if (this.cardDataArr.length!=0){
        console.log('this.cardDataArr: '+this.cardDataArr);
       this.SpinnerService.show(); 
       let cardDataJson = JSON.stringify(this.cardDataArr);
+      this.error = "Failed."
       this.UploadStatus(cardDataJson);            
     }
     else{
