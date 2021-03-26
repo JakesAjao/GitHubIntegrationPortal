@@ -38,6 +38,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PickupComponent } from 'app/pages/pickup/pickup.component';
 import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
 import { GridModule } from '@angular/flex-layout';
+import { BlankcardAcknowledgementComponent } from 'app/pages/blankcard-acknowledgement/blankcard-acknowledgement.component';
+import { BlankcardUploadComponent } from 'app/pages/blankcard-upload/blankcard-upload.component';
+import { BlankcardComponent } from 'app/pages/blankcard/blankcard.component';
 @NgModule({
   imports: [
     
@@ -78,7 +81,10 @@ import { GridModule } from '@angular/flex-layout';
     AcknowledgeComponent,
     ActivateComponent,
     PickupComponent,
-    CarduploadComponent
+    CarduploadComponent,
+    BlankcardAcknowledgementComponent,
+    BlankcardUploadComponent,
+    BlankcardComponent
   ],
   
   exports: [    

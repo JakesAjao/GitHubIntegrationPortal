@@ -65,13 +65,35 @@ export class CreditCardServices {
         const httpOptions = { headers: new HttpHeaders({'Authorization': 'Bearer ' + token}) };    
       
        let resp =  this.http.post<FormData>(this.url+'FileUpload/UploadCards',formData,httpOptions);
-       return resp;
-        
-        }    
+       return resp;        
+        }  
+      
     showSuccess(header:string,message:string) {
         this.toastr.success(header, message);
       }
     showFailure(header:string,message:string) {
         this.toastr.error(header, message);
       }
+
+    getBlankCardInventory(branchCode:string,token:string): Observable<any> { 
+      let headers = new HttpHeaders()
+    .set('Authorization', 'Bearer ' + token)
+    .set('Content-Type', 'application/json')
+    
+        return this.http.get<any>(this.url+'Card/GetAllBlankCards?branchCode='+branchCode,{ headers });  
+        
+      }
+    updateBlankStatus(token:string, data: string): Observable<any> {       
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + token}) };
+    let resp = this.http.put<any>(this.url+"Card/UpdateMultipleRecords", data,httpOptions);
+    
+      return resp;  
+    } 
+    uploadBlankCard(formData: FormData,token:string):Observable<any> { 
+      console.log(formData); 
+      const httpOptions = { headers: new HttpHeaders({'Authorization': 'Bearer ' + token}) };    
+    
+     let resp =  this.http.post<FormData>(this.url+'FileUpload/UploadCards/UploadBlankCards',formData,httpOptions);
+     return resp;        
+      }  
 }

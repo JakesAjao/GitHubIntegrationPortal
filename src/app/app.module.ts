@@ -40,8 +40,7 @@ import { Keepalive, NgIdleKeepaliveModule } from '@ng-idle/keepalive';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent 
-        
+    LoginComponent,        
   ],
   imports: [
     ShowHidePasswordModule,
@@ -70,7 +69,7 @@ ToastrModule.forRoot(),
   BackButtonDisableModule.forRoot({
     preserveScrollPosition: true
   }),
-  NgxSpinnerModule, 
+  NgxSpinnerModule
   ],
   exports: [    
     MatFormFieldModule,

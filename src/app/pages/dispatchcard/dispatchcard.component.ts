@@ -10,19 +10,19 @@ export class DispatchcardComponent implements OnInit {
  
   navLinks = [
     {
-      path: '/dispatchcard/cardupload',
+      path: '/creditcard/cardupload',
       label: 'Cardupload'
     },
     {
-      path: '/dispatchcard/acknowledge',
+      path: '/creditcard/acknowledge',
       label: 'Acknowledge'
     },
     {
-      path: '/dispatchcard/pickup',
+      path: '/creditcard/pickup',
       label: 'Pickup'
     },
     {
-      path: '/dispatchcard/activate',
+      path: '/creditcard/activate',
       label: 'Activate'
     },
     ];

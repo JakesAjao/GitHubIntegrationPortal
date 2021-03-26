@@ -1,0 +1,39 @@
+<h4 style="margin-top: 10px;text-align: center;">Blank Card Upload</h4>
+
+<span *ngIf="spinnerEnabled" class="k-i-loading k-icon"></span>  
+
+<form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <h6 class="head-title margin-top-8"><span>Upload</span></h6>
+            </div>
+        </div>
+        <div class="col-sm-6 text-center">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" name="myfile"
+                    (change)="onFileSelect($event)" #uploadFileInput>
+                <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Select Blank Card Upload'}}</label>
+           </div>           
+        </div>
+        <div class="text-center">
+            <button mat-raised-button color="primary" id="button" class="btn btn-primary" type="submit">Upload</button>
+        </div>
+    </div>
+    <div>   
+    <table>
+        <th *ngFor="let key of keys">
+        {{key}}
+        </th>
+        <tr *ngFor="let item of dataSheet | async">
+        <td *ngFor="let key of keys">
+            {{item[key]}}
+        </td>        
+        </tr> 
+    </table>
+    </div>      
+</form>   
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+    <p style="color:green;font-size: 16px;">The request is being processed, kindly wait a few seconds. </p>  
+  </ngx-spinner> 

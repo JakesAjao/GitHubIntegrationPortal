@@ -8,14 +8,12 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 
 import * as XLSX from 'xlsx';
-
 @Component({
-  selector: 'app-cardupload',
-  templateUrl: './cardupload.component.html',
-  styleUrls: ['./cardupload.component.scss']
+  selector: 'app-blankcard-upload',
+  templateUrl: './blankcard-upload.component.html',
+  styleUrls: ['./blankcard-upload.component.scss']
 })
-export class CarduploadComponent implements OnInit {
-  
+export class BlankcardUploadComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
   token:string;
@@ -25,15 +23,12 @@ export class CarduploadComponent implements OnInit {
   dataSheet = new Subject();
   @ViewChild('uploadFileInput') uploadFileInput: ElementRef;
   isExcelFile: boolean;
-
-
-  constructor(
-    private formBuilder: FormBuilder,private toastr: ToastrService,private SpinnerService: NgxSpinnerService,
+  
+  constructor(private formBuilder: FormBuilder,private toastr: ToastrService,private SpinnerService: NgxSpinnerService,
     private creditcardService: CreditCardServices,) {      
-      
      }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     (document.getElementById('button') as HTMLInputElement).disabled = false;
     
     this.fileUploadForm = this.formBuilder.group({
@@ -41,13 +36,12 @@ export class CarduploadComponent implements OnInit {
     });
     this.token = localStorage.getItem('token');
   }
-  onFileSelect(event) {
-    
+  onFileSelect(event) {    
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       if (!_.includes(af, file.type)) {
-        this.creditcardService.showFailure('Oops! Only Excel Document is Allowed.','Credit Card CardUpload Notification.');
+        this.creditcardService.showFailure('Oops! Only Excel Document is Allowed.','Blank CardUpload Notification.');
       } else {
         
       this.SpinnerService.show();
@@ -60,19 +54,19 @@ export class CarduploadComponent implements OnInit {
     onFormSubmit(){
       this.SpinnerService.show();
       if (!this.fileUploadForm.get('myfile').value) {
-        this.creditcardService.showFailure('Oops! Please fill valid details.','Credit Card CardUpload Notification.');
+        this.creditcardService.showFailure('Oops! Please fill valid details.','Blank CardUpload Notification.');
         this.SpinnerService.hide();
         return false;
       }  
       const formData = new FormData();
       formData.append('formFile', this.fileUploadForm.get('myfile').value);
 
-      this.creditcardService.uploadCard(formData,this.token).subscribe(
+      this.creditcardService.uploadBlankCard(formData,this.token).subscribe(
         (response)=>{
          console.log("Response: " + JSON.stringify(response));
          let msg = response.message;      
          if (response.statusCode === "00") {          
-          this.creditcardService.showSuccess('Wow! '+msg+".",'Credit Card CardUpload Notification.');
+          this.creditcardService.showSuccess('Wow! '+msg+".",'Blank CardUpload Notification.');
           this.uploadFileInput.nativeElement.value = "";
           
         (document.getElementById('button') as HTMLInputElement).disabled = true;
@@ -82,7 +76,7 @@ export class CarduploadComponent implements OnInit {
          },
          error => {
           console.log('Upload failed: '+JSON.parse(error));
-          this.creditcardService.showFailure('Oops! Upload failed. ','Credit Card CardUpload Notification.');
+          this.creditcardService.showFailure('Oops! Upload failed. ','Blank CardUpload Notification.');
           
         (document.getElementById('button') as HTMLInputElement).disabled = true;
         this.SpinnerService.hide(); 
@@ -129,4 +123,3 @@ export class CarduploadComponent implements OnInit {
         }        
       }      
 }
-

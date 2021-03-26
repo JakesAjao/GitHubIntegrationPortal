@@ -15,14 +15,14 @@ export class AdminLayoutComponent implements OnInit {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(
     private bnIdle: BnNgIdleService,private toastr: ToastrService,private router: Router,){
-      this.bnIdle.startWatching(300).subscribe((res) => {//5 minutes
-        if(res) {
-            //console.log("session expired");            
-            // this.showSuccess('Session expired!','Session Expired Alert');
-            // this.loggedIn.next(false);
-            this.router.navigate(['/login']);
-        }
-      })
+      // this.bnIdle.startWatching(300).subscribe((res) => {//5 minutes
+      //   if(res) {
+      //       //console.log("session expired");            
+      //       // this.showSuccess('Session expired!','Session Expired Alert');
+      //       // this.loggedIn.next(false);
+      //       this.router.navigate(['/login']);
+      //   }
+      // })
   }
   showSuccess(header:string,message:string) {
     this.toastr.success(header, message);
