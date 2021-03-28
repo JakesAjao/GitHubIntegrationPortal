@@ -245,6 +245,8 @@ export class BlankcardAcknowledgementComponent implements OnInit {
    
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
+      if (this.dataSource==null &&this.selection==null)
+      return null;
       const numSelected = this.selection.selected.length;
       const numRows = this.dataSource.data.length;
        if ( numSelected === numRows)
