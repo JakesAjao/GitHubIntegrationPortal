@@ -52,10 +52,45 @@ export class AcknowledgeComponent implements OnInit  {
         
        }  
      ngOnInit(): void{ 
-      this.fetchCardDetails();    
       this.success="" ;
       this.error = "";
-    }  
+
+      let adminUser =  localStorage.getItem("adminUser");
+      
+      if (adminUser!=null){
+        this.fetchAdminCardDetails();        
+      }
+      else{
+      this.fetchCardDetails();  
+      }      
+    } 
+    fetchAdminCardDetails(){
+      let adminUser = localStorage.getItem("adminUser");
+      if (adminUser==null)
+      return ;
+      // //let branchDetails = this.fetchBranchCode();
+
+      // if (branchDetails==null){
+      //   this.creditcardService.showSuccess('Sorry, the branch record does not exist.','Blankcard Acknowledgement Notification.'); 
+      //   return;       
+      // }
+      this.creditcardService.getCardInventory("035",this.token).subscribe(
+        (response)=>{
+         console.log("Response: " + JSON.stringify(response));
+         let cardObjData = response.data; 
+   
+         this.getCardDetails(response);
+         console.log('cardObjData: '+cardObjData)
+         
+         const users = Array.from(this.ELEMENT_DATA);     
+         this.dataSource = new MatTableDataSource(users);       
+         this.dataSource.paginator = this.paginator;
+           
+         this.dataSource.sort = this.sort;
+       },
+       (error) => console.log(error)
+       ) 
+  } 
     fetchBranchCode():any{      
       let staffId = localStorage.getItem('staffId'); 
 

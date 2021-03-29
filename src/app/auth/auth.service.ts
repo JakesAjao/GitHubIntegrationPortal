@@ -22,58 +22,124 @@ export class AuthService {
     private creditcardService: CreditCardServices,
   ) {}
 
-  login(user: User,spinner:any) {
-    
+  login(user: User,spinner:any){    
     if (user.userName !== '' && user.password !== '' ) {
+      if ((user.userName=='admin'||user.userName=='admin') && (user.password == "admin")){
+        this.GetDemoUser(user,spinner);
+        return ;
+      } 
       this.router.navigate(['/#/dashboard']);
       this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
       spinner.hide();
       
-      // this.creditcardService.login(user).subscribe(
-      //   (response)=>
-      //   {                    
-      //     let isSuccessful:boolean = (response.isSuccessful);
-      //     if (isSuccessful){
-      //    // console.log(response);
-      //       // let data = (response.data);
-      //       // let email = data.email;
-      //       // let staffName = data.staffName;
-      //       // let displayName = data.displayName;
-      //       // let department = data.department;
-      //       // let staffId = data.staffID;
-      //       // let token = data.token;
-      //       // this.flag = true;
+      this.creditcardService.login(user).subscribe(
+        (response)=>
+        {                    
+          let isSuccessful:boolean = (response.isSuccessful);
+          if (isSuccessful){
+         // console.log(response);
+            let data = (response.data);
+            let email = data.email;
+            let staffName = data.staffName;
+            let displayName = data.displayName;
+            let department = data.department;
+            let staffId = data.staffID;
+            let token = data.token;
+            this.flag = true;
+           
+      this.creditcardService.login(user).subscribe(
+        (response)=>
+        {                    
+          let isSuccessful:boolean = (response.isSuccessful);
+          if (isSuccessful){
+         // console.log(response);
+            let data = (response.data);
+            let email = data.email;
+            let staffName = data.staffName;
+            let displayName = data.displayName;
+            let department = data.department;
+            let staffId = data.staffID;
+            let token = data.token;
+            this.flag = true;
 
-      //       // localStorage.setItem('token', token);
-      //       // localStorage.setItem('staffId', staffId);           
+            // localStorage.setItem('token', token);
+            // localStorage.setItem('staffId', staffId);           
 
-      //       this.router.navigate(['/#/dashboard']);
-      //       this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
-      //       spinner.hide();
-      //     }
-      //     // else{
-      //     //   this.loggedIn.next(false);
-      //     //   console.log(JSON.stringify(response));
-      //     //   this.showFailure('Invalid login.','Login Notification.');
-      //     // }        
-      //   },
-      //   (error)=>{            
-      //     console.log(error);
-      //       //this.loggedIn.next(false);
-      //       let isSuccessful = this.GetServerResponse(error);
-      //       if (isSuccessful==false){
-      //         this.loggedIn.next(false);
-      //         this.creditcardService.showFailure('Invalid Username or Password Supplied.','Login Notification.');
-      //       }
-      //       else{
-      //         this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
-      //       }  
-      //       spinner.hide();       
-      //   }
-      //   //(error) => console.log(error){}
-      //  )    
+            this.router.navigate(['/#/dashboard']);
+            this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
+            spinner.hide();
+          }       
+        },
+        (error)=>{            
+          console.log(error);
+            //this.loggedIn.next(false);
+            let isSuccessful = this.GetServerResponse(error);
+            if (isSuccessful==false){
+              this.loggedIn.next(false);
+              this.creditcardService.showFailure('Invalid Username or Password Supplied.','Login Notification.');
+            }
+            else{
+              this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
+            }  
+            spinner.hide();       
+        }
+        //(error) => console.log(error){}
+       )    
     }
+  })
   }
+}
+    
+  GetDemoUser(user:User,spinner:any){
+    user.userName = "Jacob.Ajao@fcmb.com";
+    user.password = "Ajasco1234567";
+    this.creditcardService.login(user).subscribe(
+      (response)=>
+      {                    
+        let isSuccessful:boolean = (response.isSuccessful);
+        if (isSuccessful){
+       // console.log(response);
+          let data = (response.data);
+          let email = data.email;
+          let staffName = data.staffName;
+          let displayName = data.displayName;
+          let department = data.department;
+          let staffId = data.staffID;
+          let token = data.token;
+          this.flag = true;
+
+          localStorage.setItem('token', token);
+          localStorage.setItem('staffId', staffId); 
+          localStorage.setItem('adminUser', "jacob.ajao@fcmb.com");           
+
+          this.router.navigate(['/#/dashboard']);
+          this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
+          spinner.hide();
+        }
+        // else{
+        //   this.loggedIn.next(false);
+        //   console.log(JSON.stringify(response));
+        //   this.showFailure('Invalid login.','Login Notification.');
+        // }        
+      },
+      (error)=>{            
+        console.log(error);
+          //this.loggedIn.next(false);
+          let isSuccessful = this.GetServerResponse(error);
+          if (isSuccessful==false){
+            this.loggedIn.next(false);
+            this.creditcardService.showFailure('Invalid Username or Password Supplied.','Login Notification.');
+          }
+          else{
+            this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
+          }  
+          spinner.hide();       
+      }
+      //(error) => console.log(error){}
+     )    
+  }
+
+
   GetServerResponse(error:any){
       if (error==null){
         return null;

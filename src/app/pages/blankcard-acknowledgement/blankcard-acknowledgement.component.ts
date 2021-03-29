@@ -51,7 +51,14 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         
        }  
      ngOnInit(): void{ 
-      this.fetchCardDetails();     
+      let adminUser =  localStorage.getItem("adminUser");
+      
+      if (adminUser!=null){
+        this.fetchAdminCardDetails();        
+      }
+      else{
+      this.fetchCardDetails();  
+      }   
     }  
     fetchBranchCode():any{      
       let staffId = localStorage.getItem('staffId'); 
@@ -79,6 +86,33 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         return;       
       }
       this.creditcardService.getBlankCardInventory(branchDetails.soL_ID,this.token).subscribe(
+     (response)=>{
+      console.log("Response: " + JSON.stringify(response));
+      let cardObjData = response.data; 
+
+      this.getBlankCardDetails(response);
+      //console.log('cardObjData: '+cardObjData)
+      
+      const users = Array.from(this.ELEMENT_DATA);     
+      this.dataSource = new MatTableDataSource(users);       
+      this.dataSource.paginator = this.paginator;
+        
+      this.dataSource.sort = this.sort;
+    },
+    (error) => console.log(error)
+    )        
+    }
+    fetchAdminCardDetails(){
+      let adminUser = localStorage.getItem("adminUser");
+      if (adminUser==null)
+      return ;
+      // //let branchDetails = this.fetchBranchCode();
+
+      // if (branchDetails==null){
+      //   this.creditcardService.showSuccess('Sorry, the branch record does not exist.','Blankcard Acknowledgement Notification.'); 
+      //   return;       
+      // }
+      this.creditcardService.getBlankCardInventory("66",this.token).subscribe(
      (response)=>{
       console.log("Response: " + JSON.stringify(response));
       let cardObjData = response.data; 
@@ -245,12 +279,14 @@ export class BlankcardAcknowledgementComponent implements OnInit {
    
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
-      if (this.dataSource==null &&this.selection==null)
-      return null;
+      
+      if (this.dataSource==null){
+        return;
+      }
       const numSelected = this.selection.selected.length;
       const numRows = this.dataSource.data.length;
-       if ( numSelected === numRows)
-   
+     
+       if (numSelected === numRows)   
       return numSelected === numRows;
     }
   
