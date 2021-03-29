@@ -21,7 +21,8 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/env.js" 
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
@@ -92,7 +93,8 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/env.js" 
             ]
           }
         },

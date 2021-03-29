@@ -41,6 +41,7 @@ import { GridModule } from '@angular/flex-layout';
 import { BlankcardAcknowledgementComponent } from 'app/pages/blankcard-acknowledgement/blankcard-acknowledgement.component';
 import { BlankcardUploadComponent } from 'app/pages/blankcard-upload/blankcard-upload.component';
 import { BlankcardComponent } from 'app/pages/blankcard/blankcard.component';
+import { EnvServiceProvider } from 'app/env.service.provider';
 @NgModule({
   imports: [
     

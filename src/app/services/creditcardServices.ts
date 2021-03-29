@@ -7,13 +7,14 @@ import { map, catchError } from 'rxjs/operators';
 import { CardData, UserData } from 'app/model/acknowledgment';
 import { User } from 'app/auth/user';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EnvService } from 'app/env.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class CreditCardServices {
-    url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/";
+    // url = "http://172.27.8.145/CardTrackerPortalAPI/api/v1/";
     //url = "http://localhost/CardTrackerPortalAPI/api/v1/";    
-       
+    public url:string;   
     private currentUserSubject: BehaviorSubject<any>;
     public currentUser: Observable<any>;
     public header : any; 
@@ -26,10 +27,10 @@ export class CreditCardServices {
   
     @Output() public onUploadFinished = new EventEmitter();
     //httpClient: any;
-    constructor(private toastr: ToastrService,private http: HttpClient) {
+    constructor(private toastr: ToastrService,private http: HttpClient,private env: EnvService) {
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
-       
+       this.url = env.apiUrl
      }
      public get currentUserValue(){
         return this.currentUserSubject.value;

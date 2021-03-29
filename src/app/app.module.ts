@@ -35,6 +35,7 @@ import { BackButtonDisableModule } from "angular-disable-browser-back-button";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive, NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { EnvServiceProvider } from "./env.service.provider";
 
 @NgModule({
   declarations: [
@@ -80,7 +81,7 @@ ToastrModule.forRoot(),
   ],  
   entryComponents: [ConfirmDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],  
-  providers: [ HttpClientModule,AuthService, AuthGuard],
+  providers: [ HttpClientModule,AuthService, AuthGuard,EnvServiceProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
