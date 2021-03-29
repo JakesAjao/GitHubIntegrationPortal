@@ -22,15 +22,14 @@ export class AuthService {
     private creditcardService: CreditCardServices,
   ) {}
 
-  login(user: User,spinner:any){    
+  login(user: User,spinner:any){  
+    debugger;  
     if (user.userName !== '' && user.password !== '' ) {
       if ((user.userName=='admin'||user.userName=='admin') && (user.password == "admin")){
-        this.GetDemoUser(user,spinner);
-        return ;
+        this.GetDemoUser(user,spinner);  
+
       } 
-      this.router.navigate(['/#/dashboard']);
-      this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
-      spinner.hide();
+      else{    
       
       this.creditcardService.login(user).subscribe(
         (response)=>
@@ -45,26 +44,11 @@ export class AuthService {
             let department = data.department;
             let staffId = data.staffID;
             let token = data.token;
-            this.flag = true;
-           
-      this.creditcardService.login(user).subscribe(
-        (response)=>
-        {                    
-          let isSuccessful:boolean = (response.isSuccessful);
-          if (isSuccessful){
-         // console.log(response);
-            let data = (response.data);
-            let email = data.email;
-            let staffName = data.staffName;
-            let displayName = data.displayName;
-            let department = data.department;
-            let staffId = data.staffID;
-            let token = data.token;
-            this.flag = true;
+            this.flag = true;    
 
-            // localStorage.setItem('token', token);
-            // localStorage.setItem('staffId', staffId);           
-
+            localStorage.setItem('token', token);
+            localStorage.setItem('staffId', staffId);           
+  
             this.router.navigate(['/#/dashboard']);
             this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
             spinner.hide();
@@ -84,12 +68,11 @@ export class AuthService {
             spinner.hide();       
         }
         //(error) => console.log(error){}
-       )    
+      )
+      }
     }
-  })
   }
-}
-    
+   
   GetDemoUser(user:User,spinner:any){
     user.userName = "Jacob.Ajao@fcmb.com";
     user.password = "Ajasco1234567";
@@ -116,11 +99,7 @@ export class AuthService {
           this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
           spinner.hide();
         }
-        // else{
-        //   this.loggedIn.next(false);
-        //   console.log(JSON.stringify(response));
-        //   this.showFailure('Invalid login.','Login Notification.');
-        // }        
+             
       },
       (error)=>{            
         console.log(error);
@@ -161,7 +140,8 @@ export class AuthService {
     //this.loggedIn.next(false);
     localStorage.setItem('token', "");
     localStorage.setItem('staffId', ""); 
+    localStorage.setItem('adminUser', ""); 
     this.router.navigate(['/login']);
-    this.creditcardService.showSuccess('You have successfully logged out!','Login Notification.');
+    this.creditcardService.showSuccess('You have successfully logged out.','Login Notification.');
   }
 }

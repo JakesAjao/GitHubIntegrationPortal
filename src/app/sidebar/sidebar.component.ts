@@ -63,6 +63,8 @@ export class SidebarComponent implements OnInit {
         this.idleState = 'Timed out!';
         this.timedOut = true;
         console.log(this.idleState);
+        
+        localStorage.setItem('adminUser', ""); 
         this.router.navigate(['/login']);
       }));
       

@@ -48,13 +48,9 @@ export class LoginComponent implements OnInit {
    //debugger;
     if (this.form.valid) {      
    this.SpinnerService.show(); 
-      this.authService.login(this.form.value,this.SpinnerService);
-     
+      this.authService.login(this.form.value,this.SpinnerService);     
      }
-    this.formSubmitAttempt = true;
-    
+    this.formSubmitAttempt = true;   
       
-    }
-  
-  
+    }  
 }

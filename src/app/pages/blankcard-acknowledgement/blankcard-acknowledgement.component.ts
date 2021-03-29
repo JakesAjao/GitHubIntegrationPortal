@@ -139,7 +139,7 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         card.brancH_NAME = response.data[i].brancH_NAME;        
         card.carD_TYPE = response.data[i].carD_TYPE;
         card.datE_OF_DISPATCH = response.data[i].datE_OF_DISPATCH;
-        card.datedispatched = response.data[i].datedispatched;
+        card.datedispatched = response.data[i].datE_OF_DISPATCH;
         card.entrY_DATE = response.data[i].entrY_DATE;
         card.nO_OF_CARDS = response.data[i].nO_OF_CARDS;
         card.soL_ID = response.data[i].soL_ID; //   

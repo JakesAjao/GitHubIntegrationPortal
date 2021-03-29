@@ -1,4 +1,7 @@
 <h4 style="margin-top: 10px;text-align: center;">Pickup Page</h4>
+
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="success" class="alert alert-success">{{success}}</div>
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter Pickup Page">
 </mat-form-field>

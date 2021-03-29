@@ -7,10 +7,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CardData, User, UserData } from 'app/model/acknowledgment';
-import { AcknowledgmentService } from 'app/services/acknowledgment.service1111';
 import { ExcelService } from 'app/services/excel.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { CreditCardServices } from 'app/services/creditcardServices';
 
 @Component({
   selector: 'app-pickup',
@@ -26,7 +26,8 @@ export class PickupComponent implements OnInit {
   acknowledgeData:UserData[];
   pageNumber = "1";
   pageSize = "10";
-  
+  error: string;
+  success: string;
   token = localStorage.getItem('token');
   staffId = localStorage.getItem('staffId');
   
@@ -42,19 +43,28 @@ export class PickupComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;    
     @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private acknowledgeService: AcknowledgmentService,
+  constructor(private creditcardService: CreditCardServices,
       private SpinnerService: NgxSpinnerService,private toastr: ToastrService,
       private router: Router,private excelService:ExcelService,private cd: ChangeDetectorRef) { 
         //this.fetchCardDetails();
       }
 
   ngOnInit(): void {
-    this.fetchCardDetails();
+    this.success="" ;
+    this.error = "";
+    let adminUser =  localStorage.getItem("adminUser");
+      
+      if (adminUser!=null){
+        this.fetchAdminCardDetails();        
+      }
+      else{
+      this.fetchCardDetails();  
+      }    
   }
   fetchBranchCode():any{      
     let staffId = localStorage.getItem('staffId'); 
 
-    this.acknowledgeService.getBranchCode(staffId,this.token).subscribe(
+    this.creditcardService.getBranchCode(staffId,this.token).subscribe(
    (response)=>{
     console.log("Response: " + JSON.stringify(response));
     let cardObjData = response.data; 
@@ -69,6 +79,33 @@ export class PickupComponent implements OnInit {
     ) 
     return null;   
   }  
+  fetchAdminCardDetails(){
+    let adminUser = localStorage.getItem("adminUser");
+    if (adminUser==null)
+    return ;
+    // //let branchDetails = this.fetchBranchCode();
+
+    // if (branchDetails==null){
+    //   this.creditcardService.showSuccess('Sorry, the branch record does not exist.','Blankcard Acknowledgement Notification.'); 
+    //   return;       
+    // }
+    this.creditcardService.getCardInventory("035",this.token).subscribe(
+      (response)=>{
+       console.log("Response: " + JSON.stringify(response));
+       let cardObjData = response.data; 
+ 
+       this.getCardDetails(response);
+       console.log('cardObjData: '+cardObjData)
+       
+       const users = Array.from(this.ELEMENT_DATA);     
+       this.dataSource = new MatTableDataSource(users);       
+       this.dataSource.paginator = this.paginator;
+         
+       this.dataSource.sort = this.sort;
+     },
+     (error) => console.log(error)
+     ) 
+} 
   fetchCardDetails(){
     let branchDetails = this.fetchBranchCode();
 
@@ -76,7 +113,7 @@ export class PickupComponent implements OnInit {
         this.showSuccess('Sorry, the branch record does not exist.','Pickup Notification.');  
         return;      
       }
-    this.acknowledgeService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
+    this.creditcardService.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
    (response)=>{
     console.log("Response: " + JSON.stringify(response));
 
@@ -194,7 +231,7 @@ export class PickupComponent implements OnInit {
  
   UploadStatus(cardDataJson:string){
     if (cardDataJson != null){
-      this.acknowledgeService.updateStatus(this.token, cardDataJson).subscribe( 
+      this.creditcardService.updateStatus(this.token, cardDataJson).subscribe( 
         (data) =>{           
             this.successfulMessage(data);     
         }),

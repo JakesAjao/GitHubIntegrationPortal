@@ -79,8 +79,8 @@ export class CreditCardServices {
       let headers = new HttpHeaders()
     .set('Authorization', 'Bearer ' + token)
     .set('Content-Type', 'application/json')
-    
-        return this.http.get<any>(this.url+'Card/GetCardsWithBranchCode?branchCode='+branchCode,{ headers });  
+   
+        return this.http.get<any>(this.url+'Card/GetBlankCardsWithBranchCode?branchCode='+branchCode,{ headers });  
         
       }
     updateBlankStatus(token:string, data: string): Observable<any> {       
