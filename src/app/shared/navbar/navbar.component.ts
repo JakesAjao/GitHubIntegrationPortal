@@ -53,6 +53,11 @@ export class NavbarComponent implements OnInit{
       }
       return 'Dashboard';
     }
+    getUser(){
+      let username  = localStorage.getItem("username");
+      
+      return "You logged in as: "+ username;
+    }
     sidebarToggle() {
         if (this.sidebarVisible === false) {
             this.sidebarOpen();

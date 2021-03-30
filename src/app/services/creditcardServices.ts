@@ -86,7 +86,7 @@ export class CreditCardServices {
       }
     updateBlankStatus(token:string, data: string): Observable<any> {       
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + token}) };
-    let resp = this.http.put<any>(this.url+"Card/UpdateMultipleRecords", data,httpOptions);
+    let resp = this.http.put<any>(this.url+"Card/UpdateMultipleBlankCards", data,httpOptions);
     
       return resp;  
     } 

@@ -32,4 +32,5 @@ export class BlankCardData{
   public carD_TYPE: string;
   public soL_ID: string;
   public status:string;
+  public acknowledged:boolean;
 }

@@ -177,6 +177,7 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         cardData.carD_TYPE = elementData.carD_TYPE;
         cardData.soL_ID = elementData.soL_ID;
         cardData.status = elementData.status;
+        cardData.acknowledged = elementData.acknowledged;
          
         cardDataList.push(cardData);        
       }
@@ -191,7 +192,7 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
         cardData = this.ParseObject(id);
         this.cardDataArr.push(cardData);         
-        this.cardDataArr.forEach(x1 => x1.status = true);
+        this.cardDataArr.forEach(x1 => x1.acknowledged = true);
       }
       else
       {
@@ -208,14 +209,15 @@ export class BlankcardAcknowledgementComponent implements OnInit {
       cardData.carD_TYPE = this.ELEMENT_DATA[id].carD_TYPE;
       cardData.soL_ID = this.ELEMENT_DATA[id].soL_ID;
       cardData.status = this.ELEMENT_DATA[id].status;
+      cardData.acknowledged = this.ELEMENT_DATA[id].acknowledged;
 
       return cardData;
     }
-    updateEach(event,element){//fital
+    updateEach(event,element){//vital
    
       console.log(element.id+' checked'); 
       this.rows = this.rows.map(
-        (elem) =>{ elem.status = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
+        (elem) =>{ elem.acknowledged = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
       return elem});
       
       this.processCheckboxSelected(event,element);
@@ -232,10 +234,14 @@ export class BlankcardAcknowledgementComponent implements OnInit {
       if (cardDataJson != null){
         this.creditcardService.updateBlankStatus(this.token, cardDataJson).subscribe( 
           (data) =>{           
-              this.successfulMessage(data);     
+              this.successfulMessage(data);
+              this.SpinnerService.hide(); 
+              
+            this.success= "Updated!";
           }),
           err => {
             console.log("Error");
+            this.error= "Failed.";
             this.creditcardService.showFailure('Oops! Card Acknowledgement failed.','Blankcard Acknowledgement Notification.');
             this.SpinnerService.hide();
           }        
@@ -248,18 +254,19 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         this.SpinnerService.show(); 
         let cardDataList = this.processAllSelected(); 
         
-        cardDataList.forEach(x1 => x1.status = "true");   //Update each blank acknowledge status    
+        cardDataList.forEach(x1 => x1.status = "acknowledged");   //Update each blank acknowledge status
+        cardDataList.forEach(x1 => x1.acknowledged = true);   //Update each blank acknowledge status    
         let cardDataJson = JSON.stringify(cardDataList); 
         
         this.success= "Updated!";
         
         this.UploadStatus(cardDataJson);
        }
-       else if (this.cardDataArr.length!=0){
+       else if (this.cardDataArr.length!=0){        
         this.SpinnerService.show(); 
         let cardDataJson = JSON.stringify(this.cardDataArr);
         this.UploadStatus(cardDataJson); 
-        this.success = "Failed."           
+                  
       }
       else{
 
@@ -272,7 +279,7 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         console.log('selected All Status Response List: '+data);        
         this.SpinnerService.hide();
         this.creditcardService.showSuccess('Card Acknowledged Successfully!','Blankcard Acknowledgement Notification.');
-    
+        this.success= "Updated!"; 
         this.refresh();
        }, 2000);
       }

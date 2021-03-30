@@ -25,7 +25,7 @@ export class AuthService {
   ) {}
 
   login(user: User,spinner:any){  
-    debugger;  
+    localStorage.setItem("username",user.userName);
     if (user.userName !== '' && user.password !== '' ) {
       if ((user.userName=='admin'||user.userName=='admin') && (user.password == "admin")){
         this.GetDemoUser(user,spinner);  
