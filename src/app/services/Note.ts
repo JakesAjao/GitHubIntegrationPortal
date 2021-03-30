@@ -1,5 +1,7 @@
 // https://medium.com/acute-angular/angular-in-production-deploy-angular-application-in-iis-8-using-base-url-f112f5774198
 // dev environment build command
+
+//git push origin HEAD:master --force
 // ng build --base-href /my-app/ --outputHashing=all
 
 // 172.27.8.145/CardTrackerPortalAPI/swagger/index.html

@@ -51,6 +51,11 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header><b> PAN</b></th>
       <td mat-cell *matCellDef="let row"> {{row.pan}} </td>
     </ng-container>
+     <!-- cardtype Column -->
+     <ng-container matColumnDef="foracid">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>AccountNo</b></th>
+      <td mat-cell *matCellDef="let row"> {{row.foracid}} </td>
+    </ng-container>
 
     <!-- cardtype Column -->
     <ng-container matColumnDef="cardtype">

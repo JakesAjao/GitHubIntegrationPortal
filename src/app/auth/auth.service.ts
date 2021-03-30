@@ -1,6 +1,7 @@
 import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { EnvService } from 'app/env.service';
 import { AcknowledgmentService } from 'app/services/acknowledgment.service1111';
 import { CreditCardServices } from 'app/services/creditcardServices';
 import { ToastrService } from 'ngx-toastr';
@@ -20,6 +21,7 @@ export class AuthService {
     private toastr: ToastrService,
     private httpClient: HttpClient,
     private creditcardService: CreditCardServices,
+    private env: EnvService
   ) {}
 
   login(user: User,spinner:any){  
@@ -46,12 +48,13 @@ export class AuthService {
             let token = data.token;
             this.flag = true;    
 
-            localStorage.setItem('token', token);
-            localStorage.setItem('staffId', staffId);           
-  
-            this.router.navigate(['/#/dashboard']);
-            this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
-            spinner.hide();
+             localStorage.setItem('token', token);
+          localStorage.setItem('staffId', staffId); 
+          localStorage.setItem('adminUser', this.env.userName);           
+
+          this.router.navigate(['/#/dashboard']);
+          this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
+          spinner.hide();
           }       
         },
         (error)=>{            
@@ -74,8 +77,8 @@ export class AuthService {
   }
    
   GetDemoUser(user:User,spinner:any){
-    user.userName = "Jacob.Ajao@fcmb.com";
-    user.password = "Ajasco1234567";
+    user.userName = this.env.userName;
+    user.password = this.env.password;
     this.creditcardService.login(user).subscribe(
       (response)=>
       {                    
@@ -93,7 +96,7 @@ export class AuthService {
 
           localStorage.setItem('token', token);
           localStorage.setItem('staffId', staffId); 
-          localStorage.setItem('adminUser', "jacob.ajao@fcmb.com");           
+          localStorage.setItem('adminUser', this.env.userName);           
 
           this.router.navigate(['/#/dashboard']);
           this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
@@ -118,7 +121,6 @@ export class AuthService {
      )    
   }
 
-
   GetServerResponse(error:any){
       if (error==null){
         return null;
@@ -140,8 +142,7 @@ export class AuthService {
     //this.loggedIn.next(false);
     localStorage.setItem('token', "");
     localStorage.setItem('staffId', ""); 
-    localStorage.setItem('adminUser', ""); 
     this.router.navigate(['/login']);
-    this.creditcardService.showSuccess('You have successfully logged out.','Login Notification.');
+    this.creditcardService.showSuccess('You have successfully logged out!','Login Notification.');
   }
 }

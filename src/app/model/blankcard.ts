@@ -9,6 +9,7 @@ export interface BlankCard {
   status:string;
   datedispatched:string  
   entrY_DATE:string
+  acknowledged:boolean
 }
 export class BlankCardImpl implements BlankCard {
   public id: number;
@@ -19,8 +20,9 @@ export class BlankCardImpl implements BlankCard {
   public nO_OF_CARDS:string;
   public datE_OF_DISPATCH:string;
   public status:string;
-  public datedispatched:string  
-  public entrY_DATE:string
+  public datedispatched:string;  
+  public entrY_DATE:string;
+  public acknowledged:boolean;
   
   constructor() { }
 

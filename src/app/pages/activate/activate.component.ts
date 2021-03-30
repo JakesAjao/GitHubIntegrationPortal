@@ -32,7 +32,7 @@ export class ActivateComponent implements OnInit {
   token = localStorage.getItem('token');
   staffId = localStorage.getItem('staffId');
   
-  displayedColumns: string[] = ['select','id', 'customerid', 'accountnumber', 'customername','pan','cardtype','branchsol',
+  displayedColumns: string[] = ['select','id', 'customerid', 'accountnumber', 'customername','pan','foracid','cardtype','branchsol',
 
   'branchname','datedispatched','status'];
     
@@ -75,11 +75,11 @@ export class ActivateComponent implements OnInit {
     // }
     this.creditcardService.getCardInventory("035",this.token).subscribe(
       (response)=>{
-       console.log("Response: " + JSON.stringify(response));
+       //console.log("Response: " + JSON.stringify(response));
        let cardObjData = response.data; 
  
        this.getCardDetails(response);
-       console.log('cardObjData: '+cardObjData)
+       //console.log('cardObjData: '+cardObjData)
        
        const users = Array.from(this.ELEMENT_DATA);     
        this.dataSource = new MatTableDataSource(users);       
@@ -148,7 +148,7 @@ export class ActivateComponent implements OnInit {
       card.pickupstatus = response.data[i].pickupstatus; //         
       card.emailNotificationStatus = response.data[i].emailNotificationStatus;//
       card.datedispatched = response.data[i].dateofPickup;//
-
+      card.foracid = response.data[i].foracid;//
       this.ELEMENT_DATA.push(card);
      }  
   }

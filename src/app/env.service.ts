@@ -7,6 +7,10 @@ export class EnvService {
   public apiUrl = '';
 
   // Whether or not to enable debug mode
+  public password = '';
+  public userName = '';
+
+  // Whether or not to enable debug mode
   public enableDebug = true;
 
   constructor() {

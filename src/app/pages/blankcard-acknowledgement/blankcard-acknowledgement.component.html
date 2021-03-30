@@ -64,6 +64,11 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Status</b></th>
       <td mat-cell *matCellDef="let row"> {{row.status}} </td>
     </ng-container>
+    <!-- status Column -->
+    <ng-container matColumnDef="acknowledged">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Acknowledged</b></th>
+      <td mat-cell *matCellDef="let row"> {{row.acknowledged}} </td>
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;">

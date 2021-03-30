@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EnvService } from 'app/env.service';
 import { User, UserData } from 'app/model/acknowledgment';
 import { CreditCardServices } from 'app/services/creditcardServices';
 import { BnNgIdleService } from 'bn-ng-idle';
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private bnIdle: BnNgIdleService,
-    private SpinnerService: NgxSpinnerService
+    private SpinnerService: NgxSpinnerService,
+    private env: EnvService
   ){
     // this.bnIdle.startWatching(60).subscribe((res) => {
     //   if(res) {
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
       userName: ['', Validators.required],
       password: ['', Validators.required]
     });
+    localStorage.setItem("adminUser","");
   }
   
    isFieldInvalid(field: string) {

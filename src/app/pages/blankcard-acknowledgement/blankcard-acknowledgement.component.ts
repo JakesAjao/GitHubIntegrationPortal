@@ -32,7 +32,7 @@ export class BlankcardAcknowledgementComponent implements OnInit {
   
   displayedColumns: string[] = ['select','id', 'cardtype', 'batchno', 'branchname','solid','noofcards','datedispatched',
 
-  'entrydate','status',];
+  'entrydate','status','acknowledged'];
     
   dataSource: MatTableDataSource<BlankCard>;
   
@@ -65,11 +65,11 @@ export class BlankcardAcknowledgementComponent implements OnInit {
 
       this.creditcardService.getBranchCode(staffId,this.token).subscribe(
      (response)=>{
-      console.log("Response: " + JSON.stringify(response));
+      //console.log("Response: " + JSON.stringify(response));
       let cardObjData = response.data; 
       //let empId = cardObjData.soL_ID;
       
-      console.log('blankcardObj: '+cardObjData); 
+      //console.log('blankcardObj: '+cardObjData); 
 
       return cardObjData;    
      
@@ -143,7 +143,8 @@ export class BlankcardAcknowledgementComponent implements OnInit {
         card.entrY_DATE = response.data[i].entrY_DATE;
         card.nO_OF_CARDS = response.data[i].nO_OF_CARDS;
         card.soL_ID = response.data[i].soL_ID; //   
-        card.status = response.data[i].status; // 
+        card.status = response.data[i].status; //
+        card.acknowledged = response.data[i].acknowledged; // 
 
         this.ELEMENT_DATA.push(card);
        }  

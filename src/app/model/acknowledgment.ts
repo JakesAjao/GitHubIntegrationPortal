@@ -10,7 +10,7 @@ export interface UserData {
     branchname:string;
     datedispatched:string
     status:boolean;
-    
+    foracid:string    
     emailNotificationStatus:string
     acknowledgedStatus:boolean;
     activationStatus:boolean
@@ -32,6 +32,8 @@ export interface UserData {
     public acknowledgedStatus:boolean;
     public activationStatus:boolean;
     public pickupstatus:boolean;
+
+    public foracid:string;
 
     constructor() { }
   

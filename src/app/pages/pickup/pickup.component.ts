@@ -31,7 +31,7 @@ export class PickupComponent implements OnInit {
   token = localStorage.getItem('token');
   staffId = localStorage.getItem('staffId');
   
-  displayedColumns: string[] = ['select','id', 'customerid', 'accountnumber', 'customername','pan','cardtype','branchsol',
+  displayedColumns: string[] = ['select','id', 'customerid', 'accountnumber', 'customername','pan','foracid','cardtype','branchsol',
 
   'branchname','datedispatched','status'];
     
@@ -146,7 +146,7 @@ export class PickupComponent implements OnInit {
       card.pickupstatus = response.data[i].pickupstatus; //         
       card.emailNotificationStatus = response.data[i].emailNotificationStatus;//
       card.datedispatched = response.data[i].dateofPickup;//
-
+      card.foracid = response.data[i].foracid;//
       this.ELEMENT_DATA.push(card);
      }  
   }
