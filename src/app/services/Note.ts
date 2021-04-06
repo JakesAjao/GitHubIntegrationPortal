@@ -2,7 +2,7 @@
 // dev environment build command
 
 //git push origin HEAD:master --force
-// ng build --base-href /my-app/ --outputHashing=all
+// ng build --base-href /cardtrackers/ --outputHashing=all
 
 // 172.27.8.145/CardTrackerPortalAPI/swagger/index.html
 

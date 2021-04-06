@@ -44,6 +44,7 @@ export class CardData{
   public acknowledgedStatus:boolean;
   public activationStatus:boolean;
   public pickupstatus:boolean;
+  public foracid:string;
 
    constructor(
     ){    

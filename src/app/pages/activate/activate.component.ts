@@ -12,7 +12,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CreditCardServices } from 'app/services/creditcardServices';
 
-
 @Component({
   selector: 'app-activate',
   templateUrl: './activate.component.html',
@@ -55,7 +54,7 @@ export class ActivateComponent implements OnInit {
     this.success="" ;
     this.error = "";
     let adminUser =  localStorage.getItem("adminUser");
-    debugger;
+    
       if (adminUser!=null){
         this.fetchAdminCardDetails();        
       }
@@ -208,6 +207,7 @@ export class ActivateComponent implements OnInit {
 
     cardData.sno = this.ELEMENT_DATA[id].id;
     cardData.customerid = this.ELEMENT_DATA[id].customerid;
+    cardData.foracid = this.ELEMENT_DATA[id].foracid;
     cardData.acknowledgedStatus = this.ELEMENT_DATA[id].acknowledgedStatus;
     cardData.activationStatus = this.ELEMENT_DATA[id].activationStatus;
     cardData.pickupstatus = this.ELEMENT_DATA[id].pickupstatus;
@@ -235,32 +235,34 @@ export class ActivateComponent implements OnInit {
     if (cardDataJson != null){
       this.creditcardService.updateStatus(this.token, cardDataJson).subscribe( 
         (data) =>{           
-            this.successfulMessage(data);     
+            this.successfulMessage(data);  
+            this.success  = "Updated!"; 
+            this.SpinnerService.hide();  
+            this.creditcardService.showSuccess('Wow! Card Activation was Successful.','Activation Notification.');       
         }),
         err => {
-          console.log("Error");
-          this.creditcardService.showFailure('Oops! Card Activate failed.','Activate Notification.');
+          this.error = "Failed." 
+          console.log("Error: "+err);
+          this.creditcardService.showFailure('Oops! Card Activation failed.','Activation Notification.');
           this.SpinnerService.hide();
         }      
     }
   }
   updateAll(){ 
-    debugger;
     let f = this.isAllSelected();
      if (this.isAllSelected() && (this.cardDataArr.length==0)){
       this.SpinnerService.show(); 
       let cardDataList = this.processAllSelected(); 
       
       cardDataList.forEach(x1 => x1.activationStatus = true);   //Update each acknowledge status    
-      let cardDataJson = JSON.stringify(cardDataList);
-      this.success  = "Updated!";
+      let cardDataJson = JSON.stringify(cardDataList); 
+      console.log("cardDataJson: "+cardDataJson)     ;
       this.UploadStatus(cardDataJson);
      }
      else if (this.cardDataArr.length!=0){
        console.log('this.cardDataArr: '+this.cardDataArr);
       this.SpinnerService.show(); 
-      let cardDataJson = JSON.stringify(this.cardDataArr);
-      this.error = "Failed."
+      let cardDataJson = JSON.stringify(this.cardDataArr);      
       this.UploadStatus(cardDataJson);            
     }
     else{

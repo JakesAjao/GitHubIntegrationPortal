@@ -209,6 +209,7 @@ export class PickupComponent implements OnInit {
     cardData.acknowledgedStatus = this.ELEMENT_DATA[id].acknowledgedStatus;
     cardData.activationStatus = this.ELEMENT_DATA[id].activationStatus;
     cardData.pickupstatus = this.ELEMENT_DATA[id].pickupstatus;
+    cardData.foracid = this.ELEMENT_DATA[id].foracid;
 
     return cardData;
   }
@@ -233,10 +234,14 @@ export class PickupComponent implements OnInit {
     if (cardDataJson != null){
       this.creditcardService.updateStatus(this.token, cardDataJson).subscribe( 
         (data) =>{           
-            this.successfulMessage(data);     
+            this.successfulMessage(data); 
+            this.SpinnerService.hide();             
+             this.success  = "Updated!"; 
+            this.creditcardService.showSuccess('Wow! Card Pickup was successful.','Notification Notification.');     
         }),
         err => {
-          console.log("Error");
+          console.log("Error");          
+          this.error  = "Failed.";
           this.showFailure('Oops! Card Pickup failed.','Pickup Notification.');
           this.SpinnerService.hide();
         }      

@@ -218,7 +218,7 @@ export class AcknowledgeComponent implements OnInit  {
       cardData.acknowledgedStatus = this.ELEMENT_DATA[id].acknowledgedStatus;
       cardData.activationStatus = this.ELEMENT_DATA[id].activationStatus;
       cardData.pickupstatus = this.ELEMENT_DATA[id].pickupstatus;
-
+      cardData.foracid = this.ELEMENT_DATA[id].foracid;
       return cardData;
     }
     updateEach(event,element){//fital
@@ -243,14 +243,15 @@ export class AcknowledgeComponent implements OnInit  {
         this.creditcardService.updateStatus(this.token, cardDataJson).subscribe( 
           (data) =>{           
               this.successfulMessage(data); 
-              this.success = "Uploaded!";    
+              this.success = "Updated!";  
+              this.creditcardService.showSuccess('Wow! Acknowledgement was Successful.','Acknowledgement Notification.');  
           }),
           err => {
             console.log("Error");
             this.creditcardService.showFailure('Oops! Card Acknowledgement failed.','Acknowledgement Notification.');
             this.SpinnerService.hide();
-            this.success = "Failed."; 
-          }        
+            this.error = "Failed."; 
+          }       
           
       }
     }
