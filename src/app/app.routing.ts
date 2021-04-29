@@ -3,6 +3,7 @@ import { AuthGuard } from './auth/auth.guard';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { AcknowledgeComponent } from './pages/Acknowledge/Acknowledge.component';
 
 export const AppRoutes: Routes = [
   
@@ -10,15 +11,17 @@ export const AppRoutes: Routes = [
   { path: '', component: AdminLayoutComponent, canActivate: [AuthGuard] },
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'dashboard',//'dashboard'
     pathMatch: 'full',
-  }, {
+  }, 
+  {
     path: '', component: AdminLayoutComponent, children: [{
     path: '',loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule', canActivate: [AuthGuard] 
   }]},
-  {
-    path: '**',
-    redirectTo: 'dashboard'
-  },
+   {
+     //Otherwise redirect to home
+     path: '**',
+     redirectTo: 'dashboard'//'dashboard'
+   },
   
 ]

@@ -13,8 +13,16 @@ export class AuthGuard implements CanActivate {
     
     let token = localStorage.getItem('token');
 
+    
+    //console.log("Auth guard state.url : "+state.url );
+
     if (token=="" || token==null) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+      
+    localStorage.setItem('returnUrl', state.url);
+    
+    //console.log("setItem state.url : "+localStorage.getItem('returnUrl') );
+
     return false;
     }
 

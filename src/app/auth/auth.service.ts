@@ -27,7 +27,9 @@ export class AuthService {
   login(user: User,spinner:any){  
     localStorage.setItem("username",user.userName);
     if (user.userName !== '' && user.password !== '' ) {
-      if ((user.userName=='admin'||user.userName=='admin') && (user.password == "admin")){
+       
+      let returnURL = localStorage.getItem('returnUrl'); 
+      if ((user.userName=='admin'||user.userName=='Admin') && (user.password == "admin")){
         this.GetDemoUser(user,spinner);  
 
       } 
@@ -50,9 +52,18 @@ export class AuthService {
 
              localStorage.setItem('token', token);
           localStorage.setItem('staffId', staffId); 
-          localStorage.setItem('adminUser', this.env.userName);           
+          localStorage.setItem('adminUser', this.env.userName);  
+          let returnURL = localStorage.getItem('returnUrl'); 
+          console.log('returnURL: '+returnURL);
+          if ((returnURL =="" )||(returnURL ==null )){ 
+            
+            this.router.navigate(['/#/dashboard']);           
+            //this.router.navigate(['/creditcard/acknowledge']);
+          }
+          else{
+            this.router.navigate([returnURL]);
+          }        
 
-          this.router.navigate(['/#/dashboard']);
           this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
           spinner.hide();
           }       
@@ -96,7 +107,8 @@ export class AuthService {
 
           localStorage.setItem('token', token);
           localStorage.setItem('staffId', staffId); 
-          localStorage.setItem('adminUser', this.env.userName);           
+          localStorage.setItem('adminUser', this.env.userName);  
+                     
 
           this.router.navigate(['/#/dashboard']);
           this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
@@ -143,6 +155,8 @@ export class AuthService {
     localStorage.setItem('token', "");
     localStorage.setItem('staffId', ""); 
     this.router.navigate(['/login']);
+     
+    localStorage.setItem('returnUrl',""); 
     this.creditcardService.showSuccess('You have successfully logged out!','Login Notification.');
   }
 }

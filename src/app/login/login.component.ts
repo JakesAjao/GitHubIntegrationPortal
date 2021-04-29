@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { EnvService } from 'app/env.service';
 import { User, UserData } from 'app/model/acknowledgment';
 import { CreditCardServices } from 'app/services/creditcardServices';
@@ -18,13 +19,15 @@ import { AuthService } from './../auth/auth.service';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
+  returnUrl: string;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private bnIdle: BnNgIdleService,
     private SpinnerService: NgxSpinnerService,
-    private env: EnvService
+    private env: EnvService,
+    private route: ActivatedRoute,
   ){
     // this.bnIdle.startWatching(60).subscribe((res) => {
     //   if(res) {
@@ -38,6 +41,11 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
     localStorage.setItem("adminUser","");
+    // reset login status
+    this.authService.logout();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   
    isFieldInvalid(field: string) {
@@ -51,6 +59,8 @@ export class LoginComponent implements OnInit {
    //debugger;
     if (this.form.valid) {      
    this.SpinnerService.show(); 
+   
+   //console.log("Login returnUrl: "+this.returnUrl);
       this.authService.login(this.form.value,this.SpinnerService);     
      }
     this.formSubmitAttempt = true;   
