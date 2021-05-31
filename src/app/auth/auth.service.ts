@@ -25,12 +25,14 @@ export class AuthService {
   ) {}
 
   login(user: User,spinner:any){  
+    
     localStorage.setItem("username",user.userName);
     if (user.userName !== '' && user.password !== '' ) {
        
       let returnURL = localStorage.getItem('returnUrl'); 
       if ((user.userName=='admin'||user.userName=='Admin') && (user.password == "admin")){
-        this.GetDemoUser(user,spinner);  
+        //this.GetDemoUser(user,spinner);  
+        this.router.navigate(['/otp']); 
 
       } 
       else{    
@@ -108,9 +110,16 @@ export class AuthService {
           localStorage.setItem('token', token);
           localStorage.setItem('staffId', staffId); 
           localStorage.setItem('adminUser', this.env.userName);  
-                     
+          let returnURL = localStorage.getItem('returnUrl'); 
 
-          this.router.navigate(['/#/dashboard']);
+          if ((returnURL =="" )||(returnURL ==null )){ 
+            
+            this.router.navigate(['/#/dashboard']);           
+            //this.router.navigate(['/creditcard/acknowledge']);
+          }
+          else{
+            this.router.navigate([returnURL]);
+          }   
           this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
           spinner.hide();
         }

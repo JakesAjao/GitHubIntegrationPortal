@@ -1,0 +1,36 @@
+
+<div
+  class="otp-container {{setting.wrapperClass}}"
+  id="c_{{componentKey}}"
+  *ngIf="otpForm?.controls"
+  [ngStyle]="setting.wrapperStyles"
+>
+  <input
+    [type]="setting.numbersOnly ? 'tel' : 'text'"
+    numberOnly
+    [disabledNumberOnly]="!setting.numbersOnly"
+    [ngStyle]="setting.inputStyles"
+    maxlength="1"
+    class="otp-input {{setting.inputClass}}"
+    autocomplete="off"
+    *ngFor="let item of otpForm?.controls | keys; let i = index"
+    [formControl]="otpForm.controls[item]"
+    id="otp_{{i}}_{{componentKey}}"
+    (keyup)="keyUp($event, i)"
+  />
+  <ng-container
+    counter
+    [counter]="setting.timer"
+    (value)="onCounterChange($event)"
+  >
+    <div>
+      <button
+        class="btn {{setting.btnClass}}"
+        [disabled]="counter != 0"
+        (click)="ressendOtp()"
+      >
+        Resend OTP <span *ngIf="counter != 0">in {{ counter }} seconds.</span>
+      </button>
+    </div>
+  </ng-container>
+</div>

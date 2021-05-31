@@ -36,16 +36,20 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive, NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { EnvServiceProvider } from "./env.service.provider";
+import { OtpComponent } from "./otp/otp.component";
+import { AngularOtpLibModule } from "./otpinput/angular-otp-box.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent,        
+    LoginComponent,
+    OtpComponent    
   ],
   imports: [
     ShowHidePasswordModule,
     BrowserAnimationsModule,
+    AngularOtpLibModule,
     RouterModule.forRoot(AppRoutes,{
     useHash: true,
     relativeLinkResolution: 'legacy',    

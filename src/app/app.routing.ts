@@ -3,11 +3,13 @@ import { AuthGuard } from './auth/auth.guard';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { OtpComponent } from './otp/otp.component';
 import { AcknowledgeComponent } from './pages/Acknowledge/Acknowledge.component';
 
 export const AppRoutes: Routes = [
   
   { path: 'login', component: LoginComponent },
+  { path: 'otp', component: OtpComponent },
   { path: '', component: AdminLayoutComponent, canActivate: [AuthGuard] },
   {
     path: '',
