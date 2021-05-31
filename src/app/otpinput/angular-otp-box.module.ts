@@ -5,7 +5,9 @@ import { OtpInputComponent } from './otp.input.component';
 import { KeysPipe } from './pipes/keys.pipe';
 import { NumberOnly } from './directives/numberOnly.directives';
 import { CounterDirective } from './directives/timer.directives';
+import { MatButtonModule } from '@angular/material/button';
 
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     OtpInputComponent,
@@ -19,7 +21,9 @@ import { CounterDirective } from './directives/timer.directives';
     ReactiveFormsModule
   ],
   exports: [
-    OtpInputComponent
+    OtpInputComponent,
+    MatButtonModule,
+    MatIconModule
   ],
   providers:[KeysPipe]
 })
