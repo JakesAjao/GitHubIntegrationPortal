@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {      
    this.SpinnerService.show(); 
    
-   //console.log("Login returnUrl: "+this.returnUrl);
       this.authService.login(this.form.value,this.SpinnerService);     
      }
     this.formSubmitAttempt = true;   

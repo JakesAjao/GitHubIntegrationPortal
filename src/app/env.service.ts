@@ -10,6 +10,8 @@ export class EnvService {
   public password = '';
   public userName = '';
 
+  public idelTimeInSecond = '';
+
   // Whether or not to enable debug mode
   public enableDebug = true;
 

@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, interval, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { CardData, UserData } from 'app/model/acknowledgment';
-import { User } from 'app/auth/user';
+import { User, UserToken } from 'app/auth/user';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EnvService } from 'app/env.service';
 
@@ -37,6 +37,14 @@ export class CreditCardServices {
        const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) }; 
        
        return this.http.post<any>(this.url+'Login/UserLogin',user,httpOptions);  
+     }
+    otp(user: UserToken): Observable<any> { 
+      const body = { "UserName": user.userName,"UserToken":user.userToken };
+      let bodyContent = JSON.stringify(body);
+      console.log('body: '+bodyContent);
+     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) }; 
+      
+     return this.http.post<any>(this.url+'Login/TokenAuthorization',bodyContent,httpOptions);  
      }  
 
     getCardInventory(branchCode:string,token:string): Observable<any> { 

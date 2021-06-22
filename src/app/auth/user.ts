@@ -9,3 +9,7 @@ export interface User {
     displayName:string;
     token:string;
   }
+  export interface UserToken{
+    userName:string
+    userToken:string;
+ }

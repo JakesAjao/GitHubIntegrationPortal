@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
 import { Subject } from 'rxjs/internal/Subject';
+import { EnvService } from 'app/env.service';
 
 export interface RouteInfo {
     path: string;
@@ -45,12 +46,16 @@ export class SidebarComponent implements OnInit {
     @ViewChild('inputFile') inputFile: ElementRef;
     isExcelFile: boolean;
     constructor(
-        private toastr: ToastrService,private router: Router,private idle: Idle, private keepalive: Keepalive){
-         
+        private toastr: ToastrService,private router: Router,private idle: Idle, private keepalive: Keepalive,
+        private env: EnvService){        
+          this.doIdleTimeout(idle,keepalive);    
+    }
+    doIdleTimeout(idle:Idle,keepalive: Keepalive){
+      var IdleTime:number=+this.env.idelTimeInSecond;
             // sets an idle timeout of 5 seconds, for testing purposes.
-    idle.setIdle(300);
+    idle.setIdle(IdleTime);
     // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-    idle.setTimeout(300);
+    idle.setTimeout(IdleTime);
     // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
     idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
@@ -86,7 +91,6 @@ export class SidebarComponent implements OnInit {
       keepalive.onPing.subscribe(() => this.lastPing = new Date());
   
       this.reset();
-    
     }
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);

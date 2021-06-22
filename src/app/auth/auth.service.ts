@@ -31,9 +31,7 @@ export class AuthService {
        
       let returnURL = localStorage.getItem('returnUrl'); 
       if ((user.userName=='admin'||user.userName=='Admin') && (user.password == "admin")){
-        //this.GetDemoUser(user,spinner);  
-        this.router.navigate(['/otp']); 
-
+        this.GetDemoUser(user,spinner);  
       } 
       else{    
       
@@ -50,17 +48,19 @@ export class AuthService {
             let department = data.department;
             let staffId = data.staffID;
             let token = data.token;
-            this.flag = true;    
+            this.flag = true;   
 
-             localStorage.setItem('token', token);
+            localStorage.setItem('token', token);
+            localStorage.setItem('staffName', staffName); 
           localStorage.setItem('staffId', staffId); 
           localStorage.setItem('adminUser', this.env.userName);  
           let returnURL = localStorage.getItem('returnUrl'); 
           console.log('returnURL: '+returnURL);
           if ((returnURL =="" )||(returnURL ==null )){ 
             
-            this.router.navigate(['/#/dashboard']);           
-            //this.router.navigate(['/creditcard/acknowledge']);
+            //this.router.navigate(['/#/dashboard']);           
+            
+           this.router.navigate(['/otp']);    
           }
           else{
             this.router.navigate([returnURL]);
@@ -90,8 +90,10 @@ export class AuthService {
   }
    
   GetDemoUser(user:User,spinner:any){
+    debugger;
     user.userName = this.env.userName;
     user.password = this.env.password;
+    //user.password = this.env.idelTimeInSecond;
     this.creditcardService.login(user).subscribe(
       (response)=>
       {                    
@@ -107,6 +109,7 @@ export class AuthService {
           let token = data.token;
           this.flag = true;
 
+          localStorage.setItem('staffName', staffName); 
           localStorage.setItem('token', token);
           localStorage.setItem('staffId', staffId); 
           localStorage.setItem('adminUser', this.env.userName);  
@@ -114,8 +117,9 @@ export class AuthService {
 
           if ((returnURL =="" )||(returnURL ==null )){ 
             
-            this.router.navigate(['/#/dashboard']);           
-            //this.router.navigate(['/creditcard/acknowledge']);
+           // this.router.navigate(['/#/dashboard']);   
+            
+           this.router.navigate(['/otp']);         
           }
           else{
             this.router.navigate([returnURL]);
@@ -163,6 +167,8 @@ export class AuthService {
     //this.loggedIn.next(false);
     localStorage.setItem('token', "");
     localStorage.setItem('staffId', ""); 
+    localStorage.setItem('staffName', ""); 
+    localStorage.setItem('adminUser', ""); 
     this.router.navigate(['/login']);
      
     localStorage.setItem('returnUrl',""); 

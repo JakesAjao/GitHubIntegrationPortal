@@ -5,18 +5,17 @@
   *ngIf="otpForm?.controls"
   [ngStyle]="setting.wrapperStyles"
 >
-  <input
-    [type]="setting.numbersOnly ? 'tel' : 'text'"
-    numberOnly
+  <input    [type]="setting.numbersOnly ? 'password' : 'password'"
+    numberOnly 
     [disabledNumberOnly]="!setting.numbersOnly"
     [ngStyle]="setting.inputStyles"
-    maxlength="1"
+    maxlength="1"  
     class="otp-input {{setting.inputClass}}"
     autocomplete="off"
     *ngFor="let item of otpForm?.controls | keys; let i = index"
     [formControl]="otpForm.controls[item]"
     id="otp_{{i}}_{{componentKey}}"
-    (keyup)="keyUp($event, i)"
+    (keyup)="keyUp($event, i)" >
   />
   <ng-container
     counter
@@ -26,14 +25,21 @@
     <div style="margin-top: 8px;">      
 
       <button
-        class="btn {{setting.btnClass}}" mat-raised-button color="primary" id="button" class="btn btn-primary" (click)="sumbitOtp()">Submit OTP
+        class="btn {{setting.btnClass}}" mat-raised-button color="primary" id="button" class="btn btn-primary" (click)="submitOtp()">Submit
       </button>&nbsp;
-      <button  id="button" mat-raised-button color="warn" 
+      <!-- <button  id="button" mat-raised-button color="warn" 
         class="btn {{setting.btnClass}}"
         [disabled]="counter != 0"
         (click)="ressendOtp()"
       >
         Resend OTP <span *ngIf="counter != 0" style="color:white">in {{ counter }} seconds.</span>
+      </button> -->
+       <button  id="button" mat-raised-button color="warn" 
+        class="btn {{setting.btnClass}}"
+        [disabled]="counter != 0"
+        (click)="backToLogin()"
+      >
+        Back<span *ngIf="counter != 0" style="color:white"></span>
       </button>
     </div>
   </ng-container>

@@ -8,6 +8,8 @@ import { CounterDirective } from './directives/timer.directives';
 import { MatButtonModule } from '@angular/material/button';
 
 import {MatIconModule} from '@angular/material/icon';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 @NgModule({
   declarations: [
     OtpInputComponent,
@@ -18,7 +20,9 @@ import {MatIconModule} from '@angular/material/icon';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIdleKeepaliveModule.forRoot(),
+    NgxMaskModule.forRoot()
   ],
   exports: [
     OtpInputComponent,

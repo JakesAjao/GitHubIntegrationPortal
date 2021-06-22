@@ -9,7 +9,7 @@ import { AcknowledgeComponent } from './pages/Acknowledge/Acknowledge.component'
 export const AppRoutes: Routes = [
   
   { path: 'login', component: LoginComponent },
-  { path: 'otp', component: OtpComponent },
+  { path: 'otp', component: OtpComponent,canActivate: [AuthGuard] },
   { path: '', component: AdminLayoutComponent, canActivate: [AuthGuard] },
   {
     path: '',

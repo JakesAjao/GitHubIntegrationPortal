@@ -4,6 +4,10 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import Chart from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
 
+import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
+import { Keepalive } from '@ng-idle/keepalive';
+import { Subject } from 'rxjs/internal/Subject';
+import { EnvService } from 'app/env.service';
 
 @Component({
     selector: 'dashboard-cmp',
@@ -12,23 +16,63 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class DashboardComponent implements OnInit{
-
+  public menuItems: any[];
+  idleState = 'Not started.';
+  timedOut = false;
+  lastPing?: Date = null;
+  title = 'angular-idle-timeout';
   public canvas : any;
-  public ctx;
-  public chartColor;
-  public chartEmail;
-  public chartHours;
 
   constructor(
-    private bnIdle: BnNgIdleService,private toastr: ToastrService,private router: Router,){
-      // this.bnIdle.startWatching(300).subscribe((res) => {//5 minutes
-      //   if(res) {
-      //       console.log("session expired");            
-      //       this.showSuccess('Session expired!','Session Expired Alert');
-      //       //this.loggedIn.next(false);
-      //       this.router.navigate(['/login']);
-      //   }
-      // })
+    private bnIdle: BnNgIdleService,private toastr: ToastrService,
+    private router: Router,private idle: Idle, private keepalive: Keepalive,private env: EnvService){
+             
+     var IdleTime:number=+this.env.idelTimeInSecond;
+           
+     idle.setIdle(IdleTime);
+     // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
+     idle.setTimeout(IdleTime);
+    // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
+    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+    idle.onIdleEnd.subscribe(() => { 
+      this.idleState = 'No longer idle.'
+      console.log(this.idleState);
+      this.reset();
+      },
+      idle.onTimeout.subscribe(() => {
+        this.idleState = 'Timed out!';
+        this.timedOut = true;
+        console.log(this.idleState);
+        
+        localStorage.setItem('adminUser', ""); 
+        this.router.navigate(['/login']);
+      }));
+      
+      idle.onIdleStart.subscribe(() => {
+          this.idleState = 'You\'ve gone idle!'
+          console.log(this.idleState);
+          //this.childModal.show();
+          console.log("logging out");
+      });
+      
+      idle.onTimeoutWarning.subscribe((countdown) => {
+        this.idleState = 'You will time out in ' + countdown + ' seconds!'
+        console.log(this.idleState);
+      });
+  
+      // sets the ping interval to 15 seconds
+      keepalive.interval(15);
+  
+      keepalive.onPing.subscribe(() => this.lastPing = new Date());
+  
+      this.reset();
+    
+  }
+  reset() {
+    this.idle.watch();
+    this.idleState = 'Started.';
+    this.timedOut = false;
   }
   showSuccess(header:string,message:string) {
     this.toastr.success(header, message);
@@ -46,193 +90,5 @@ export class DashboardComponent implements OnInit{
       //   }
       // })
       
-     this.chartColor = "#FFFFFF";
-
-      this.canvas = document.getElementById("chartHours");
-      this.ctx = this.canvas.getContext("2d");
-
-      this.chartHours = new Chart(this.ctx, {
-        type: 'line',
-
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
-          datasets: [{
-              borderColor: "#6bd098",
-              backgroundColor: "#6bd098",
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              borderWidth: 3,
-              data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
-            },
-            {
-              borderColor: "#f17e5d",
-              backgroundColor: "#f17e5d",
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              borderWidth: 3,
-              data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
-            },
-            {
-              borderColor: "#fcc468",
-              backgroundColor: "#fcc468",
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              borderWidth: 3,
-              data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
-            }
-          ]
-        },
-        options: {
-          legend: {
-            display: false
-          },
-
-          tooltips: {
-            enabled: false
-          },
-
-          scales: {
-            yAxes: [{
-
-              ticks: {
-                fontColor: "#9f9f9f",
-                beginAtZero: false,
-                maxTicksLimit: 5,
-                //padding: 20
-              },
-              gridLines: {
-                drawBorder: false,
-                zeroLineColor: "#ccc",
-                color: 'rgba(255,255,255,0.05)'
-              }
-
-            }],
-
-            xAxes: [{
-              barPercentage: 1.6,
-              gridLines: {
-                drawBorder: false,
-                color: 'rgba(255,255,255,0.1)',
-                zeroLineColor: "transparent",
-                display: false,
-              },
-              ticks: {
-                padding: 20,
-                fontColor: "#9f9f9f"
-              }
-            }]
-          },
-        }
-      });
-
-
-      this.canvas = document.getElementById("chartEmail");
-      this.ctx = this.canvas.getContext("2d");
-      this.chartEmail = new Chart(this.ctx, {
-        type: 'pie',
-        data: {
-          labels: [1, 2, 3],
-          datasets: [{
-            label: "Emails",
-            pointRadius: 0,
-            pointHoverRadius: 0,
-            backgroundColor: [
-              '#e3e3e3',
-              '#4acccd',
-              '#fcc468',
-              '#ef8157'
-            ],
-            borderWidth: 0,
-            data: [342, 480, 530, 120]
-          }]
-        },
-
-        options: {
-
-          legend: {
-            display: false
-          },
-
-          pieceLabel: {
-            render: 'percentage',
-            fontColor: ['white'],
-            precision: 2
-          },
-
-          tooltips: {
-            enabled: false
-          },
-
-          scales: {
-            yAxes: [{
-
-              ticks: {
-                display: false
-              },
-              gridLines: {
-                drawBorder: false,
-                zeroLineColor: "transparent",
-                color: 'rgba(255,255,255,0.05)'
-              }
-
-            }],
-
-            xAxes: [{
-              barPercentage: 1.6,
-              gridLines: {
-                drawBorder: false,
-                color: 'rgba(255,255,255,0.1)',
-                zeroLineColor: "transparent"
-              },
-              ticks: {
-                display: false,
-              }
-            }]
-          },
-        }
-      });
-
-      var speedCanvas = document.getElementById("speedChart");
-
-      var dataFirst = {
-        data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
-        fill: false,
-        borderColor: '#fbc658',
-        backgroundColor: 'transparent',
-        pointBorderColor: '#fbc658',
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8,
-      };
-
-      var dataSecond = {
-        data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
-        fill: false,
-        borderColor: '#51CACF',
-        backgroundColor: 'transparent',
-        pointBorderColor: '#51CACF',
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8
-      };
-
-      var speedData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [dataFirst, dataSecond]
-      };
-
-      var chartOptions = {
-        legend: {
-          display: false,
-          position: 'top'
-        }
-      };
-
-      var lineChart = new Chart(speedCanvas, {
-        type: 'line',
-        hover: false,
-        data: speedData,
-        options: chartOptions
-      });
+     }
     }
-}

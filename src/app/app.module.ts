@@ -47,6 +47,7 @@ import { AngularOtpLibModule } from "./otpinput/angular-otp-box.module";
     OtpComponent    
   ],
   imports: [
+    NgIdleKeepaliveModule.forRoot(),
     ShowHidePasswordModule,
     BrowserAnimationsModule,
     AngularOtpLibModule,
