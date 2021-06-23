@@ -90,7 +90,7 @@ export class AuthService {
   }
    
   GetDemoUser(user:User,spinner:any){
-    debugger;
+    //debugger;
     user.userName = this.env.userName;
     user.password = this.env.password;
     //user.password = this.env.idelTimeInSecond;

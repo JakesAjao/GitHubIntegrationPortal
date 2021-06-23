@@ -196,7 +196,7 @@ private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
         }
       });
       this.inputValue = val;
-     console.log('this.inputValue:'+this.inputValue);
+     //console.log('this.inputValue:'+this.inputValue);
       this.onValueChange.emit(val);
     }
   
@@ -215,6 +215,7 @@ private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
       this.authService.logout();
     }
     submitOtp():void{
+     // debugger;
       //console.log("this.inputValue: "+this.inputValue);
       let userName = localStorage.getItem('staffName'); 
       console.log('staffName: '+userName);
@@ -222,14 +223,17 @@ private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
       var user = new User();
       user.userName = userName;
       user.userToken = tokenName;
-      console.log('user.userName: '+user.userName);
-      console.log('user.userToken: '+user.userToken);
-      console.log('User response: '+JSON.stringify(user));
+      
+     console.log('user.userToken: '+user.userToken);
+      
+      const obj = JSON.stringify(user);
+      console.log('json user: '+obj);
       this.SpinnerService.show(); 
-      //this.otpService.otp(user);
-      this.creditcardService.otp(user).subscribe(
+      //debugger;
+      this.creditcardService.otp(obj).subscribe(
         (response)=>
         {   
+          //debugger;
           console.log('Response: '+JSON.parse(response));                 
           let isSuccessful:boolean = (response.isSuccessful);
           if (isSuccessful){
@@ -239,9 +243,7 @@ private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
             let message = data.message;
             let statusCode = data.statusCode;
             let department = data.department;
-            //let staffId = data.staffID;
-            //let token = data.token;
-            //this.flag = true;
+            console.log('isSuccessful: '+isSuccessful); 
    
             let returnURL = localStorage.getItem('returnUrl'); 
   
@@ -255,10 +257,12 @@ private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
             this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
             this.SpinnerService.hide();
           }
+          else{
+            console.log("IsSuccessful False: "+JSON.stringify(response));
+          }
                
         },
-        (error)=>{  
-          debugger;          
+        (error)=>{           
           console.log("Error: "+JSON.stringify(error));
             //this.loggedIn.next(false);
             let isSuccessful = this.authService.GetServerResponse(error);

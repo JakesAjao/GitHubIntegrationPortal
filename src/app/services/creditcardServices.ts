@@ -34,17 +34,16 @@ export class CreditCardServices {
         return this.currentUserSubject.value;
     }   
     login(user: User): Observable<any> { 
+      //debugger
        const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) }; 
-       
+       //console.log('Login body: '+user);
        return this.http.post<any>(this.url+'Login/UserLogin',user,httpOptions);  
      }
-    otp(user: UserToken): Observable<any> { 
-      const body = { "UserName": user.userName,"UserToken":user.userToken };
-      let bodyContent = JSON.stringify(body);
-      console.log('body: '+bodyContent);
+    otp(obj: any): Observable<any> { 
+//debugger;
      const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) }; 
       
-     return this.http.post<any>(this.url+'Login/TokenAuthorization',bodyContent,httpOptions);  
+     return this.http.post<any>(this.url+'Login/TokenAuthorization',obj,httpOptions);  
      }  
 
     getCardInventory(branchCode:string,token:string): Observable<any> { 

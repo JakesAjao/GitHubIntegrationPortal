@@ -34,13 +34,15 @@
       >
         Resend OTP <span *ngIf="counter != 0" style="color:white">in {{ counter }} seconds.</span>
       </button> -->
-       <button  id="button" mat-raised-button color="warn" 
-        class="btn {{setting.btnClass}}"
-        [disabled]="counter != 0"
+       <button  id="button" mat-raised-button color="warn"       
         (click)="backToLogin()"
       >
         Back<span *ngIf="counter != 0" style="color:white"></span>
       </button>
     </div>
   </ng-container>
+  
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+  <p style="color:green;font-size: 16px;">The request is being processed, kindly wait a few seconds. </p>  
+ </ngx-spinner> 
 </div>

@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     OtpInputComponent,
@@ -22,7 +23,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
     FormsModule,
     ReactiveFormsModule,
     NgIdleKeepaliveModule.forRoot(),
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgxSpinnerModule
   ],
   exports: [
     OtpInputComponent,
