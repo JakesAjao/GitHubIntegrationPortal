@@ -1,0 +1,141 @@
+{
+	"variables": [],
+	"info": {
+		"name": "GitHubIntegrationAPI",
+		"_postman_id": "7323ef9a-cc95-6f60-3dec-f1751f5aa2ab",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "My Profile Details",
+			"request": {
+				"url": "https://api.github.com/users/JakesAJao",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "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",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": "https://api.github.com/users/JakesAJao"
+			},
+			"response": []
+		},
+		{
+			"name": "Authentication with Token",
+			"request": {
+				"url": "https://api.github.com/users/JakesAjao",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JakesAjao: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",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "https://api.github.com/users/JakesAjao"
+			},
+			"response": []
+		},
+		{
+			"name": "Repository Details",
+			"request": {
+				"url": "https://api.github.com/user/repos",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": " token 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",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "https://api.github.com/user/repos"
+			},
+			"response": []
+		},
+		{
+			"name": "Repository Owner",
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/users/JakesAjao/repos?type=owner",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"JakesAjao",
+						"repos"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "owner",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "https://api.github.com/users/octocat/repos?type=owner"
+			},
+			"response": []
+		},
+		{
+			"name": "Search A User Repository By Name",
+			"request": {
+				"url": "https://api.github.com/repos/twbs/bootstrap",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "https://api.github.com/repos/JakesAjao/Angular7-LoginAndRegistrationPortal"
+			},
+			"response": []
+		},
+		{
+			"name": "Last 100 Commit",
+			"request": {
+				"url": {
+					"raw": "https://api.github.com/repos/technoweenie/fantomex/commits?per_page=5",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"repos",
+						"technoweenie",
+						"fantomex",
+						"commits"
+					],
+					"query": [
+						{
+							"key": "per_page",
+							"value": "5",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "https://api.github.com/repos/technoweenie/fantomex/commits?per_page=5"
+			},
+			"response": []
+		}
+	]
+}
