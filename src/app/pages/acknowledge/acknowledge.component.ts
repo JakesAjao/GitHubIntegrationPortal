@@ -33,7 +33,7 @@ export class AcknowledgeComponent implements OnInit  {
   
   username = localStorage.getItem('username');
   
-  displayedColumns: string[] = ['select','id', 'name','description','action'];
+  displayedColumns: string[] = ['id', 'name','description','action'];
     
   dataSource: MatTableDataSource<UserData>;
       

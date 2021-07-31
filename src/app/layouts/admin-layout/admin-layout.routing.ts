@@ -18,6 +18,8 @@ import { BlankcardComponent } from 'app/pages/blankcard/blankcard.component';
 import { BlankcardAcknowledgementComponent } from 'app/pages/blankcard-acknowledgement/blankcard-acknowledgement.component';
 import { BlankcardUploadComponent } from 'app/pages/blankcard-upload/blankcard-upload.component';
 import { AnalyticsComponent } from 'app/pages/analytics/analytics.component';
+import { CommitterComponent } from 'app/pages/committer/committer.component';
+import { CommitComponent } from 'app/pages/commit/commit.component';
 
 export const AdminLayoutRoutes: Routes = [
   
@@ -30,10 +32,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent }, 
     { path: 'analytics',      component: AnalyticsComponent }, 
-
+   
     
-    
-    { path: 'creditcard', component: DispatchcardComponent, 
+    { path: 'repo', component: DispatchcardComponent, 
     children: [
     { path: 'acknowledge', component: AcknowledgeComponent, canActivate: [AuthGuard] },
     //{ path: 'cardupload', component: CarduploadComponent, canActivate: [AuthGuard] },
@@ -43,9 +44,15 @@ export const AdminLayoutRoutes: Routes = [
   ]},
   { path: 'blankcard', component: BlankcardComponent, 
     children: [
-     { path: 'acknowledge:id', component: BlankcardAcknowledgementComponent, canActivate: [AuthGuard] },
+     { path: 'acknowledge', component: BlankcardAcknowledgementComponent, canActivate: [AuthGuard] },
      //{ path: 'cardupload', component: BlankcardUploadComponent, canActivate: [AuthGuard] },
      { path: '', redirectTo: 'cardupload', pathMatch: 'full'}
-  ]},    
+  ]}, 
+  { path: 'analytics', component: AnalyticsComponent, 
+  children: [
+  { path: 'committers/:id', component: CommitterComponent, canActivate: [AuthGuard] },
+  { path: 'commit', component: CommitComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'committer', pathMatch: 'full'}
+]},   
      
 ];

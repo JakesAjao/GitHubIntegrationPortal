@@ -14,17 +14,17 @@ export class DispatchcardComponent implements OnInit {
     //   label: 'Cardupload'
     // },
     {
-      path: '/creditcard/acknowledge',
+      path: '/repo/acknowledge',
       label: 'Search'
     },
-    {
-      path: '/creditcard/pickup',
-      label: 'Pickup'
-    },
-    {
-      path: '/creditcard/activate',
-      label: 'Activate'
-    },
+    // {
+    //   path: '/creditcard/pickup',
+    //   label: 'Pickup'
+    // },
+    // {
+    //   path: '/creditcard/activate',
+    //   label: 'Activate'
+    // },
     ];
   constructor() {
  
