@@ -42,6 +42,7 @@ import { BlankcardAcknowledgementComponent } from 'app/pages/blankcard-acknowled
 import { BlankcardUploadComponent } from 'app/pages/blankcard-upload/blankcard-upload.component';
 import { BlankcardComponent } from 'app/pages/blankcard/blankcard.component';
 import { EnvServiceProvider } from 'app/env.service.provider';
+import { AnalyticsComponent } from 'app/pages/analytics/analytics.component';
 @NgModule({
   imports: [
     
@@ -85,7 +86,8 @@ import { EnvServiceProvider } from 'app/env.service.provider';
     CarduploadComponent,
     BlankcardAcknowledgementComponent,
     BlankcardUploadComponent,
-    BlankcardComponent
+    BlankcardComponent,
+    AnalyticsComponent
   ],
   
   exports: [    

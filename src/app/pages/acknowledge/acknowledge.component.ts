@@ -31,10 +31,9 @@ export class AcknowledgeComponent implements OnInit  {
   error: string;
   success: string;
   
-  token = localStorage.getItem('token');
-  staffId = localStorage.getItem('staffId');
+  username = localStorage.getItem('username');
   
-  displayedColumns: string[] = ['select','id', 'name','description'];
+  displayedColumns: string[] = ['select','id', 'name','description','action'];
     
   dataSource: MatTableDataSource<UserData>;
       
@@ -59,7 +58,7 @@ export class AcknowledgeComponent implements OnInit  {
     fetchRepoDetails(){
       //debugger;
       //this.repositoryServices.getRepoDetails("JakesAjao","Angular8FlexLayout").subscribe(
-        this.repositoryServices.getRepoList("JakesAjao").subscribe(
+        this.repositoryServices.getRepoList(this.username).subscribe(
         (response)=>{
          //console.log("Response 1: " + JSON.stringify(response));
          let cardObjData = response.data; 
@@ -234,24 +233,7 @@ export class AcknowledgeComponent implements OnInit  {
         return null;
       }
     }
-   
-    UploadStatus(cardDataJson:string){
-      if (cardDataJson != null){
-        this.repositoryServices.updateStatus(this.token, cardDataJson).subscribe( 
-          (data) =>{           
-              this.successfulMessage(data); 
-              this.success = "Updated!";  
-              this.repositoryServices.showSuccess('Wow! Acknowledgement was Successful.','Search Notification.');  
-          }),
-          err => {
-            console.log("Error");
-            this.repositoryServices.showFailure('Oops! Card Acknowledgement failed.','Search Notification.');
-            this.SpinnerService.hide();
-            this.error = "Failed."; 
-          }       
-          
-      }
-    }
+  
     // updateAll(){ 
     //   let f = this.isAllSelected();
     //    if (this.isAllSelected() && (this.cardDataArr.length==0)){

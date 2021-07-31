@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CardData, User, UserData } from 'app/model/acknowledgment';
 import { BlankCard, BlankCardData, BlankCardImpl } from 'app/model/blankcard';
 import { CreditCardServices } from 'app/services/creditcardServices';
@@ -47,10 +47,13 @@ export class BlankcardAcknowledgementComponent implements OnInit {
     
     constructor(fb: FormBuilder,
       private SpinnerService: NgxSpinnerService,private toastr: ToastrService,
-      private router: Router,private excelService:ExcelService, private creditcardService: CreditCardServices, ){
+      private router: Router,private excelService:ExcelService, private creditcardService: CreditCardServices, 
+      private activatedRoute:ActivatedRoute){
         
        }  
      ngOnInit(): void{ 
+      //console.log('Activated Route id: '+this.activatedRoute.snapshot.params.id);
+
       let adminUser =  localStorage.getItem("adminUser");
       
       if (adminUser!=null){
