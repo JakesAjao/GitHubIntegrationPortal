@@ -2,8 +2,9 @@ import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EnvService } from 'app/env.service';
-import { AcknowledgmentService } from 'app/services/acknowledgment.service1111';
+//import { AcknowledgmentService } from 'app/services/acknowledgment.service1111';
 import { CreditCardServices } from 'app/services/creditcardServices';
+import { LoginServices } from 'app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { User } from './user';
@@ -20,134 +21,78 @@ export class AuthService {
     private router: Router,
     private toastr: ToastrService,
     private httpClient: HttpClient,
-    private creditcardService: CreditCardServices,
+    private creditcardService: CreditCardServices,private loginService: LoginServices,
     private env: EnvService
   ) {}
 
   login(user: User,spinner:any){  
     
     localStorage.setItem("username",user.userName);
-    if (user.userName !== '' && user.password !== '' ) {
-       
-      let returnURL = localStorage.getItem('returnUrl'); 
-      if ((user.userName=='admin'||user.userName=='Admin') && (user.password == "admin")){
-        this.GetDemoUser(user,spinner);  
-      } 
-      else{    
+    //console.log("user.userName: "+user.userName);
+    if (user.userName != '' ||user.userName!=null) {       
+      //let returnURL = localStorage.getItem('returnUrl'); 
+      // if ((user.userName!=''||user.userName==null)){
+      //   this.GetDemoUser(user,spinner);  
+      // } 
+      //else{    
       
-      this.creditcardService.login(user).subscribe(
-        (response)=>
-        {                    
-          let isSuccessful:boolean = (response.isSuccessful);
-          if (isSuccessful){
-         // console.log(response);
-            let data = (response.data);
-            let email = data.email;
-            let staffName = data.staffName;
-            let displayName = data.displayName;
-            let department = data.department;
-            let staffId = data.staffID;
-            let token = data.token;
-            this.flag = true;   
+      this.loginService.login(user).subscribe(
+        (responseObj)=>
+        {
+          let objKeys = Object.keys(responseObj);
+          let username = null;
+          let name = null;
+          for (let item of objKeys) {
+            //this will print out the keys
+            //console.log('key:', item);
+            if (item=='login'){       
+              username = responseObj[item];   
+            console.log('username:', responseObj[item]);
+            }
+            if (item=='name'){
+            name = responseObj[item];
             
-            localStorage.setItem('token', token);
-            localStorage.setItem('staffName', staffName); 
-          localStorage.setItem('staffId', staffId); 
-          localStorage.setItem('adminUser', this.env.userName);  
-          let returnURL = localStorage.getItem('returnUrl'); 
-          console.log('returnURL: '+returnURL);
-          if ((returnURL =="" )||(returnURL ==null )){ 
+            console.log('name:', responseObj[item]);
+            } 
+             
+          localStorage.setItem('username', username);  
+          localStorage.setItem('name', name);                
+         
+         console.log("responseObj: "+responseObj); 
             
-            //this.router.navigate(['/#/dashboard']);           
-            
-           this.router.navigate(['/otp']);    
-          }
-          else{
-            this.router.navigate([returnURL]);
-          }        
+         if (name=='' ||name==null){
+          this.router.navigate(['/#/login']); 
+          this.creditcardService.showFailure('Invalid Username.','Login Notification.');
+         }
+         else{
+         this.router.navigate(['/#/dashboard']);  
 
           this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
           spinner.hide();
-          }       
+         }
+                
+          }
         },
         (error)=>{            
           console.log(error);
             //this.loggedIn.next(false);
-            let isSuccessful = this.GetServerResponse(error);
-            if (isSuccessful==false){
+            //let isSuccessful = this.GetServerResponse(error);
+            //if (isSuccessful==false){
               this.loggedIn.next(false);
-              this.creditcardService.showFailure('Invalid Username or Password Supplied.','Login Notification.');
-            }
-            else{
-              this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
-            }  
+              this.creditcardService.showFailure('Invalid Username.','Login Notification.');
+          
+            // else{
+            //   this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
+            // }  
             spinner.hide();       
         }
         //(error) => console.log(error){}
       )
       }
-    }
+    //}
   }
    
-  GetDemoUser(user:User,spinner:any){
-    debugger;
-    user.userName = this.env.userName;
-    user.password = this.env.password;
-    
-    this.flag = true;
-    let returnURL = localStorage.getItem('returnUrl');
-    this.router.navigate(['/#/dashboard']);  
-  //   this.creditcardService.login(user).subscribe(
-  //     (response)=>
-  //     {                    
-  //       let isSuccessful:boolean = (response.isSuccessful);
-  //       if (isSuccessful){
-  //      // console.log(response);
-  //         let data = (response.data);
-  //         let email = data.email;
-  //         let staffName = data.staffName;
-  //         let displayName = data.displayName;
-  //         let department = data.department;
-  //         let staffId = data.staffID;
-  //         let token = data.token;
-  //         this.flag = true;
-
-  //         localStorage.setItem('staffName', staffName); 
-  //         localStorage.setItem('token', token);
-  //         localStorage.setItem('staffId', staffId); 
-  //         localStorage.setItem('adminUser', this.env.userName);  
-  //         let returnURL = localStorage.getItem('returnUrl'); 
-
-  //         if ((returnURL =="" )||(returnURL ==null )){ 
-            
-  //          // this.router.navigate(['/#/dashboard']);   
-            
-  //          this.router.navigate(['/otp']);         
-  //         }
-  //         else{
-  //           this.router.navigate([returnURL]);
-  //         }   
-  //         this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
-  //         spinner.hide();
-  //       }
-             
-  //     },
-  //     (error)=>{            
-  //       console.log(error);
-  //         //this.loggedIn.next(false);
-  //         let isSuccessful = this.GetServerResponse(error);
-  //         if (isSuccessful==false){
-  //           this.loggedIn.next(false);
-  //           this.creditcardService.showFailure('Invalid Username or Password Supplied.','Login Notification.');
-  //         }
-  //         else{
-  //           this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
-  //         }  
-  //         spinner.hide();       
-  //     }
-  //     //(error) => console.log(error){}
-  //    )    
-  }
+  
 
   GetServerResponse(error:any){
       if (error==null){
@@ -169,9 +114,6 @@ export class AuthService {
   logout() {
     //this.loggedIn.next(false);
     localStorage.setItem('token', "");
-    localStorage.setItem('staffId', ""); 
-    localStorage.setItem('staffName', ""); 
-    localStorage.setItem('adminUser', ""); 
     this.router.navigate(['/login']);
      
     localStorage.setItem('returnUrl',""); 

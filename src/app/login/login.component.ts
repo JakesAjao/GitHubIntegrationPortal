@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       userName: ['', Validators.required],
-      password: ['', Validators.required]
+      //password: ['', Validators.required]
     });
     localStorage.setItem("adminUser","");
     // reset login status
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-   //debugger;
+  // debugger;
     if (this.form.valid) {      
    //this.SpinnerService.show(); 
    
