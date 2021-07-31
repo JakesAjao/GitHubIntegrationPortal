@@ -82,12 +82,15 @@ export class AcknowledgeComponent implements OnInit  {
     //Now we can use objKeys to iterate over myObj
     let description = null;
     let name = null;
+    let full_name = null;
 
     for (let item of objKeys) {
       //this will print out the keys
       console.log('id:', responseObj[item]['id']);
       console.log('name:', responseObj[item]['name']);
-      console.log('description:', responseObj[item]['description']);      
+      console.log('description:', responseObj[item]['description']);   
+      console.log('full_name:', responseObj[item]['full_name']); 
+      full_name = responseObj[item]['full_name'];
                  
        const card: UserData = new User(); 
      
@@ -97,18 +100,7 @@ export class AcknowledgeComponent implements OnInit  {
        card.name = responseObj[item]['name']; 
       this.ELEMENT_DATA.push(card);
 
-    }
-      //for(let i = 0, l = response.data.length; i < l; i++) { 
-       
-      // for(let i = 0, l = responseObj.length; i < l; i++) {    
-      //   JSON.stringify(responseObj)             
-      //   const card: UserData = new User(); 
-
-      //   card.id = responseObj.data[i].id;
-      //  // card.description = response.data[i].description; 
-      //   card.name = responseObj.data[i].name; 
-      //   this.ELEMENT_DATA.push(card);
-      //  }  
+    } 
     }
     refresh():void {
       console.log('fetchCardDetails called.');

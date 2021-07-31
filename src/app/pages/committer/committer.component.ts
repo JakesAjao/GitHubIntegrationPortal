@@ -30,6 +30,7 @@ export class CommitterComponent implements OnInit {
   success: string;
   
   username = localStorage.getItem('username');
+  repoName = null;
   
   displayedColumns: string[] = ['id', 'name'];
     
@@ -49,22 +50,19 @@ export class CommitterComponent implements OnInit {
        }  
      ngOnInit(): void{ 
        debugger;
-      console.log(this.activatedRoute.snapshot.params.id);
+      console.log("Repo name: "+this.activatedRoute.snapshot.params.name);
+      this.repoName = this.activatedRoute.snapshot.params.name;
       this.success="" ;
       this.error = "";
         this.fetchRepoDetails();      
           
     } 
     fetchRepoDetails(){
-      //debugger;
-      //this.repositoryServices.getRepoDetails("JakesAjao","Angular8FlexLayout").subscribe(
-        this.repositoryServices.getRepoList(this.username).subscribe(
+        this.repositoryServices.getCommittersList(this.username,this.repoName).subscribe(
         (response)=>{
-         //console.log("Response 1: " + JSON.stringify(response));
-         let cardObjData = response.data; 
+         console.log('Committer object: '+response);
        
          this.getRepoDetails(response);
-         //console.log('cardObjData: '+cardObjData)
          
          const users = Array.from(this.ELEMENT_DATA);     
          this.dataSource = new MatTableDataSource(users);       

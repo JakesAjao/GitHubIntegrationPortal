@@ -26,7 +26,7 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Action</b> </th>
         <td mat-cell *matCellDef="let row">
-          <a [routerLink] ="['/analytics/committers/', row.id]" routerLinkActive="router-link-active">View</a>
+          <a [routerLink] ="['/analytics/committers/', row.name]" routerLinkActive="router-link-active">View</a>
         </td>
       </ng-container>  
 

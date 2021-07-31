@@ -50,7 +50,7 @@ export const AdminLayoutRoutes: Routes = [
   ]}, 
   { path: 'analytics', component: AnalyticsComponent, 
   children: [
-  { path: 'committers/:id', component: CommitterComponent, canActivate: [AuthGuard] },
+  { path: 'committers/:name', component: CommitterComponent, canActivate: [AuthGuard] },
   { path: 'commit', component: CommitComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'committer', pathMatch: 'full'}
 ]},   
