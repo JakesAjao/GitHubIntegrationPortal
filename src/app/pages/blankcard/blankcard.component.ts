@@ -9,10 +9,10 @@ import { BnNgIdleService } from 'bn-ng-idle';
 export class BlankcardComponent implements OnInit {
 
   navLinks = [
-    {
-      path: '/blankcard/cardupload',
-      label: 'Cardupload'
-    },
+    // {
+    //   path: '/blankcard/cardupload',
+    //   label: 'Cardupload'
+    // },
     {
       path: '/blankcard/acknowledge',
       label: 'Acknowledge'

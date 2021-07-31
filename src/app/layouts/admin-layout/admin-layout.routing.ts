@@ -10,8 +10,8 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import { DispatchcardComponent } from 'app/pages/dispatchcard/dispatchcard.component';
 import { AcknowledgeComponent } from 'app/pages/Acknowledge/Acknowledge.component';
-import { ActivateComponent } from 'app/pages/Activate/Activate.component';
-import { PickupComponent } from 'app/pages/pickup/pickup.component';
+//import { ActivateComponent } from 'app/pages/Activate/Activate.component';
+//import { PickupComponent } from 'app/pages/pickupOld/pickup.component';
 import { AuthGuard } from 'app/auth/auth.guard';
 import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
 import { BlankcardComponent } from 'app/pages/blankcard/blankcard.component';
@@ -32,16 +32,16 @@ export const AdminLayoutRoutes: Routes = [
     
     { path: 'creditcard', component: DispatchcardComponent, 
     children: [
-      { path: 'cardupload', component: CarduploadComponent, canActivate: [AuthGuard] },
+     // { path: 'cardupload', component: CarduploadComponent, canActivate: [AuthGuard] },
     { path: 'acknowledge', component: AcknowledgeComponent, canActivate: [AuthGuard] },
-    { path: 'pickup', component: PickupComponent, canActivate: [AuthGuard] },
-    { path: 'activate', component: ActivateComponent, canActivate: [AuthGuard] },
+    //{ path: 'pickup', component: PickupComponent, canActivate: [AuthGuard] },
+    //{ path: 'activate', component: ActivateComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: 'cardupload', pathMatch: 'full'}
   ]},
   { path: 'blankcard', component: BlankcardComponent, 
     children: [
      { path: 'acknowledge', component: BlankcardAcknowledgementComponent, canActivate: [AuthGuard] },
-     { path: 'cardupload', component: BlankcardUploadComponent, canActivate: [AuthGuard] },
+     //{ path: 'cardupload', component: BlankcardUploadComponent, canActivate: [AuthGuard] },
      { path: '', redirectTo: 'cardupload', pathMatch: 'full'}
   ]},    
      

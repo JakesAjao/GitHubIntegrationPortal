@@ -15,7 +15,7 @@ import { NotificationsComponent }   from '../../pages/notifications/notification
 import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
 import { DispatchcardComponent }    from '../../pages/dispatchcard/dispatchcard.component';
 import { AcknowledgeComponent }    from '../../pages/Acknowledge/Acknowledge.component';
-import { ActivateComponent }    from '../../pages/Activate/Activate.component';
+//import { ActivateComponent }    from '../../pages/Activate/Activate.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,7 +35,7 @@ import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ExcelService } from 'app/services/excel.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PickupComponent } from 'app/pages/pickup/pickup.component';
+//import { PickupComponent } from 'app/pages/pickup/pickup.component';
 import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
 import { GridModule } from '@angular/flex-layout';
 import { BlankcardAcknowledgementComponent } from 'app/pages/blankcard-acknowledgement/blankcard-acknowledgement.component';
@@ -80,8 +80,8 @@ import { EnvServiceProvider } from 'app/env.service.provider';
     NotificationsComponent,
     DispatchcardComponent,
     AcknowledgeComponent,
-    ActivateComponent,
-    PickupComponent,
+    //ActivateComponent,
+    //PickupComponent,
     CarduploadComponent,
     BlankcardAcknowledgementComponent,
     BlankcardUploadComponent,

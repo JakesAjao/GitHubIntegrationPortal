@@ -9,13 +9,13 @@ import { BnNgIdleService } from 'bn-ng-idle';
 export class DispatchcardComponent implements OnInit {
  
   navLinks = [
-    {
-      path: '/creditcard/cardupload',
-      label: 'Cardupload'
-    },
+    // {
+    //   path: '/creditcard/cardupload',
+    //   label: 'Cardupload'
+    // },
     {
       path: '/creditcard/acknowledge',
-      label: 'Acknowledge'
+      label: 'Search'
     },
     {
       path: '/creditcard/pickup',
