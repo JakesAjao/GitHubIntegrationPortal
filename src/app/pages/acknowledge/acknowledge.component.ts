@@ -75,49 +75,7 @@ export class AcknowledgeComponent implements OnInit  {
        (error) => console.log(error)
        ) 
   } 
-    // fetchBranchCode():any{      
-    //   let staffId = localStorage.getItem('staffId'); 
-
-    //   this.repositoryServices.getBranchCode(staffId,this.token).subscribe(
-    //  (response)=>{
-    //   console.log("Response: " + JSON.stringify(response));
-    //   let cardObjData = response.data; 
-    //   //let empId = cardObjData.soL_ID;
-      
-    //   console.log('cardObjData: '+cardObjData); 
-
-    //   return cardObjData;    
-     
-    //   },
-    //   (error) => console.log(error)
-    //   ) 
-    //   return null;   
-    // }  
-    // fetchCardDetails(){
-    //   let branchDetails = this.fetchBranchCode();
-
-    //   if (branchDetails==null){
-    //     this.repositoryServices.showSuccess('Sorry, the branch record does not exist.','Acknowledgement Notification.'); 
-    //     return;       
-    //   }
-    //   this.repositoryServices.getCardInventory(branchDetails.soL_ID,this.token).subscribe(
-    //  (response)=>{
-    //   console.log("Response: " + JSON.stringify(response));
-    //   let cardObjData = response.data; 
-
-    //   this.getRepoDetails(response);
-    //   console.log('cardObjData: '+cardObjData)
-      
-    //   const users = Array.from(this.ELEMENT_DATA);     
-    //   this.dataSource = new MatTableDataSource(users);       
-    //   this.dataSource.paginator = this.paginator;
-        
-    //   this.dataSource.sort = this.sort;
-    // },
-    // (error) => console.log(error)
-    // ) 
-        
-    // }
+    
     getRepoDetails(responseObj:any){        
       let objKeys = Object.keys(responseObj);
 

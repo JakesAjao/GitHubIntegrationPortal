@@ -1,1 +1,44 @@
-<p>committer works!</p>
+<h4 style="margin-top: 10px;text-align: center;">Search Page</h4>
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="success" class="alert alert-success">{{success}}</div>
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter Search Page">
+</mat-form-field>
+<br>
+<!-- <button (click)="exportAsXLSX()" class="btn btn-secondary mb-2"> Export Excel</button> -->
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Id</b></th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Name</b> </th>
+      <td mat-cell *matCellDef="let row">{{row.name}} </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Description</b> </th>
+      <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+    </ng-container>      -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <section class="example-section">
+    <!-- <button mat-raised-button color="primary" (click)="updateAll()">Update</button>&nbsp;&nbsp;&nbsp; -->
+    <button mat-raised-button color="primary" (click)="refresh()">Refresh</button>
+  </section>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+  <p style="color:green;font-size: 16px;">The request is being processed, kindly wait a few seconds. </p>  
+</ngx-spinner> 
+<!-- </form> -->
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

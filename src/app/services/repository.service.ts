@@ -51,6 +51,14 @@ export class RepositoryServices {
                return this.http.get<any>(this.repoURL+'/users/'+username+'/repos?type=owner',{ headers });             
              
      }
+     getCommittersList(username:string,owner:string,repo:string): Observable<any> {
+      //debugger ;
+        //https://api.github.com/repos/owner/repo/commits
+            let headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')          
+              return this.http.get<any>(this.repoURL+'/repos/'+owner+'/'+repo+'commits',{ headers });             
+            
+    }
     login(user: User): Observable<any> { 
       //debugger
        const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) }; 
