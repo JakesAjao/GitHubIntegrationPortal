@@ -36,23 +36,21 @@ export class RepositoryServices {
         return this.currentUserSubject.value;
     }   
     getRepoDetailsByRepoName(username:string,name:string): Observable<any> {
-     // debugger ;
+
         //https://api.github.com/repos/twbs/bootstrap
             let headers = new HttpHeaders()
           .set('Content-Type', 'application/json')          
               return this.http.get<any>(this.repoURL+'/repos/'+username+'/'+name,{ headers });             
             
     }
-    getRepoList(username:string): Observable<any> {
-       //debugger ;
+    getRepoList(username:string): Observable<any> {       
          //users/JakesAjao/repos?type=owner
              let headers = new HttpHeaders()
            .set('Content-Type', 'application/json')          
                return this.http.get<any>(this.repoURL+'/users/'+username+'/repos?type=owner',{ headers });             
              
      }
-     getCommittersList(owner:string,repo:string): Observable<any> {
-      //debugger ;
+     getCommittersList(owner:string,repo:string): Observable<any> {      
         //https://api.github.com/repos/owner/repo/commits
             let headers = new HttpHeaders()
           .set('Content-Type', 'application/json')          

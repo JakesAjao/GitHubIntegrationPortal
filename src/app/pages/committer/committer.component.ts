@@ -32,7 +32,7 @@ export class CommitterComponent implements OnInit {
   username = localStorage.getItem('username');
   repoName = null;
   
-  displayedColumns: string[] = ['id', 'name'];
+  displayedColumns: string[] = ['name','description'];
     
   dataSource: MatTableDataSource<UserData>;
       
@@ -49,7 +49,7 @@ export class CommitterComponent implements OnInit {
         
        }  
      ngOnInit(): void{ 
-       debugger;
+      
       console.log("Repo name: "+this.activatedRoute.snapshot.params.name);
       this.repoName = this.activatedRoute.snapshot.params.name;
       this.success="" ;
@@ -60,8 +60,7 @@ export class CommitterComponent implements OnInit {
     fetchRepoDetails(){
         this.repositoryServices.getCommittersList(this.username,this.repoName).subscribe(
         (response)=>{
-         console.log('Committer object: '+response);
-       
+                
          this.getRepoDetails(response);
          
          const users = Array.from(this.ELEMENT_DATA);     
@@ -82,23 +81,23 @@ export class CommitterComponent implements OnInit {
     let name = null;
 
     for (let item of objKeys) {
-      //this will print out the keys
-      console.log('id:', responseObj[item]['id']);
-      console.log('name:', responseObj[item]['name']);
-      //console.log('description:', responseObj[item]['description']);      
-                 
-       const card: UserData = new User(); 
-     
-       card.id = responseObj[item]['id'];
-      
-       //card.description = responseObj[item]['description']; 
-       card.name = responseObj[item]['name']; 
-      this.ELEMENT_DATA.push(card);
+      let commit = responseObj[item]['commit'];
+      //console.log('commit'+commit);
+      let committer = responseObj[item]['commit']['committer'];
+      //console.log('committerName: '+committer);
+      let email = committer.email;
+      let name = committer.name;
+      console.log('email: '+email);
+      console.log('name: '+name);
+      const user: UserData = new User();
+      user.name = name;
+      user.description = email;
+
+      this.ELEMENT_DATA.push(user);
 
     }
     }
     refresh():void {
-      console.log('fetchCardDetails called.');
       let currentUrl = this.router.url;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
@@ -112,93 +111,8 @@ export class CommitterComponent implements OnInit {
         this.dataSource.paginator.firstPage();
       }
     }
-    processAllSelected(){
-     
-      let cardDataList:Array<CardData> = [];
-      if (this.ELEMENT_DATA!=null){
-       
-      for(var elementData of this.ELEMENT_DATA){
-        let cardData:CardData = new CardData();
-        console.log(cardData.id);
-
-        // cardData.sno = elementData.id;
-        // cardData.customerid = elementData.customerid;
-        // cardData.acknowledgedStatus = elementData.acknowledgedStatus;
-        // cardData.activationStatus = elementData.activationStatus;
-        // cardData.pickupstatus = elementData.pickupstatus;
-         
-        cardDataList.push(cardData);        
-      }
-      return cardDataList;
-    }
       
-    }
-    processCheckboxSelected(event,element){
-      let cardData: CardData = new CardData();
-      if(event.checked)
-      {
-        let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
-
-        cardData = this.ParseObject(id);
-        this.cardDataArr.push(cardData);         
-        this.cardDataArr.forEach(x1 => x1.acknowledgedStatus = true);
-      }
-      else
-      {
-          let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
-          cardData = this.ParseObject(id);
-          this.cardDataArr.push(cardData);                    
-         this.cardDataArr.splice(this.cardDataArr.indexOf(cardData), 1);
-      }
-    }
-    ParseObject(id:number){
-      let cardData = new CardData;
-
-      // cardData.sno = this.ELEMENT_DATA[id].id;
-      // cardData.customerid = this.ELEMENT_DATA[id].customerid;
-      // cardData.acknowledgedStatus = this.ELEMENT_DATA[id].acknowledgedStatus;
-      // cardData.activationStatus = this.ELEMENT_DATA[id].activationStatus;
-      // cardData.pickupstatus = this.ELEMENT_DATA[id].pickupstatus;
-      // cardData.foracid = this.ELEMENT_DATA[id].foracid;
-      return cardData;
-    }
-    updateEach(event,element){//fital
-   
-      console.log(element.id+' checked'); 
-      this.rows = this.rows.map(
-        (elem) =>{ elem.status = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
-      return elem});
-      
-      this.processCheckboxSelected(event,element);
-      if (event){        
-        
-        return this.selection.toggle(event);
-      }
-      else{
-        return null;
-      }
-    }
-  
-    // updateAll(){ 
-    //   let f = this.isAllSelected();
-    //    if (this.isAllSelected() && (this.cardDataArr.length==0)){
-    //     this.SpinnerService.show(); 
-    //     let cardDataList = this.processAllSelected(); 
-        
-    //     cardDataList.forEach(x1 => x1.acknowledgedStatus = true);   //Update each acknowledge status    
-    //     let cardDataJson = JSON.stringify(cardDataList); 
-        
-    //     this.UploadStatus(cardDataJson);
-    //    }
-    //    else if (this.cardDataArr.length!=0){
-    //     this.SpinnerService.show(); 
-    //     let cardDataJson = JSON.stringify(this.cardDataArr);
-    //     this.UploadStatus(cardDataJson);            
-    //   }
-    //   else{
-
-    //   }
-    // }
+    
     successfulMessage(data:any){
       if (data!=null){
       setTimeout(()=>{                
