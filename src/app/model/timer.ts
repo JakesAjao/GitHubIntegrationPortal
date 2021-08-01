@@ -24,7 +24,7 @@ export class Timeout {
     public canvas : any;
 
     processTimer(idle: Idle,router: Router,toastr: ToastrService,env: EnvService,keepalive: Keepalive){
-      debugger;
+     
     var IdleTime:number=+env.idelTimeInSecond;
            
     idle.setIdle(IdleTime);

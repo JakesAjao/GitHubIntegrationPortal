@@ -34,6 +34,7 @@ export class CommitterComponent implements OnInit {
   displayedColumns: string[] = ['name','description'];
     
   dataSource: MatTableDataSource<UserData>;
+  committerList = Array();
       
   ELEMENT_DATA: UserData[] = [];
    rows = [];
@@ -47,9 +48,8 @@ export class CommitterComponent implements OnInit {
       private repositoryServices: RepositoryServices,private activatedRoute:ActivatedRoute ){
         
        }  
-     ngOnInit(): void{ 
-      
-      console.log("Repo name: "+this.activatedRoute.snapshot.params.name);
+     ngOnInit(): void{       
+     // console.log("Repo name: "+this.activatedRoute.snapshot.params.name);
       this.repoName = this.activatedRoute.snapshot.params.name;
       this.success="" ;
       this.error = "";
@@ -87,15 +87,29 @@ export class CommitterComponent implements OnInit {
       //console.log('committerName: '+committer);
       let email = committer.email;
       let name = committer.name;
-      console.log('email: '+email);
-      console.log('name: '+name);
+
+      this.committerList.push(name);
+      // console.log('email: '+email);
+      // console.log('name: '+name);
+      
       const user: UserData = new User();
       user.name = name;
       user.description = email;
 
       this.ELEMENT_DATA.push(user);
-
     }
+    
+    this.getNoOfAppearance(this.committerList);//
+    
+    }
+    getNoOfAppearance(a:any){       
+    //console.log("Committer List: "+JSON.stringify(this.committerList));     
+    var map = a.reduce(function(obj, b) {
+      obj[b] = ++obj[b] || 1;
+      return obj;
+    }, {});
+
+    console.log("Map Result: "+JSON.stringify(map));
     }
     refresh():void {
       let currentUrl = this.router.url;

@@ -48,7 +48,7 @@ export class RepositoryServices {
          //users/JakesAjao/repos?type=owner
              let headers = new HttpHeaders()
            .set('Content-Type', 'application/json')          
-               return this.http.get<any>(this.repoURL+'/users/'+username+'/repos?type=owner',{ headers });             
+               return this.http.get<any>(this.repoURL+'/users/'+username+'/repos?type=owner?per_page=100',{ headers });             
              
      }
      getCommittersList(owner:string,repos:string): Observable<any> {
