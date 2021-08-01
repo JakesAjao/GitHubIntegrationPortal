@@ -10,11 +10,11 @@ export class AnalyticsComponent implements OnInit {
   navLinks = [    
     {
       path: '/analytics/committers',
-      label: 'CommitterList'
+      label: 'ListCommitters'
     },
     {
-      path: '/analytics/commit',
-      label: 'Commit'
+      path: '/analytics/insights',
+      label: 'Insights'
     }
     // {
     //   path: '/creditcard/pickup',

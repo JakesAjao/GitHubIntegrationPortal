@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BlankcardUploadComponent } from './blankcard-upload.component';
+import { BarchartComponent } from './barchart.component';
 
-describe('BlankcardUploadComponent', () => {
-  let component: BlankcardUploadComponent;
-  let fixture: ComponentFixture<BlankcardUploadComponent>;
+describe('BarchartComponent', () => {
+  let component: BarchartComponent;
+  let fixture: ComponentFixture<BarchartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BlankcardUploadComponent ]
+      declarations: [ BarchartComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BlankcardUploadComponent);
+    fixture = TestBed.createComponent(BarchartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

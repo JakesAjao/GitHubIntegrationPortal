@@ -32,17 +32,14 @@ import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ExcelService } from 'app/services/excel.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { PickupComponent } from 'app/pages/pickup/pickup.component';
-import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
 import { GridModule } from '@angular/flex-layout';
-import { BlankcardAcknowledgementComponent } from 'app/pages/blankcard-acknowledgement/blankcard-acknowledgement.component';
-import { BlankcardUploadComponent } from 'app/pages/blankcard-upload/blankcard-upload.component';
-import { BlankcardComponent } from 'app/pages/blankcard/blankcard.component';
+
 import { EnvServiceProvider } from 'app/env.service.provider';
 import { AnalyticsComponent } from 'app/pages/analytics/analytics.component';
 import { CommitterComponent } from 'app/pages/committer/committer.component';
 import { CommitComponent } from 'app/pages/commit/commit.component';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { BarchartComponent } from 'app/pages/barchart/barchart.component';
 @NgModule({
   imports: [
     NgIdleKeepaliveModule.forRoot(), 
@@ -79,18 +76,11 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
-    DispatchcardComponent,
-    //AcknowledgeComponent,
-    //ActivateComponent,
-    //PickupComponent,
-    //CarduploadComponent,
-    //BlankcardAcknowledgementComponent,
-    //BlankcardUploadComponent,
-    //BlankcardComponent,
-    AnalyticsComponent,
-    
+        
+    BarchartComponent,
+    AnalyticsComponent,    
     CommitterComponent,
-    CommitComponent, 
+    CommitComponent 
   ],
   
   exports: [    

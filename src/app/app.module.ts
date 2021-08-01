@@ -47,9 +47,7 @@ import { Timeout } from "./model/timer";
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    OtpComponent,
-    // CommitterComponent,
-    // CommitComponent,    
+    OtpComponent,    
   ],
   imports: [
     NgIdleKeepaliveModule.forRoot(),
