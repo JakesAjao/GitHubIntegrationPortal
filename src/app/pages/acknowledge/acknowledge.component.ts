@@ -86,10 +86,6 @@ export class AcknowledgeComponent implements OnInit  {
 
     for (let item of objKeys) {
       //this will print out the keys
-      console.log('id:', responseObj[item]['id']);
-      console.log('name:', responseObj[item]['name']);
-      console.log('description:', responseObj[item]['description']);   
-      console.log('full_name:', responseObj[item]['full_name']); 
       full_name = responseObj[item]['full_name'];
                  
        const card: UserData = new User(); 
@@ -103,7 +99,7 @@ export class AcknowledgeComponent implements OnInit  {
     } 
     }
     refresh():void {
-      console.log('fetchCardDetails called.');
+      
       let currentUrl = this.router.url;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
@@ -116,94 +112,9 @@ export class AcknowledgeComponent implements OnInit  {
       if (this.dataSource.paginator) {
         this.dataSource.paginator.firstPage();
       }
-    }
-    processAllSelected(){
-     
-      let cardDataList:Array<CardData> = [];
-      if (this.ELEMENT_DATA!=null){
-       
-      for(var elementData of this.ELEMENT_DATA){
-        let cardData:CardData = new CardData();
-        console.log(cardData.id);
-
-        // cardData.sno = elementData.id;
-        // cardData.customerid = elementData.customerid;
-        // cardData.acknowledgedStatus = elementData.acknowledgedStatus;
-        // cardData.activationStatus = elementData.activationStatus;
-        // cardData.pickupstatus = elementData.pickupstatus;
-         
-        cardDataList.push(cardData);        
-      }
-      return cardDataList;
-    }
-      
-    }
-    processCheckboxSelected(event,element){
-      let cardData: CardData = new CardData();
-      if(event.checked)
-      {
-        let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
-
-        cardData = this.ParseObject(id);
-        this.cardDataArr.push(cardData);         
-        this.cardDataArr.forEach(x1 => x1.acknowledgedStatus = true);
-      }
-      else
-      {
-          let id = this.ELEMENT_DATA.findIndex((obj => obj.id == element.id));
-          cardData = this.ParseObject(id);
-          this.cardDataArr.push(cardData);                    
-         this.cardDataArr.splice(this.cardDataArr.indexOf(cardData), 1);
-      }
-    }
-    ParseObject(id:number){
-      let cardData = new CardData;
-
-      // cardData.sno = this.ELEMENT_DATA[id].id;
-      // cardData.customerid = this.ELEMENT_DATA[id].customerid;
-      // cardData.acknowledgedStatus = this.ELEMENT_DATA[id].acknowledgedStatus;
-      // cardData.activationStatus = this.ELEMENT_DATA[id].activationStatus;
-      // cardData.pickupstatus = this.ELEMENT_DATA[id].pickupstatus;
-      // cardData.foracid = this.ELEMENT_DATA[id].foracid;
-      return cardData;
-    }
-    updateEach(event,element){//fital
+    }         
+    
    
-      console.log(element.id+' checked'); 
-      this.rows = this.rows.map(
-        (elem) =>{ elem.status = this.ELEMENT_DATA.indexOf(elem.id) != -1 ? true : false;
-      return elem});
-      
-      this.processCheckboxSelected(event,element);
-      if (event){        
-        
-        return this.selection.toggle(event);
-      }
-      else{
-        return null;
-      }
-    }
-  
-    // updateAll(){ 
-    //   let f = this.isAllSelected();
-    //    if (this.isAllSelected() && (this.cardDataArr.length==0)){
-    //     this.SpinnerService.show(); 
-    //     let cardDataList = this.processAllSelected(); 
-        
-    //     cardDataList.forEach(x1 => x1.acknowledgedStatus = true);   //Update each acknowledge status    
-    //     let cardDataJson = JSON.stringify(cardDataList); 
-        
-    //     this.UploadStatus(cardDataJson);
-    //    }
-    //    else if (this.cardDataArr.length!=0){
-    //     this.SpinnerService.show(); 
-    //     let cardDataJson = JSON.stringify(this.cardDataArr);
-    //     this.UploadStatus(cardDataJson);            
-    //   }
-    //   else{
-
-    //   }
-    // }
     successfulMessage(data:any){
       if (data!=null){
       setTimeout(()=>{                
@@ -217,31 +128,7 @@ export class AcknowledgeComponent implements OnInit  {
       }
     }
    
-    /** Whether the number of selected elements matches the total number of rows. */
-    isAllSelected() {
-      const numSelected = this.selection.selected.length;
-      const numRows = this.dataSource.data.length;
-       if ( numSelected === numRows)
-   
-      return numSelected === numRows;
-    }
-  
-    /** Selects all rows if they are not all selected; otherwise clear selection. */
-    masterToggle(){
-     if (this.isAllSelected()){
-      this.selection.clear();      
-      this.isallSelectedStatus = false;
-    } 
-    else{
-      this.isallSelectedStatus = true;
-      this.dataSource.data.forEach(row => this.selection.select(row));
-     }
-     }
-    // exportAsXLSX():void {
-    //   let date = new Date();
-    //   const formatValue = formatDate(date, 'yyyy-MM-dd', 'en-US');
-    //   this.excelService.exportAsExcelFile(this.ELEMENT_DATA, 'AcknowledgementReport'+"_"+formatValue);
-    // }
+    
   }  
  
  

@@ -27,9 +27,8 @@ export class CommitterComponent implements OnInit {
   pageNumber = "1";
   pageSize = "10";
   error: string;
-  success: string;
+  success: string;  
   
-  username = localStorage.getItem('username');
   repoName = null;
   
   displayedColumns: string[] = ['name','description'];
@@ -54,11 +53,12 @@ export class CommitterComponent implements OnInit {
       this.repoName = this.activatedRoute.snapshot.params.name;
       this.success="" ;
       this.error = "";
-        this.fetchRepoDetails();      
+        this.fetchRepoDetails(this.repoName);      
           
     } 
-    fetchRepoDetails(){
-        this.repositoryServices.getCommittersList(this.username,this.repoName).subscribe(
+    fetchRepoDetails(string ){
+       let username = localStorage.getItem('username');
+        this.repositoryServices.getCommittersList(username,this.repoName).subscribe(
         (response)=>{
                 
          this.getRepoDetails(response);
