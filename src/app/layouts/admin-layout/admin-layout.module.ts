@@ -14,9 +14,6 @@ import { MapsComponent }            from '../../pages/maps/maps.component';
 import { NotificationsComponent }   from '../../pages/notifications/notifications.component';
 import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
 import { DispatchcardComponent }    from '../../pages/dispatchcard/dispatchcard.component';
-import { AcknowledgeComponent }    from '../../pages/Acknowledge/Acknowledge.component';
-//import { ActivateComponent }    from '../../pages/Activate/Activate.component';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,9 +42,10 @@ import { EnvServiceProvider } from 'app/env.service.provider';
 import { AnalyticsComponent } from 'app/pages/analytics/analytics.component';
 import { CommitterComponent } from 'app/pages/committer/committer.component';
 import { CommitComponent } from 'app/pages/commit/commit.component';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 @NgModule({
   imports: [
-    
+    NgIdleKeepaliveModule.forRoot(), 
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
@@ -82,13 +80,13 @@ import { CommitComponent } from 'app/pages/commit/commit.component';
     MapsComponent,
     NotificationsComponent,
     DispatchcardComponent,
-    AcknowledgeComponent,
+    //AcknowledgeComponent,
     //ActivateComponent,
     //PickupComponent,
-    CarduploadComponent,
-    BlankcardAcknowledgementComponent,
-    BlankcardUploadComponent,
-    BlankcardComponent,
+    //CarduploadComponent,
+    //BlankcardAcknowledgementComponent,
+    //BlankcardUploadComponent,
+    //BlankcardComponent,
     AnalyticsComponent,
     
     CommitterComponent,

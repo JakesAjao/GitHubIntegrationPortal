@@ -9,7 +9,6 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import { DispatchcardComponent } from 'app/pages/dispatchcard/dispatchcard.component';
-import { AcknowledgeComponent } from 'app/pages/Acknowledge/Acknowledge.component';
 //ngimport { ActivateComponent } from 'app/pages/Activate/Activate.component';
 //import { PickupComponent } from 'app/pages/pickupOld/pickup.component';
 import { AuthGuard } from 'app/auth/auth.guard';
@@ -34,20 +33,20 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'analytics',      component: AnalyticsComponent }, 
    
     
-    { path: 'repo', component: DispatchcardComponent, 
-    children: [
-    { path: 'acknowledge', component: AcknowledgeComponent, canActivate: [AuthGuard] },
-    //{ path: 'cardupload', component: CarduploadComponent, canActivate: [AuthGuard] },
-    //{ path: 'pickup', component: PickupComponent, canActivate: [AuthGuard] },
-    //{ path: 'activate', component: ActivateComponent, canActivate: [AuthGuard] },
-    { path: '', redirectTo: 'cardupload', pathMatch: 'full'}
-  ]},
-  { path: 'blankcard', component: BlankcardComponent, 
-    children: [
-     { path: 'acknowledge', component: BlankcardAcknowledgementComponent, canActivate: [AuthGuard] },
-     //{ path: 'cardupload', component: BlankcardUploadComponent, canActivate: [AuthGuard] },
-     { path: '', redirectTo: 'cardupload', pathMatch: 'full'}
-  ]}, 
+  //   { path: 'repo', component: DispatchcardComponent, 
+  //   children: [
+  //   { path: 'acknowledge', component: AcknowledgeComponent, canActivate: [AuthGuard] },
+  //   //{ path: 'cardupload', component: CarduploadComponent, canActivate: [AuthGuard] },
+  //   //{ path: 'pickup', component: PickupComponent, canActivate: [AuthGuard] },
+  //   //{ path: 'activate', component: ActivateComponent, canActivate: [AuthGuard] },
+  //   { path: '', redirectTo: 'cardupload', pathMatch: 'full'}
+  // ]},
+  // { path: 'blankcard', component: BlankcardComponent, 
+  //   children: [
+  //    { path: 'acknowledge', component: BlankcardAcknowledgementComponent, canActivate: [AuthGuard] },
+  //    //{ path: 'cardupload', component: BlankcardUploadComponent, canActivate: [AuthGuard] },
+  //    { path: '', redirectTo: 'cardupload', pathMatch: 'full'}
+  // ]}, 
   { path: 'analytics', component: AnalyticsComponent, 
   children: [
   { path: 'committers/:name', component: CommitterComponent, canActivate: [AuthGuard] },
