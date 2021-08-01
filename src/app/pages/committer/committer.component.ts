@@ -71,15 +71,13 @@ export class CommitterComponent implements OnInit {
        },
        (error) => console.log(error)
        ) 
-  } 
-    
+  }     
     getRepoDetails(responseObj:any){        
     let description = null;
     let name = null;    
-    this.processElementArrData(responseObj)
+    this.processElementArrData(responseObj);
     
     this.getNoOfAppearance(this.committerList);//
-    
     }
     processElementArrData(responseObj:any){      
       let objKeys = Object.keys(responseObj);
@@ -88,24 +86,27 @@ export class CommitterComponent implements OnInit {
         let committer = responseObj[item]['commit']['committer'];
         let email = committer.email;
         let name = committer.name;  
+       
         this.committerList.push(name);
         // console.log('email: '+email);
         // console.log('name: '+name);        
         const user: UserData = new User();
         user.name = name;
         user.description = email;
-  
+      
+        localStorage.setItem("FrequencyObj",JSON.stringify(this.committerList));
+
         this.ELEMENT_DATA.push(user);
       }
     }
-    getNoOfAppearance(a:any){         
-    var map = a.reduce(function(obj, b) {
-      obj[b] = ++obj[b] || 1;
-      return obj;
-    }, {});
-    localStorage.setItem("FrequencyObj",map);
-    console.log("Map Result: "+JSON.stringify(map));
-    }
+    getNoOfAppearance(a:any){           
+      var map = a.reduce(function(obj, b) {
+        obj[b] = ++obj[b] || 1;
+        return obj;
+      }, {});
+      localStorage.setItem("FrequencyObj",JSON.stringify(map));
+      console.log("Map Result 5: "+localStorage.getItem('FrequencyObj'));
+      }
     refresh():void {
       let currentUrl = this.router.url;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -119,8 +120,7 @@ export class CommitterComponent implements OnInit {
       if (this.dataSource.paginator) {
         this.dataSource.paginator.firstPage();
       }
-    }
-       
+    }       
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
       const numSelected = this.selection.selected.length;

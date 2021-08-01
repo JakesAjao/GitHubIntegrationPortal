@@ -29,11 +29,14 @@ export class BarchartComponent implements OnInit {
    }
 
   ngOnInit() {
-   let CommitterArrList=  localStorage.getItem("map");
-   console.log("CommitterArrList: "+CommitterArrList);
+   let CommitterArrList=  localStorage.getItem("FrequencyObj");
+   console.log("CommitterArrList 10: "+CommitterArrList);
+  
   }
+  
   getCurrentYearData(){
-   debugger;
+   //debugger;
+
     let year = (new Date()).getFullYear();
 
     this.barChartService.getTotalNewMembersVisitorPerMonth(year.toString()).subscribe(    

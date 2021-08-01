@@ -64,8 +64,6 @@ export class DashboardComponent implements OnInit{
         
   } 
   fetchRepoDetails(){
-    //debugger;
-    //this.repositoryServices.getRepoDetails("JakesAjao","Angular8FlexLayout").subscribe(
       this.repositoryServices.getRepoList(this.username).subscribe(
       (response)=>{
        //console.log("Response 1: " + JSON.stringify(response));
