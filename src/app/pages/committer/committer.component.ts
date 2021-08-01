@@ -74,41 +74,36 @@ export class CommitterComponent implements OnInit {
   } 
     
     getRepoDetails(responseObj:any){        
-      let objKeys = Object.keys(responseObj);
-
-    //Now we can use objKeys to iterate over myObj
     let description = null;
-    let name = null;
-
-    for (let item of objKeys) {
-      let commit = responseObj[item]['commit'];
-      //console.log('commit'+commit);
-      let committer = responseObj[item]['commit']['committer'];
-      //console.log('committerName: '+committer);
-      let email = committer.email;
-      let name = committer.name;
-
-      this.committerList.push(name);
-      // console.log('email: '+email);
-      // console.log('name: '+name);
-      
-      const user: UserData = new User();
-      user.name = name;
-      user.description = email;
-
-      this.ELEMENT_DATA.push(user);
-    }
+    let name = null;    
+    this.processElementArrData(responseObj)
     
     this.getNoOfAppearance(this.committerList);//
     
     }
-    getNoOfAppearance(a:any){       
-    //console.log("Committer List: "+JSON.stringify(this.committerList));     
+    processElementArrData(responseObj:any){      
+      let objKeys = Object.keys(responseObj);
+      for (let item of objKeys) {
+        let commit = responseObj[item]['commit'];
+        let committer = responseObj[item]['commit']['committer'];
+        let email = committer.email;
+        let name = committer.name;  
+        this.committerList.push(name);
+        // console.log('email: '+email);
+        // console.log('name: '+name);        
+        const user: UserData = new User();
+        user.name = name;
+        user.description = email;
+  
+        this.ELEMENT_DATA.push(user);
+      }
+    }
+    getNoOfAppearance(a:any){         
     var map = a.reduce(function(obj, b) {
       obj[b] = ++obj[b] || 1;
       return obj;
     }, {});
-
+    localStorage.setItem("FrequencyObj",map);
     console.log("Map Result: "+JSON.stringify(map));
     }
     refresh():void {
@@ -125,21 +120,7 @@ export class CommitterComponent implements OnInit {
         this.dataSource.paginator.firstPage();
       }
     }
-      
-    
-    successfulMessage(data:any){
-      if (data!=null){
-      setTimeout(()=>{                
-        //console.log(data);
-        console.log('selected All Status Response List: '+data);        
-        this.SpinnerService.hide();
-        this.repositoryServices.showSuccess('Card Acknowledged Successfully!','Acknowledgement Notification.');
-    
-        this.refresh();
-       }, 2000);
-      }
-    }
-   
+       
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
       const numSelected = this.selection.selected.length;

@@ -29,6 +29,8 @@ export class BarchartComponent implements OnInit {
    }
 
   ngOnInit() {
+   let CommitterArrList=  localStorage.getItem("map");
+   console.log("CommitterArrList: "+CommitterArrList);
   }
   getCurrentYearData(){
    debugger;

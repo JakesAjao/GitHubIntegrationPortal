@@ -121,22 +121,7 @@ export class DashboardComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }         
-  
- 
-  successfulMessage(data:any){
-    if (data!=null){
-    setTimeout(()=>{                
-      //console.log(data);
-      console.log('selected All Status Response List: '+data);        
-      this.SpinnerService.hide();
-      this.repositoryServices.showSuccess('Card Acknowledged Successfully!','Acknowledgement Notification.');
-  
-      this.refresh();
-     }, 2000);
-    }
-  }
- 
-  
+   
 }  
 
 
