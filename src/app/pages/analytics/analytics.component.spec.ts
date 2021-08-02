@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BlankcardUploadComponent } from './blankcard-upload.component';
+import { AnalyticsComponent } from './analytics.component';
 
-describe('BlankcardUploadComponent', () => {
-  let component: BlankcardUploadComponent;
-  let fixture: ComponentFixture<BlankcardUploadComponent>;
+describe('AnalyticsComponent', () => {
+  let component: AnalyticsComponent;
+  let fixture: ComponentFixture<AnalyticsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BlankcardUploadComponent ]
+      declarations: [ AnalyticsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BlankcardUploadComponent);
+    fixture = TestBed.createComponent(AnalyticsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

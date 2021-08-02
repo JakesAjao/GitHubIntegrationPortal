@@ -1,6 +1,6 @@
 export interface User {
     userName: string;
-    password: string;
+    //password: string;
   }
   export interface UserResponse {
     email: string;
@@ -11,5 +11,5 @@ export interface User {
   }
   export interface UserToken{
     userName:string
-    userToken:string;
+    //userToken:string;
  }

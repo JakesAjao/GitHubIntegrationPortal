@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem('username');
 
     
     //console.log("Auth guard state.url : "+state.url );
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
     if (token=="" || token==null) {
       this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
       
-    localStorage.setItem('returnUrl', state.url);
+    //localStorage.setItem('returnUrl', state.url);
     
     //console.log("setItem state.url : "+localStorage.getItem('returnUrl') );
 

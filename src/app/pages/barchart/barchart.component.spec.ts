@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AcknowledgeComponent } from './acknowledge.component';
+import { BarchartComponent } from './barchart.component';
 
-describe('AcknowledgeComponent', () => {
-  let component: AcknowledgeComponent;
-  let fixture: ComponentFixture<AcknowledgeComponent>;
+describe('BarchartComponent', () => {
+  let component: BarchartComponent;
+  let fixture: ComponentFixture<BarchartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AcknowledgeComponent ]
+      declarations: [ BarchartComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AcknowledgeComponent);
+    fixture = TestBed.createComponent(BarchartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

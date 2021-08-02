@@ -14,9 +14,6 @@ import { MapsComponent }            from '../../pages/maps/maps.component';
 import { NotificationsComponent }   from '../../pages/notifications/notifications.component';
 import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
 import { DispatchcardComponent }    from '../../pages/dispatchcard/dispatchcard.component';
-import { AcknowledgeComponent }    from '../../pages/Acknowledge/Acknowledge.component';
-import { ActivateComponent }    from '../../pages/Activate/Activate.component';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,16 +32,18 @@ import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ExcelService } from 'app/services/excel.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PickupComponent } from 'app/pages/pickup/pickup.component';
-import { CarduploadComponent } from 'app/pages/cardupload/cardupload.component';
 import { GridModule } from '@angular/flex-layout';
-import { BlankcardAcknowledgementComponent } from 'app/pages/blankcard-acknowledgement/blankcard-acknowledgement.component';
-import { BlankcardUploadComponent } from 'app/pages/blankcard-upload/blankcard-upload.component';
-import { BlankcardComponent } from 'app/pages/blankcard/blankcard.component';
+
 import { EnvServiceProvider } from 'app/env.service.provider';
+import { AnalyticsComponent } from 'app/pages/analytics/analytics.component';
+import { CommitterComponent } from 'app/pages/committer/committer.component';
+import { CommitComponent } from 'app/pages/commit/commit.component';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { BarchartComponent } from 'app/pages/barchart/barchart.component';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   imports: [
-    
+    NgIdleKeepaliveModule.forRoot(), 
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
@@ -78,14 +77,11 @@ import { EnvServiceProvider } from 'app/env.service.provider';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
-    DispatchcardComponent,
-    AcknowledgeComponent,
-    ActivateComponent,
-    PickupComponent,
-    CarduploadComponent,
-    BlankcardAcknowledgementComponent,
-    BlankcardUploadComponent,
-    BlankcardComponent
+        
+    BarchartComponent,
+    AnalyticsComponent,    
+    CommitterComponent,
+    CommitComponent 
   ],
   
   exports: [    
@@ -95,6 +91,7 @@ import { EnvServiceProvider } from 'app/env.service.provider';
     MatInputModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    ChartsModule
     
     //ConfirmDialogModule,
   ], 

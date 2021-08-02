@@ -1,0 +1,11 @@
+<div *ngIf="chartReady">
+<canvas baseChart
+          chartType="bar"
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [chartType]="barChartType">
+          [colors]="barChartColors">
+  </canvas>
+</div>
+
+

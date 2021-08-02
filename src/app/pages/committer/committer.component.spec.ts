@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActivateComponent } from './activate.component';
+import { CommitterComponent } from './committer.component';
 
-describe('ActivateComponent', () => {
-  let component: ActivateComponent;
-  let fixture: ComponentFixture<ActivateComponent>;
+describe('CommitterComponent', () => {
+  let component: CommitterComponent;
+  let fixture: ComponentFixture<CommitterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActivateComponent ]
+      declarations: [ CommitterComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActivateComponent);
+    fixture = TestBed.createComponent(CommitterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

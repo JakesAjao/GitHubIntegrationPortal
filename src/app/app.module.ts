@@ -38,13 +38,16 @@ import { Keepalive, NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { EnvServiceProvider } from "./env.service.provider";
 import { OtpComponent } from "./otp/otp.component";
 import { AngularOtpLibModule } from "./otpinput/angular-otp-box.module";
+import { CommitterComponent } from './pages/committer/committer.component';
+import { CommitComponent } from './pages/commit/commit.component';
+import { Timeout } from "./model/timer";
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    OtpComponent    
+    OtpComponent,    
   ],
   imports: [
     NgIdleKeepaliveModule.forRoot(),
@@ -86,7 +89,7 @@ ToastrModule.forRoot(),
   ],  
   entryComponents: [ConfirmDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],  
-  providers: [ HttpClientModule,AuthService, AuthGuard,EnvServiceProvider],
+  providers: [ HttpClientModule,AuthService, AuthGuard,EnvServiceProvider,Timeout],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
