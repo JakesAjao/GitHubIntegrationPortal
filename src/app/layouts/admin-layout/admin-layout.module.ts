@@ -40,6 +40,7 @@ import { CommitterComponent } from 'app/pages/committer/committer.component';
 import { CommitComponent } from 'app/pages/commit/commit.component';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { BarchartComponent } from 'app/pages/barchart/barchart.component';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   imports: [
     NgIdleKeepaliveModule.forRoot(), 
@@ -90,6 +91,7 @@ import { BarchartComponent } from 'app/pages/barchart/barchart.component';
     MatInputModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    ChartsModule
     
     //ConfirmDialogModule,
   ], 

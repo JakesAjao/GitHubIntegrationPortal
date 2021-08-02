@@ -9,78 +9,44 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./barchart.component.scss']
 })
 export class BarchartComponent implements OnInit {
-
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  public barChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
+ 
+  labelArr = Array();
+  dataArr = Array();
+  barChartLabels: string[] = [];
+  chartColors: string[];
+  barChartData: any[] =[];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
-  public barCharTest:any=0;
 
-  public barChartData2: any[] = [];
-  
-  flag:boolean = true;
+  public CommitterObjArr:string[];
+  chartReady = false;
 
   constructor(private barChartService: BarChartService) {
-      
-    let newMemberStat = this.getCurrentYearData();
-   }
-
+    let CommitterArrList=  localStorage.getItem("FrequencyObj");
+    this.getCommitterObjectArr(CommitterArrList);
+    this._setChart();
+  }
   ngOnInit() {
-   let CommitterArrList=  localStorage.getItem("FrequencyObj");
-   console.log("CommitterArrList 10: "+CommitterArrList);
-  
+       
   }
-  
-  getCurrentYearData(){
-   //debugger;
+  private _setChart() {
+    this.barChartLabels = this.labelArr;
+    let dataObj = [{
+      label: "No of commits",
+      data: this.dataArr
+    }]
+    this.barChartData = dataObj;
 
-    let year = (new Date()).getFullYear();
-
-    this.barChartService.getTotalNewMembersVisitorPerMonth(year.toString()).subscribe(    
-      data => {        
-          if (data)   
-          {   
-            this.barChartData2 = data;
-            let result =JSON.stringify(data);
-            console.log( " chart server result:"+result);         
-          }                                      
-      },    
-      error => {    
-         console.log("Chart server result: "+error);
-      }); 
-      console.log('value: '+this.barChartData2);
-      return this.barChartData2 ;
-  }  
-  //last year
-  getYearToDateData():void {   
-    let year = (new Date()).getFullYear();
-    let lastYear = year-1;    
-
-    let clone = this.barChartData2;
-    let LastyearBarcharData:any[]=[];
-
-    this.barChartService.getTotalNewMembersVisitorPerMonth(lastYear.toString()).subscribe(    
-      data => {        
-          if (data)   
-          {   
-            LastyearBarcharData = data;         
-            console.log( "Last year this.barChartData2:  "+LastyearBarcharData);            
-            this.barChartData2 = LastyearBarcharData;  
-            let result =JSON.stringify(data);
-            console.log( "Last year chart server result:  "+result);        
-           }                                      
-      },    
-      error => {    
-         console.log("NewBarcharData Chart server result: "+error);
-      }); 
-    //clone[0].data = newBarcharData;
-    //this.barChartData2 = clone; 
+    this.chartReady = true;
   }
-  YearToDate(){    
-    this.getYearToDateData();           
+
+  getCommitterObjectArr(CommitterMapList:any){
+    this.CommitterObjArr = JSON.parse(CommitterMapList);
+    for (let property in this.CommitterObjArr){
+      this.labelArr.push(property);
+      this.dataArr.push(this.CommitterObjArr[property]);
+    }     
   }
+   
+ 
   
 }

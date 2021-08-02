@@ -1,34 +1,11 @@
+<div *ngIf="chartReady">
+<canvas baseChart
+          chartType="bar"
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [chartType]="barChartType">
+          [colors]="barChartColors">
+  </canvas>
+</div>
 
 
-<div style="max-width:500px;margin: auto; margin-top: 50px;">
-    <h4 style="text-align:center"> The Family Life Baptist Church Statistics. 
-      <br/><br/>
-       <div>
-         <button (click)="YearToDate()" class="btn btn-primary">YTD</button>&nbsp;
-         <button (click)="getCurrentYearData()" class="btn btn-primary">Today</button>
-      </div>     
-    
-      </h4><br/>
-    <div *ngIf="barChartData2.length>0">
-    <canvas baseChart 
-      [datasets]="barChartData2"
-      [labels]="barChartLabels"
-      [options]="barChartOptions"
-      [plugins]="barChartPlugins"
-      [legend]="barChartLegend"
-      [chartType]="barChartType">
-    </canvas> 
-  </div>
-   <!-- logic && operator -->
-   <div *ngIf="barChartData2.length==0">
-    <canvas baseChart 
-      [datasets]="barChartData2"
-      [labels]="barChartLabels"
-      [options]="barChartOptions"
-      [plugins]="barChartPlugins"
-      [legend]="barChartLegend"
-      [chartType]="barChartType">
-    </canvas>
-  </div>
-  </div>
-  
