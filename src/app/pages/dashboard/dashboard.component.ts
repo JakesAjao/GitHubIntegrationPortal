@@ -66,8 +66,6 @@ export class DashboardComponent implements OnInit{
   fetchRepoDetails(){
       this.repositoryServices.getRepoList(this.username).subscribe(
       (response)=>{
-       let cardObjData = response.data; 
-     
        this.getRepoDetails(response);
        
        const users = Array.from(this.ELEMENT_DATA);     
