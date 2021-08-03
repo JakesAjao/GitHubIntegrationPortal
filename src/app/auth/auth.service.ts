@@ -2,8 +2,7 @@ import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EnvService } from 'app/env.service';
-//import { AcknowledgmentService } from 'app/services/acknowledgment.service1111';
-import { CreditCardServices } from 'app/services/creditcardServices';
+import { NotifyMe } from 'app/model/notification';
 import { LoginServices } from 'app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
@@ -13,28 +12,24 @@ import { User } from './user';
 export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public flag:boolean;
+  public notification:any;
+
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
 
   constructor(
-    private router: Router,
-    private toastr: ToastrService,
-    private httpClient: HttpClient,
-    private creditcardService: CreditCardServices,private loginService: LoginServices,
-    private env: EnvService
-  ) {}
+    private router: Router,private httpClient: HttpClient,private loginService: LoginServices,
+    private env: EnvService, private toaster:ToastrService
+  ) {
+    this.notification = new  NotifyMe(toaster);
+  }
 
   login(user: User,spinner:any){  
     
     localStorage.setItem("username",user.userName);
     //console.log("user.userName: "+user.userName);
-    if (user.userName != '' ||user.userName!=null) {       
-      //let returnURL = localStorage.getItem('returnUrl'); 
-      // if ((user.userName!=''||user.userName==null)){
-      //   this.GetDemoUser(user,spinner);  
-      // } 
-      //else{    
+    if (user.userName != '' ||user.userName!=null) {      
       
       this.loginService.login(user).subscribe(
         (responseObj)=>
@@ -62,12 +57,12 @@ export class AuthService {
             
          if (name=='' ||name==null){
           this.router.navigate(['/#/login']); 
-          this.creditcardService.showFailure('Invalid Username.','Login Notification.');
+          this.notification.showFailure('Invalid Username.','Login Notification.');
          }
          else{
          this.router.navigate(['/#/dashboard']);  
 
-          this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
+          this.notification.showSuccess('You have successfully logged in!','Login Notification.');
           spinner.hide();
          }
                 
@@ -79,7 +74,7 @@ export class AuthService {
             //let isSuccessful = this.GetServerResponse(error);
             //if (isSuccessful==false){
               this.loggedIn.next(false);
-              this.creditcardService.showFailure('Invalid Username.','Login Notification.');
+              this.notification.showFailure('Invalid Username.','Login Notification.');
           
             // else{
             //   this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
@@ -118,6 +113,6 @@ export class AuthService {
     this.router.navigate(['/login']);
      
     localStorage.setItem('returnUrl',""); 
-    this.creditcardService.showSuccess('You have successfully logged out!','Login Notification.');
+    this.notification.showSuccess('You have successfully logged out!','Login Notification.');
   }
 }
