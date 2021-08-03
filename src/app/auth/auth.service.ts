@@ -114,6 +114,7 @@ export class AuthService {
   logout() {
     //this.loggedIn.next(false);
     localStorage.setItem('token', "");
+    localStorage.setItem('username', "");
     this.router.navigate(['/login']);
      
     localStorage.setItem('returnUrl',""); 

@@ -30,7 +30,6 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { ExcelService } from 'app/services/excel.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GridModule } from '@angular/flex-layout';
 
@@ -66,7 +65,7 @@ import { ChartsModule } from 'ng2-charts';
     NgxSpinnerModule,
     GridModule
     ],
-    providers: [ExcelService], // add it to the providers of your module
+    providers: [], // add it to the providers of your module
     
   declarations: [
     DashboardComponent,
