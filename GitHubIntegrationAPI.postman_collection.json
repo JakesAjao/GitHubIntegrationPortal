@@ -10,7 +10,7 @@
 		{
 			"name": "My Profile Details",
 			"request": {
-				"url": "https://api.github.com/users/JakesAJao",
+				"url": "https://api.github.com/users/JakesAjao",
 				"method": "GET",
 				"header": [
 					{
@@ -107,7 +107,7 @@
 			"name": "Last 100 Commit",
 			"request": {
 				"url": {
-					"raw": "https://api.github.com/repos/technoweenie/fantomex/commits?per_page=5",
+					"raw": "https://api.github.com/repos/technoweenie/blog/commits?per_page=100",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -117,13 +117,13 @@
 					"path": [
 						"repos",
 						"technoweenie",
-						"fantomex",
+						"blog",
 						"commits"
 					],
 					"query": [
 						{
 							"key": "per_page",
-							"value": "5",
+							"value": "100",
 							"equals": true,
 							"description": ""
 						}
