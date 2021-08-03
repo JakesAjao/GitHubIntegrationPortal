@@ -27,18 +27,12 @@ export class LoginComponent implements OnInit {
     private env: EnvService,
     private route: ActivatedRoute,
   ){
-    // this.bnIdle.startWatching(60).subscribe((res) => {
-    //   if(res) {
-    //       console.log("session expired");
-    //   }
-    // })
   } 
   ngOnInit() {
     this.form = this.fb.group({
       userName: ['', Validators.required],
     });
     localStorage.setItem("adminUser","");
-    this.authService.logout();
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }

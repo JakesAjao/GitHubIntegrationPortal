@@ -105,11 +105,11 @@ export class AuthService {
     }
   }
   logout() {
-   //debugger;
     localStorage.setItem('token', "");
     localStorage.setItem('username', "");
     this.router.navigate(['/login']);     
     localStorage.setItem('returnUrl',""); 
-    //this.notification.showSuccess('You have successfully logged out!','Login Notification.');
+    this.notification.showSuccess('You have successfully logged out!','Login Notification.');
+   
   }
 }
