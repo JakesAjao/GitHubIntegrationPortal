@@ -4,7 +4,7 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, interval, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { CardData, UserData } from 'app/model/acknowledgment';
+import { UserDetails, UserData } from 'app/model/acknowledgment';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EnvService } from 'app/env.service';

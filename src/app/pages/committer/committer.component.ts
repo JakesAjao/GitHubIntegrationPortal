@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CardData, User, UserData } from 'app/model/acknowledgment';
+import { UserDetails, User, UserData } from 'app/model/acknowledgment';
 import { RepositoryServices } from 'app/services/repository.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +21,7 @@ export class CommitterComponent implements OnInit {
   selection = new SelectionModel<UserData>(true, []);
   isallSelectedStatus:boolean;
   aSelectedCheckId:number;
-  cardDataArr =  [];
+  UserDetailsArr =  [];
   acknowledgeData:UserData[];
   pageNumber = "1";
   pageSize = "10";

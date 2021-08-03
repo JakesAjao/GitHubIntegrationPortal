@@ -12,7 +12,7 @@ export interface UserData {
     constructor() { }
   
 }
-export class CardData{
+export class UserDetails{
   public id: number;
   public name: string;
   public description: string;
