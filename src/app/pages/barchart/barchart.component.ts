@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BarChartService } from 'app/services/barchart.service';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 
@@ -20,7 +19,7 @@ export class BarchartComponent implements OnInit {
   public CommitterObjArr:string[];
   chartReady = false;
 
-  constructor(private barChartService: BarChartService) {
+  constructor() {
     let CommitterArrList=  localStorage.getItem("FrequencyObj");
     this.getCommitterObjectArr(CommitterArrList);
     this._setChart();

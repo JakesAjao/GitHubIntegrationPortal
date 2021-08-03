@@ -104,16 +104,8 @@ export class NavbarComponent implements OnInit{
         }
 
       }
-      confirmDialog() {
-        
-        this.authService.logout();
-        // alert();
-        // this.confirmDialogService.confirmThis("Are you sure you want to exit the application?", function () {
-            
-        //   alert("Yes, clicked");  
-        // }, function () {  
-        //   alert("No, clicked");  
-        // })  
+      confirmDialog() {        
+        this.authService.logout();  
       }
     }
 

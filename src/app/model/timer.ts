@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
 import { EnvService } from 'app/env.service';
-import { CardData, User, UserData } from 'app/model/acknowledgment';
+import { UserDetails, User, UserData } from 'app/model/acknowledgment';
 import { RepositoryServices } from 'app/services/repository.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { NgxSpinnerService } from 'ngx-spinner';

@@ -2,8 +2,7 @@ import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EnvService } from 'app/env.service';
-//import { AcknowledgmentService } from 'app/services/acknowledgment.service1111';
-import { CreditCardServices } from 'app/services/creditcardServices';
+import { NotifyMe } from 'app/model/notification';
 import { LoginServices } from 'app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
@@ -13,65 +12,29 @@ import { User } from './user';
 export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public flag:boolean;
+  public notification:any;
+
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
 
   constructor(
-    private router: Router,
-    private toastr: ToastrService,
-    private httpClient: HttpClient,
-    private creditcardService: CreditCardServices,private loginService: LoginServices,
-    private env: EnvService
-  ) {}
+    private router: Router,private httpClient: HttpClient,private loginService: LoginServices,
+    private env: EnvService, private toaster:ToastrService
+  ) {
+    this.notification = new  NotifyMe(toaster);
+  }
 
   login(user: User,spinner:any){  
     
     localStorage.setItem("username",user.userName);
     //console.log("user.userName: "+user.userName);
-    if (user.userName != '' ||user.userName!=null) {       
-      //let returnURL = localStorage.getItem('returnUrl'); 
-      // if ((user.userName!=''||user.userName==null)){
-      //   this.GetDemoUser(user,spinner);  
-      // } 
-      //else{    
+    if (user.userName != '' ||user.userName!=null) {      
       
       this.loginService.login(user).subscribe(
         (responseObj)=>
         {
-          let objKeys = Object.keys(responseObj);
-          let username = null;
-          let name = null;
-          for (let item of objKeys) {
-            //this will print out the keys
-            //console.log('key:', item);
-            if (item=='login'){       
-              username = responseObj[item];   
-            console.log('username:', responseObj[item]);
-            }
-            if (item=='name'){
-            name = responseObj[item];
-            
-            console.log('name:', responseObj[item]);
-            } 
-             
-          localStorage.setItem('username', username);  
-          localStorage.setItem('name', name);                
-         
-         console.log("responseObj: "+responseObj); 
-            
-         if (name=='' ||name==null){
-          this.router.navigate(['/#/login']); 
-          this.creditcardService.showFailure('Invalid Username.','Login Notification.');
-         }
-         else{
-         this.router.navigate(['/#/dashboard']);  
-
-          this.creditcardService.showSuccess('You have successfully logged in!','Login Notification.');
-          spinner.hide();
-         }
-                
-          }
+          this.validateUser(responseObj,spinner);
         },
         (error)=>{            
           console.log(error);
@@ -79,7 +42,7 @@ export class AuthService {
             //let isSuccessful = this.GetServerResponse(error);
             //if (isSuccessful==false){
               this.loggedIn.next(false);
-              this.creditcardService.showFailure('Invalid Username.','Login Notification.');
+              this.notification.showFailure('Invalid Username.','Login Notification.');
           
             // else{
             //   this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
@@ -88,35 +51,65 @@ export class AuthService {
         }
         //(error) => console.log(error){}
       )
-      }
-    //}
+      }   
   }
-   
+  validateUser(responseObj:any,spinner:any){
+    debugger;
+    let username = null;    
+    let objKeys = Object.keys(responseObj);
+    let name = null;
+    for (let item of objKeys) {
+      if (item=='login'){
+       this.validationSuccessful(item,responseObj,spinner);
+       return;
+      }             
+      this.validationFailed(name,spinner); 
+    }  
+  }  
+  validationSuccessful(item:string,responseObj:any,spinner:any){
+    debugger;
+    let username = null;
+    let name = null;      
+      username = responseObj[item];   
+      name = responseObj[item];      
+    localStorage.setItem('username', username);  
+    localStorage.setItem('name', name);
+    
+    this.router.navigate(['/#/dashboard']);
+    this.notification.showSuccess('You have successfully logged in!','Login Notification.');
+    spinner.hide();                        
   
+  }
+  validationFailed(name:string,spinner:any){
+      this.notification.showFailure('Oop! Invalid Username.','Login Notification.');
+    
+     this.router.navigate(['/login']);
+      //this.notification.showSuccess('You have successfully logged in!','Login Notification.');
+      spinner.hide();
+     } 
 
   GetServerResponse(error:any){
       if (error==null){
         return null;
       }
-      
-      for(var key in error)
-      {
-        if (key=='error'){
-          var headerString =  error[key];
-          let Errorstring = JSON.stringify(headerString)
-          var s = JSON.parse(Errorstring);
-
-          //console.log("Server response: " + Errorstring);
-          return s.isSuccessful;
+      else{      
+        for(var key in error)
+        {
+          if (key=='error'){
+            var headerString =  error[key];
+            let Errorstring = JSON.stringify(headerString)
+            var s = JSON.parse(Errorstring);
+            return s.isSuccessful;
+          }
         }
-      }
+    }
   }
   logout() {
-    //this.loggedIn.next(false);
     localStorage.setItem('token', "");
-    this.router.navigate(['/login']);
-     
+    localStorage.setItem('username', "");
+    this.router.navigate(['/login']);     
     localStorage.setItem('returnUrl',""); 
-    this.creditcardService.showSuccess('You have successfully logged out!','Login Notification.');
+    this.notification.showSuccess('You have successfully logged out!','Login Notification.');
+   
   }
 }

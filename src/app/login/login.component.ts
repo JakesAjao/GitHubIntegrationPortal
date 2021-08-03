@@ -3,11 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EnvService } from 'app/env.service';
 import { User, UserData } from 'app/model/acknowledgment';
-import { CreditCardServices } from 'app/services/creditcardServices';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-//import { NotificationService } from 'app/services/notification.service';
 
 import { AuthService } from './../auth/auth.service';
 //https://www.remotestack.io/create-login-ui-template-with-angular-material-design/
@@ -29,22 +27,13 @@ export class LoginComponent implements OnInit {
     private env: EnvService,
     private route: ActivatedRoute,
   ){
-    // this.bnIdle.startWatching(60).subscribe((res) => {
-    //   if(res) {
-    //       console.log("session expired");
-    //   }
-    // })
   } 
   ngOnInit() {
     this.form = this.fb.group({
       userName: ['', Validators.required],
-      //password: ['', Validators.required]
     });
     localStorage.setItem("adminUser","");
-    // reset login status
-    this.authService.logout();
 
-    // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   
@@ -57,10 +46,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
   // debugger;
-    if (this.form.valid) {      
-   //this.SpinnerService.show(); 
-   
-      //this.authService.login(this.form.value,this.SpinnerService); 
+    if (this.form.valid) {       
       this.authService.login(this.form.value,this.SpinnerService);     
      }
     this.formSubmitAttempt = true;   

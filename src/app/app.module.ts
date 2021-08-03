@@ -19,7 +19,6 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
-import { DispatchcardComponent } from "./pages/dispatchcard/dispatchcard.component";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
@@ -36,8 +35,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive, NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { EnvServiceProvider } from "./env.service.provider";
-import { OtpComponent } from "./otp/otp.component";
-import { AngularOtpLibModule } from "./otpinput/angular-otp-box.module";
+//import { AngularOtpLibModule } from "./otpinput/angular-otp-box.module";
 import { CommitterComponent } from './pages/committer/committer.component';
 import { CommitComponent } from './pages/commit/commit.component';
 import { Timeout } from "./model/timer";
@@ -46,14 +44,13 @@ import { Timeout } from "./model/timer";
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent,
-    OtpComponent,    
+    LoginComponent    
   ],
   imports: [
     NgIdleKeepaliveModule.forRoot(),
     ShowHidePasswordModule,
     BrowserAnimationsModule,
-    AngularOtpLibModule,
+    //AngularOtpLibModule,
     RouterModule.forRoot(AppRoutes,{
     useHash: true,
     relativeLinkResolution: 'legacy',    
