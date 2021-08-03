@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
 import { EnvService } from 'app/env.service';
-import { UserDetails, User, UserData } from 'app/model/acknowledgment';
+import { User, UserData } from 'app/model/acknowledgment';
 import { Timeout } from 'app/model/timer';
 import { RepositoryServices } from 'app/services/repository.service';
 
@@ -66,11 +66,9 @@ export class DashboardComponent implements OnInit{
   fetchRepoDetails(){
       this.repositoryServices.getRepoList(this.username).subscribe(
       (response)=>{
-       //console.log("Response 1: " + JSON.stringify(response));
        let cardObjData = response.data; 
      
        this.getRepoDetails(response);
-       //console.log('cardObjData: '+cardObjData)
        
        const users = Array.from(this.ELEMENT_DATA);     
        this.dataSource = new MatTableDataSource(users);       
