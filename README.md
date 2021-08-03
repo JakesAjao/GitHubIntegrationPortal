@@ -1,11 +1,11 @@
-# [githubInsight](https://www.creative-tim.com/product/paper-dashboard-angular)
+# [GitInsight](https://www.creative-tim.com/product/paper-dashboard-angular)
 ![version](https://img.shields.io/badge/version-2.2.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/paper-dashboard-angular.svg?maxAge=2592000)]() [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/paper-dashboard-angular.svg?maxAge=2592000)]()  [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)
 
-githubInsight is a GitHub Integration portal that searches repository domiciles in GitHub platform and profiles analytics of committers for the projects. It was built on top of Google's [Angular Framework](https://angular.io/). It is a powerful web application that provides insight to project contributors and committers. It has enough features to allow you to get the job done, but it is not crowded to the point where you can't find the files for a specific component.
+GitInsight is a GitHub Integration portal that searches repository domiciles in GitHub platform and profiles analytics of committers for the projects. It was built on top of Google's [Angular Framework](https://angular.io/). It is a powerful web application that provides insight to project contributors and committers. It has enough features to allow you to get the job done, but it is not crowded to the point where you can't find the files for a specific component.
 
  It has a login page and two menus: Dashboard and Analytics. Dashboard page affords you to search for a repository on the GitHub platform. Analytics page allows you to view the number of commits per committers so that the management could make strategic decision based on the insight outputs.
 
- githubInsight app is built by Jacob Ajao [Jacob Ajao](linkedin.com/in/jacob-ajao-9bb934113), which you show repository insight and searches. 
+ GitInsight app is built by Jacob Ajao [Jacob Ajao](linkedin.com/in/jacob-ajao-9bb934113), which you show repository insight and searches. 
 
   ## Versions
 
@@ -13,16 +13,13 @@ githubInsight is a GitHub Integration portal that searches repository domiciles 
  [<img src="https://s3.amazonaws.com/creativetim_bucket/github/angular.png" width="60" height="60" />](https://github.com/JakesAjao/GitHubIntegrationPortal)
  [<img src="https://s3.amazonaws.com/creativetim_bucket/github/react.svg" width="60" height="60" />](https://github.com/JakesAjao/GitHubIntegrationPortal)
 
- 
-
  [View More](https://github.com/JakesAjao/GitHubIntegrationPortal).
-
 
 ## Quick start
 
 Quick start options:
 
-- [Download from githubInsight](https://github.com/JakesAjao/GitHubIntegrationPortal).
+- [Download from GitInsight](https://github.com/JakesAjao/GitHubIntegrationPortal).
 
 ## Terminal Commands
 
@@ -31,7 +28,7 @@ Quick start options:
 3. Download curl-ca-bundle.crt.pem and drop in Drive C:/Program File/NewFolder from [My Official Page to Download is here](https://github.com/JakesAjao/GitHubIntegrationPortal)
 4. Kindly set the Environment Variable for the two files in your machine e.g. C:/Program File/NewFolder
 5. Download Win64OpenSSL-1_1_1k.exe and install. The exec file is here [My Official Page to Download is here](https://github.com/JakesAjao/GitHubIntegrationPortal)
-6. githubInsight war file is here [My Official Page to Download is here](https://github.com/JakesAjao/GitHubIntegrationPortal)
+6. gitInsight war file is here [My Official Page to Download is here](https://github.com/JakesAjao/GitHubIntegrationPortal)
 7. For test, I deployed it in Wildfly JBOSS 11.0. Kindly deploy the war file in Wildfly or any convenient server preferrable. I never tested it in Apache Tomcat or Glassfish
 
 Social Media:
