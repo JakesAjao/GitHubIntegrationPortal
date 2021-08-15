@@ -35,8 +35,7 @@ export class Timeout {
    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
    idle.onIdleEnd.subscribe(() => { 
-     this.idleState = 'No longer idle.'
-     //console.log(this.idleState);
+     this.idleState = 'No longer idle.';
      loggerService.info(this.idleState,2);
      this.reset(idle);
      },
@@ -51,8 +50,6 @@ export class Timeout {
      idle.onIdleStart.subscribe(() => {
          this.idleState = 'You\'ve gone idle!'
          console.log(this.idleState);
-         //this.childModal.show();
-        // console.log("logging out");
          
      loggerService.info("logging out",2);
      });

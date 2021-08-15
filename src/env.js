@@ -2,7 +2,7 @@
     window.__env = window.__env || {};
   
     // API url
-    window.__env.apiUrl = '';
+    window.__env.apiUrl = 'https://api.github.com';
     window.__env.userName = '';
     window.__env.password = '';
     window.__env.idelTimeInSecond = '500';

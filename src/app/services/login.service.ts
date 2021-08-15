@@ -22,14 +22,16 @@ export class LoginServices {
     public dataSubject = new Subject<number>();
     public dataState = this.dataSubject.asObservable();
     
-    public repoURL:string = "https://api.github.com";
+    //public repoURL:string = "https://api.github.com";
+    public repoURL:string = "";
   
     @Output() public onUploadFinished = new EventEmitter();
     //httpClient: any;
     constructor(private toastr: ToastrService,private http: HttpClient,private env: EnvService) {
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
-       this.url = env.apiUrl
+       //this.url = env.apiUrl;
+       this.repoURL = env.apiUrl;
      }
      public get currentUserValue(){
         return this.currentUserSubject.value;
