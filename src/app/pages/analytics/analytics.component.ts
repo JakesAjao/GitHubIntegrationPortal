@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LogService } from 'app/services/log.service';
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',

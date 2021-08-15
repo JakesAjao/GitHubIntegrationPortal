@@ -16,7 +16,7 @@ import { RepositoryServices } from 'app/services/repository.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-
+import { LogService } from 'app/services/log.service';
 
 @Component({
     selector: 'dashboard-cmp',
@@ -52,9 +52,9 @@ export class DashboardComponent implements OnInit{
   constructor(
     private bnIdle: BnNgIdleService,private toastr: ToastrService,
     private router: Router,private idle: Idle, private keepalive: Keepalive,private env: EnvService,private repositoryServices: RepositoryServices,
-    private SpinnerService: NgxSpinnerService){      
+    private SpinnerService: NgxSpinnerService, private logger:LogService){      
     
-    this.timer.processTimer(idle,router,toastr,env,keepalive);
+    this.timer.processTimer(idle,router,toastr,env,keepalive,logger);
      
   }
   ngOnInit(): void{ 
@@ -90,13 +90,13 @@ export class DashboardComponent implements OnInit{
     //this will print out the keys
     full_name = responseObj[item]['full_name'];
                
-     const card: UserData = new User(); 
+     const user: UserData = new User(); 
    
-     card.id = responseObj[item]['id'];
+     user.id = responseObj[item]['id'];
     
-     card.description = responseObj[item]['description']; 
-     card.name = responseObj[item]['name']; 
-    this.ELEMENT_DATA.push(card);
+     user.description = responseObj[item]['description']; 
+     user.name = responseObj[item]['name']; 
+    this.ELEMENT_DATA.push(user);
 
   } 
   }

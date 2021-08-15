@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 
+import { LogService } from 'app/services/log.service';
 @Component({
   selector: 'app-barchart',
   templateUrl: './barchart.component.html',

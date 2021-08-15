@@ -14,7 +14,7 @@ import { RepositoryServices } from 'app/services/repository.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-
+import { LogService } from 'app/services/log.service';
 export class Timeout {
     public menuItems: any[];
     idleState = 'Not started.';
@@ -23,7 +23,8 @@ export class Timeout {
     title = 'angular-idle-timeout';
     public canvas : any;
 
-    processTimer(idle: Idle,router: Router,toastr: ToastrService,env: EnvService,keepalive: Keepalive){
+    processTimer(idle: Idle,router: Router,toastr: ToastrService,env: EnvService,keepalive: Keepalive,
+    loggerService:LogService){
      
     var IdleTime:number=+env.idelTimeInSecond;
            
@@ -34,14 +35,13 @@ export class Timeout {
    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
    idle.onIdleEnd.subscribe(() => { 
-     this.idleState = 'No longer idle.'
-     console.log(this.idleState);
+     this.idleState = 'No longer idle.';
+     loggerService.info(this.idleState,2);
      this.reset(idle);
      },
      idle.onTimeout.subscribe(() => {
        this.idleState = 'Timed out!';
        this.timedOut = true;
-       console.log(this.idleState);
        
        localStorage.setItem('adminUser', ""); 
        router.navigate(['/login']);
@@ -50,8 +50,8 @@ export class Timeout {
      idle.onIdleStart.subscribe(() => {
          this.idleState = 'You\'ve gone idle!'
          console.log(this.idleState);
-         //this.childModal.show();
-         console.log("logging out");
+         
+     loggerService.info("logging out",2);
      });
      
      idle.onTimeoutWarning.subscribe((countdown) => {

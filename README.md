@@ -5,7 +5,7 @@ GitInsight is a GitHub Integration portal that searches repository domiciles in 
 
  It has a login page and two menus: Dashboard and Analytics. Dashboard page affords you to search for a repository on the GitHub platform. Analytics page allows you to view the number of commits per committers so that the management could make strategic decision based on the insight outputs.
 
- GitInsight app is built by [Jacob Ajao](linkedin.com/in/jacob-ajao-9bb934113), which you show repository insight and searches. 
+ GitInsight app is built by [Jacob Ajao](linkedin.com/in/jacob-ajao-9bb934113) that shows repository insight and searches. 
 
   ## Versions
 

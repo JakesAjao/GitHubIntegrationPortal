@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     private bnIdle: BnNgIdleService,
     private SpinnerService: NgxSpinnerService,
     private env: EnvService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ){
   } 
   ngOnInit() {
@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-  // debugger;
     if (this.form.valid) {       
       this.authService.login(this.form.value,this.SpinnerService);     
      }
