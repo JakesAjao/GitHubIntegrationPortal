@@ -8,6 +8,8 @@ import { Subject } from 'rxjs/internal/Subject';
 import { EnvService } from 'app/env.service';
 import { Timeout } from 'app/model/timer';
 
+import { LogService } from 'app/services/log.service';
+
 export interface RouteInfo {
     path: string;
     title: string;
@@ -42,9 +44,9 @@ export class SidebarComponent implements OnInit {
     timer:Timeout= new Timeout();
     constructor(
         private toastr: ToastrService,private router: Router,private idle: Idle, private keepalive: Keepalive,
-        private env: EnvService){        
+        private env: EnvService,private loggerService:LogService){        
          // this.doIdleTimeout(idle,keepalive); 
-        this.timer.processTimer(idle,router,toastr,env,keepalive);  
+        this.timer.processTimer(idle,router,toastr,env,keepalive,loggerService);  
     }
     
     ngOnInit() {

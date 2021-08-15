@@ -7,6 +7,7 @@ import { LoginServices } from 'app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { User } from './user';
+import { LogService } from 'app/services/log.service';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
 
   constructor(
     private router: Router,private httpClient: HttpClient,private loginService: LoginServices,
-    private env: EnvService, private toaster:ToastrService
+    private env: EnvService, private toaster:ToastrService, private logger: LogService
   ) {
     this.notification = new  NotifyMe(toaster);
   }
@@ -28,7 +29,6 @@ export class AuthService {
   login(user: User,spinner:any){  
     
     localStorage.setItem("username",user.userName);
-    //console.log("user.userName: "+user.userName);
     if (user.userName != '' ||user.userName!=null) {      
       
       this.loginService.login(user).subscribe(
@@ -36,25 +36,20 @@ export class AuthService {
         {
           this.validateUser(responseObj,spinner);
         },
-        (error)=>{            
-          console.log(error);
-            //this.loggedIn.next(false);
-            //let isSuccessful = this.GetServerResponse(error);
-            //if (isSuccessful==false){
+        (error)=>{  
+          this.logger.error('Invalid Username.', 4);
+          //console.log(error);
               this.loggedIn.next(false);
               this.notification.showFailure('Invalid Username.','Login Notification.');
-          
-            // else{
-            //   this.creditcardService.showFailure('Oops! Server could not be reached. Kindly contact administrator.','Login Notification.'); 
-            // }  
+            
             spinner.hide();       
         }
-        //(error) => console.log(error){}
+         
       )
       }   
   }
   validateUser(responseObj:any,spinner:any){
-    debugger;
+   
     let username = null;    
     let objKeys = Object.keys(responseObj);
     let name = null;
@@ -67,7 +62,7 @@ export class AuthService {
     }  
   }  
   validationSuccessful(item:string,responseObj:any,spinner:any){
-    debugger;
+    
     let username = null;
     let name = null;      
       username = responseObj[item];   
@@ -77,6 +72,7 @@ export class AuthService {
     
     this.router.navigate(['/#/dashboard']);
     this.notification.showSuccess('You have successfully logged in!','Login Notification.');
+     this.logger.info('You have successfully logged in!', 2);
     spinner.hide();                        
   
   }
@@ -84,7 +80,7 @@ export class AuthService {
       this.notification.showFailure('Oop! Invalid Username.','Login Notification.');
     
      this.router.navigate(['/login']);
-      //this.notification.showSuccess('You have successfully logged in!','Login Notification.');
+     this.logger.error('Oop! Invalid Username.', 4);
       spinner.hide();
      } 
 
@@ -110,6 +106,6 @@ export class AuthService {
     this.router.navigate(['/login']);     
     localStorage.setItem('returnUrl',""); 
     this.notification.showSuccess('You have successfully logged out!','Login Notification.');
-   
+    this.logger.info("You have successfully logged out!",2);   
   }
 }

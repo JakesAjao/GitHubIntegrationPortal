@@ -2,9 +2,9 @@
     window.__env = window.__env || {};
   
     // API url
-    window.__env.apiUrl = 'http://172.27.8.145/CardTrackerPortalAPI/api/v1/';
-    window.__env.userName = 'Jacob.Ajao@fcmb.com';
-    window.__env.password = 'Ajasco12345#';
+    window.__env.apiUrl = '';
+    window.__env.userName = '';
+    window.__env.password = '';
     window.__env.idelTimeInSecond = '500';
           
     // Whether or not to enable debug mode
