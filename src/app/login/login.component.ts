@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
   returnUrl: string;
-  componentName:"User";
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,

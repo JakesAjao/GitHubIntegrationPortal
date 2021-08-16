@@ -38,12 +38,13 @@ import { CommitterComponent } from './pages/committer/committer.component';
 import { CommitComponent } from './pages/commit/commit.component';
 import { Timeout } from "./model/timer";
 import { ConfirmDialogService } from "./services/confirm-dialog.service";
-
+import {MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent    
+    LoginComponent,
+       
   ],
   imports: [
     ReactiveFormsModule,
@@ -51,7 +52,7 @@ import { ConfirmDialogService } from "./services/confirm-dialog.service";
     NgIdleKeepaliveModule.forRoot(),
     ShowHidePasswordModule,
     BrowserAnimationsModule,
-    //AngularOtpLibModule,
+    MatDialogModule,
     RouterModule.forRoot(AppRoutes,{
     useHash: true,
     relativeLinkResolution: 'legacy',
@@ -71,7 +72,8 @@ ToastrModule.forRoot(),
     FormsModule,
     MatPaginatorModule,
     MatNativeDateModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule, 
+       
   HttpClientModule,
   FlexLayoutModule,
   BackButtonDisableModule.forRoot({
