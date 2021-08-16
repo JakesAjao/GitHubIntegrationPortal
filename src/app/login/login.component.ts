@@ -18,14 +18,12 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
   returnUrl: string;
+  ComponentName = "user";
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private bnIdle: BnNgIdleService,
     private SpinnerService: NgxSpinnerService,
-    private env: EnvService,
-    private route: ActivatedRoute
   ){
   } 
   ngOnInit() {
@@ -34,7 +32,6 @@ export class LoginComponent implements OnInit {
     });
     localStorage.setItem("adminUser","");
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   
    isFieldInvalid(field: string) {
@@ -49,6 +46,8 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.form.value,this.SpinnerService);     
      }
     this.formSubmitAttempt = true;   
+
+    return "user";
       
     }  
 }

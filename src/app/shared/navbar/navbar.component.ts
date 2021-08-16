@@ -2,7 +2,6 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
-import { ConfirmDialogComponent } from 'app/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from 'app/services/confirm-dialog.service';
 import { AuthService } from 'app/auth/auth.service';
 

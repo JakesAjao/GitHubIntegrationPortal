@@ -25,8 +25,6 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from "./auth/auth.service";
 import { AuthGuard } from "./auth/auth.guard";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { ConfirmDialogModule } from "./confirm-dialog/confirm-dialog.module";
 import { Toaster } from "ngx-toast-notifications";
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 import { BackButtonDisableModule } from "angular-disable-browser-back-button";
@@ -39,21 +37,26 @@ import { EnvServiceProvider } from "./env.service.provider";
 import { CommitterComponent } from './pages/committer/committer.component';
 import { CommitComponent } from './pages/commit/commit.component';
 import { Timeout } from "./model/timer";
-
+import { ConfirmDialogService } from "./services/confirm-dialog.service";
+import {MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent    
+    LoginComponent,
+       
   ],
   imports: [
+    ReactiveFormsModule,
+          FormsModule,
     NgIdleKeepaliveModule.forRoot(),
     ShowHidePasswordModule,
     BrowserAnimationsModule,
-    //AngularOtpLibModule,
+    MatDialogModule,
     RouterModule.forRoot(AppRoutes,{
     useHash: true,
-    relativeLinkResolution: 'legacy',    
+    relativeLinkResolution: 'legacy',
+     
 }),
 
 NgIdleKeepaliveModule.forRoot(), 
@@ -69,7 +72,8 @@ ToastrModule.forRoot(),
     FormsModule,
     MatPaginatorModule,
     MatNativeDateModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule, 
+       
   HttpClientModule,
   FlexLayoutModule,
   BackButtonDisableModule.forRoot({
@@ -84,9 +88,9 @@ ToastrModule.forRoot(),
     MatInputModule,
     //ConfirmDialogModule,  
   ],  
-  entryComponents: [ConfirmDialogComponent],
+  //entryComponents: [ConfirmDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],  
-  providers: [ HttpClientModule,AuthService, AuthGuard,EnvServiceProvider,Timeout],
+  providers: [ HttpClientModule,AuthService, AuthGuard,EnvServiceProvider,Timeout,ConfirmDialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

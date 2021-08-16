@@ -42,7 +42,7 @@ export class CommitterComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     
     constructor(fb: FormBuilder,
-      private SpinnerService: NgxSpinnerService,private toastr: ToastrService,
+      private SpinnerService: NgxSpinnerService,
       private router: Router,private repositoryServices: RepositoryServices,private activatedRoute:ActivatedRoute ){
         
        }  
