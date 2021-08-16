@@ -44,7 +44,7 @@ describe('LoginComponent', () => {
   });
 
     it('should create', () => {
-     // expect(component).toBeTrue();
+      expect(component).toBeTruthy();
    });
 
 });
