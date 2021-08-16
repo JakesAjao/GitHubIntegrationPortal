@@ -18,10 +18,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutes } from 'app/app.routing';
 import { CUSTOM_ELEMENTS_SCHEMA, InjectionToken } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
+import { User } from 'app/model/User';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let user = new User();
+  user.userName = "JakesAjao";
+  user.userToken ="sdfdsfddgdgfdgfdgf";
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -36,15 +40,17 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-  //   AuthService: fixture.debugElement.injector.get(AuthService);
-
-  // formBuilder: fixture.debugElement.injector.get(FormBuilder);
-  // spinner: fixture.debugElement.injector.get(NgxSpinnerService);
      fixture.detectChanges();
   });
 
     it('should create', () => {
       expect(component).toBeTruthy();
    });
+   it('test Title', () => {
+    expect(component.ComponentName).toBe("user");
+ });
+ it('Submit method', () => {
+  expect(component.onSubmit()).toBe("user");
+});
 
 });
