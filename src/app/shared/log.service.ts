@@ -20,6 +20,7 @@ export class LogService {
 
   error(msg: string, ...optionalParams: any[]) {
     this.writeToLog(msg, LogLevel.Error, optionalParams);
+    //Or Log to web API
   }
 
   fatal(msg: string, ...optionalParams: any[]) {

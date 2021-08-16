@@ -8,5 +8,11 @@
   "exclude": [
     "test.ts",
     "**/*.spec.ts"
-  ]
+  ],
+  "compilerOptions": {
+    //...
+    "types": [
+      "jasmine"
+    ]
+  }
 }
