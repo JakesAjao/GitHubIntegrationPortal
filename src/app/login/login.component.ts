@@ -41,13 +41,14 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  onSubmit(){
-    if (this.form.valid) {       
-      this.authService.login(this.form.value,this.SpinnerService);     
+  onSubmit(){    
+    let data  =  this.form.value; 
+    if (this.form.valid) {     
+      this.authService.login(data,this.SpinnerService);     
      }
     this.formSubmitAttempt = true;   
 
-    return "user";
+    return "User";
       
     }  
 }
