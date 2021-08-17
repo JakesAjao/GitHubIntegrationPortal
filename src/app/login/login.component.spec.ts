@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthGuard } from 'app/auth/auth.guard';
 import { AuthService } from 'app/auth/auth.service';
@@ -26,11 +26,12 @@ describe('LoginComponent', () => {
   let user = new User();
   user.userName = "JakesAjao";
   user.userToken ="sdfdsfddgdgfdgfdgf";
-
+  let fb: FormBuilder;
+  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [ RouterTestingModule,ReactiveFormsModule,ToastrModule.forRoot() ],
+      imports: [ RouterTestingModule,ReactiveFormsModule,ToastrModule.forRoot()],
       providers: [ AuthService ,HttpClient,HttpHandler,EnvService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA], 
     })
@@ -40,17 +41,21 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+   
      fixture.detectChanges();
   });
 
     it('should create', () => {
       expect(component).toBeTruthy();
    });
-   it('test Title', () => {
-    expect(component.ComponentName).toBe("user");
- });
- it('Submit method', () => {
-  expect(component.onSubmit()).toBe("user");
-});
+   
+ it('Form should be invalid',async(()=> {
+  component.form.controls['userName'].setValue('');
+  expect(component.form.valid).toBeFalsy();
+  }));
+ it('Form should be valid',async(()=> {
+  component.form.controls['userName'].setValue('JakesAjao');
+  expect(component.form.valid).toBeTruthy();
+  }));
 
 });
